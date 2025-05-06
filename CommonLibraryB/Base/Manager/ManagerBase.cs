@@ -11,7 +11,7 @@ namespace CommonLibraryB.Base.Manager
 
     public abstract partial class ManagerBase<TKey, TObject>
     {
-        private string[] keys;
+        protected string[] keys;
         protected string filePath;
         public Dictionary<string, TObject> table;
 
