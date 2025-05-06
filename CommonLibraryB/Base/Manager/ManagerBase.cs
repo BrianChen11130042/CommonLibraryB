@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Tools.ObjectSaveLoader;
 
-namespace CommonLibraryB.CommonBase.Manager
+namespace CommonLibraryB.Base.Manager
 {
     public enum EErrorManager { NoError, Exception, WrongQuantity, FileNotExist }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonLibraryB.CommonBase.Adapter
+namespace CommonLibraryB.Base.Adapter
 {
     public abstract class AdapterBase<TConfig, TID, TAdatper>
     {
