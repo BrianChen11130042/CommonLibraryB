@@ -7,7 +7,7 @@ using CommonLibraryB.Base.Manager;
 
 namespace CommonLibraryB.Manager.ModbusTcp.Master
 {
-    public class ModbusTcpMasterManager<E> : ManagerBase<E, TcpMasterConfig>
+    public class ModbusTcpMasterManager<E> : ManagerBase<E, ModbusTcpMasterConfig>
     {
         public string Directory;
         public const string fileName = "ModbusTcpMasterConfig.json";
@@ -19,13 +19,13 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
 
         public override void GenerateDefaultTable()
         {
-            table = new Dictionary<string, TcpMasterConfig>();
+            table = new Dictionary<string, ModbusTcpMasterConfig>();
 
             foreach(string key in keys)
             {
                 if (!table.ContainsKey(key))
                 {
-                    table.Add(key, new TcpMasterConfig(key));
+                    table.Add(key, new ModbusTcpMasterConfig() { deviceName = key});
                 }
             }
         }

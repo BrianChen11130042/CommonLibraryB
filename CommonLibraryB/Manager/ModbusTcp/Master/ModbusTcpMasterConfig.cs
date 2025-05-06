@@ -4,43 +4,43 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using NModbus;
 
 namespace CommonLibraryB.Manager.ModbusTcp.Master
 {
-    public class TcpMasterConfig
+    public class ModbusTcpMasterConfig
     {
         [Required]
         [RegularExpression(@"^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)")]
-        public string Ip { get; set; }
+        public string Ip { get; set; } = "127.0.0.1";
 
         [Required]
         [Range(0, 65535)]
-        public int Port { get; set; }
+        public int Port { get; set; } = 502;
 
         public string deviceName { get; set; }
 
+        [JsonIgnore]
         public TcpClient tcpClient { get; set; }
 
+        [JsonIgnore]
         public IModbusFactory modbusFactory { get; set; }
 
-        public IModbusMaster master { get; set; }
-
-        public TcpMasterConfig(string deviceName, string Ip = "127.0.0.1", int Port = 1883)
-        {
-            this.deviceName = deviceName;
-            this.Ip = Ip;
-            this.Port = Port;
-
-            tcpClient = new TcpClient();
-            modbusFactory = new ModbusFactory();
-        }
+        [JsonIgnore]
+        public IModbusMaster modbusTcpMaster { get; set; }
 
         public async Task<bool> connectAsync()
         {
             try
             {
+                if (tcpClient == null)
+                    tcpClient = new TcpClient();
+
+                if (modbusFactory == null)
+                    modbusFactory = new ModbusFactory();
+
                 if (tcpClient.Connected)
                 {
                     tcpClient.Close();
@@ -48,7 +48,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
                 }
 
                 await tcpClient.ConnectAsync(Ip, Port);
-                master = modbusFactory.CreateMaster(tcpClient);
+                modbusTcpMaster = modbusFactory.CreateMaster(tcpClient);
                 return true;
             }
             catch (Exception ex)
