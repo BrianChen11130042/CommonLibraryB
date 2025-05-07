@@ -7,7 +7,7 @@ using CommonLibraryB.Base.Manager;
 
 namespace CommonLibraryB.Manager.ModbusTcp.Master
 {
-    public class ModbusTcpMasterManager<E> : ManagerBase<E, ModbusTcpMasterConfig>
+    public class ModbusTcpMasterManager : ManagerBase<EModbusTcpMaster, ModbusTcpMasterConfig>
     {
         public string Directory;
         public const string fileName = "ModbusTcpMasterConfig.json";

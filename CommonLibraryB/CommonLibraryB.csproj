@@ -17,4 +17,8 @@
     <PackageReference Include="NModbus" Version="3.0.81" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Library\RobotArm\" />
+  </ItemGroup>
+
 </Project>
