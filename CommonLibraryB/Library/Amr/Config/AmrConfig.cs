@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Manager.ModbusTcp.Master;
+using CommonLibraryB.Library.Amr.Adapter;
 
 namespace CommonLibraryB.Library.Amr.Config
 {
     public class AmrConfig
     {
-        public string AmrName { get; set; }
+        public string Device { get; set; }
 
-        public string AmrId { get; set; }
+        public EModbusTcpMaster ModbusTcpMaster { get; set; } = EModbusTcpMaster.TcpMaster1;
 
-        public EModbusTcpMaster tcpMaster { get; set; }
+        public EAmrSupplier AmrSupplier { get; set; } = EAmrSupplier.HikRobot_C3S;
+
+        public string Id { get; set; }
+
     }
 }

@@ -29,5 +29,21 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
                 }
             }
         }
+
+        public async Task ConnectAllModbusTcp()
+        {
+            foreach(string key in keys)
+            {
+                await table[key].connectAsync();
+            }
+        }
+
+        public async Task DisconnectAllModbusTcp()
+        {
+            foreach (string key in keys)
+            {
+                table[key].disConnect();
+            }
+        }
     }
 }
