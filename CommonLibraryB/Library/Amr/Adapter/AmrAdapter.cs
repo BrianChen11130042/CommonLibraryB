@@ -29,7 +29,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 switch(supplier)
                 {
                     case EAmrSupplier.HikRobot_C3S:
-                        table.Add(supplier, new AdapterHikRobotC3s());
+                        table.Add(supplier, new AdapterHikRobotMpFoup());
                         break;
                 }
             }

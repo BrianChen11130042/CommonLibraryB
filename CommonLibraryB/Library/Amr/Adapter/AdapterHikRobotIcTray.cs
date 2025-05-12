@@ -6,7 +6,24 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.Amr.Adapter
 {
-    public class AdapterHikRobotC3s : IAmrOperate<AmrPackage>
+
+    public partial class AdapterHikRobotIcTray
+    {
+        /// <summary>
+        /// IC Tray有6個儲位, 就有6個庫位序號
+        /// </summary>
+        public List<ushort> listPortId = new List<ushort>()
+        {
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+        };
+    }
+
+    public partial class AdapterHikRobotIcTray : IAmrOperate<AmrPackage>
     {
         public Task<bool> GetMissionInformAsync(AmrPackage t)
         {

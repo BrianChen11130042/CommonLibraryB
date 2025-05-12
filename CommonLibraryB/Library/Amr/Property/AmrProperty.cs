@@ -19,9 +19,18 @@ namespace CommonLibraryB.Library.Amr.Property
     {
         public ushort missionCompleted { get; set; }
 
-        public List<PortStatus> listPortStatus { get; set; } = new List<PortStatus>();
-
         public RobotStatus robotStatus { get; set; } = new RobotStatus();
+
+        /// <summary>
+        /// <庫位序號, 庫位有無存在料>
+        /// </summary>
+        public Dictionary<ushort, ushort> dcExist = new Dictionary<ushort, ushort>();
+
+        /// <summary>
+        /// <庫位序號, RFID>
+        /// </summary>
+        public Dictionary<ushort, string> dcRfid = new Dictionary<ushort, string>();
+
     }
 
     public class GetProperty
@@ -33,18 +42,9 @@ namespace CommonLibraryB.Library.Amr.Property
         public MissionInform missionInform { get; set; } = new MissionInform();
     }
 
-    public class PortStatus
-    {
-        public ushort exist { get; set; }
-
-        public ushort id { get; set; }
-
-        public string rfid { get; set; }
-    }
-
     public class RobotStatus
     {
-        public int errorMsg { get; set; }
+        public int errorCode { get; set; }
 
         public ushort idle { get; set; }
 
@@ -55,12 +55,12 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
-        public string pickUpLocation { get; set; }
+        public ushort pickUpLocationId { get; set; }
 
-        public string pickUpLocationPort { get; set; }
+        public ushort pickUpLocationPortId { get; set; }
 
-        public string dropOffLocation { get; set; }
+        public ushort dropOffLocationId { get; set; }
 
-        public string dropOffLocationPort { get; set; }
+        public ushort dropOffLocationPortId { get; set; }
     }
 }
