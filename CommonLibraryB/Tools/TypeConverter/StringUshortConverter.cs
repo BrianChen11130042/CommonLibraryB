@@ -15,77 +15,60 @@ namespace CommonLibraryB.Tools.TypeConverter
 
     public static class StringUshortConverter
     {
-        public static bool UshortArrayToString(ushort[] arrayData, bool reverse, out string result)
+        public static void UshortArrayToString(ushort[] arrayData, bool reverse, out string result)
         {
             string res = string.Empty;
 
-            try
+            List<byte> listByte = new List<byte>();
+
+            foreach (var data in arrayData)
             {
-                List<byte> listByte = new List<byte>();
+                var bytes = BitConverter.GetBytes(data);
 
-                foreach (var data in arrayData)
+                if (reverse)
                 {
-                    var bytes = BitConverter.GetBytes(data);
-
-                    if (reverse)
-                    {
-                        bytes = bytes.Reverse().ToArray();
-                    }
-
-                    listByte.AddRange(bytes);
+                    bytes = bytes.Reverse().ToArray();
                 }
 
-                byte[] arrayByte = listByte.ToArray();
-                int length = Array.FindLastIndex(arrayByte, b => b != 0) + 1;
-
-                res = Encoding.ASCII.GetString(arrayByte, 0, length);
-                result = res;
-
-                return true;
+                listByte.AddRange(bytes);
             }
-            catch(Exception ex)
-            {
-                result = res;
 
-                return false;
-            }
+            byte[] arrayByte = listByte.ToArray();
+            int length = Array.FindLastIndex(arrayByte, b => b != 0) + 1;
+
+            res = Encoding.ASCII.GetString(arrayByte, 0, length);
+            result = res;
         }
 
-        public static bool StringToUshortArray(string data, EEndian endianType, out ushort[] result)
+        public static void StringToUshortArray(string data, EEndian endianType, out ushort[] result)
         {
+            if (string.IsNullOrEmpty(data))
+                throw new ArgumentException("Input string empty at StringToUshortArray conversion ");
+
             List<ushort> listRes = new List<ushort>();
 
-            try
+            byte[] arrayByte = ASCIIEncoding.ASCII.GetBytes(data);
+
+            if (arrayByte.Length % 2 != 0)
+                arrayByte = arrayByte.Append((byte)0x00).ToArray();
+
+            for (int i = 0; i < arrayByte.Length; i += 2)
             {
-                byte[] arrayByte = ASCIIEncoding.ASCII.GetBytes(data);
+                var byteSpan = arrayByte.AsSpan(i, 2);
 
-                if (arrayByte.Length % 2 != 0)
-                    arrayByte = arrayByte.Append((byte)0x00).ToArray();
-
-                for (int i = 0; i < arrayByte.Length; i += 2)
+                switch (endianType)
                 {
-                    var byteSpan = arrayByte.AsSpan(i, 2);
+                    case EEndian.LittleEndian:
+                        listRes.Add(BinaryPrimitives.ReadUInt16LittleEndian(byteSpan));
+                        break;
 
-                    switch (endianType)
-                    {
-                        case EEndian.LittleEndian:
-                            listRes.Add(BinaryPrimitives.ReadUInt16LittleEndian(byteSpan));
-                            break;
-
-                        case EEndian.BigEndian:
-                            listRes.Add(BinaryPrimitives.ReadUInt16BigEndian(byteSpan));
-                            break;
-                    }
+                    case EEndian.BigEndian:
+                        listRes.Add(BinaryPrimitives.ReadUInt16BigEndian(byteSpan));
+                        break;
                 }
+            }
 
-                result = listRes.ToArray();
-                return true;
-            }
-            catch(Exception ex)
-            {
-                result = listRes.ToArray();
-                return false;
-            }
+            result = listRes.ToArray();
         }
     }
 }
