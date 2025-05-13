@@ -17,6 +17,9 @@ namespace CommonLibraryB.Tools.TypeConverter
     {
         public static void UshortArrayToString(ushort[] arrayData, bool reverse, out string result)
         {
+            if(arrayData == null || arrayData.Length == 0)
+                throw new ArgumentException("Input ushort array null at UshortArrayToString conversion ");
+
             string res = string.Empty;
 
             List<byte> listByte = new List<byte>();
