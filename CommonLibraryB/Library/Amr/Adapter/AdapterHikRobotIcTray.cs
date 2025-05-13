@@ -30,12 +30,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetMissionIsCanceledAsync(AmrPackage t)
+        public Task<bool> GetIsMissionCanceledAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetMissionIsStartedAsync(AmrPackage t)
+        public Task<bool> GetIsMissionStartedAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }

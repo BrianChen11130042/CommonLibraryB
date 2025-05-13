@@ -46,7 +46,7 @@ namespace CommonLibraryB.Library.Amr
                 Packages[dev].property = propertyManager.table[dev.ToString()];
 
                 string master = configManager.table[dev.ToString()].ModbusTcpMaster.ToString();
-                Packages[dev].modbusTcpMaster = modbusTcpMasterManager.table[master].modbusTcpMaster;
+                Packages[dev].master = modbusTcpMasterManager.table[master].modbusTcpMaster;
             }
         }
 
@@ -74,14 +74,14 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).GetMissionInformAsync(Packages[t]);
         }
 
-        public async Task<bool> GetMissionIsCanceledAsync(T t)
+        public async Task<bool> GetIsMissionCanceledAsync(T t)
         {
-            return await SelectAdapter(t).GetMissionIsCanceledAsync(Packages[t]);
+            return await SelectAdapter(t).GetIsMissionCanceledAsync(Packages[t]);
         }
 
-        public async Task<bool> GetMissionIsStartedAsync(T t)
+        public async Task<bool> GetIsMissionStartedAsync(T t)
         {
-            return await SelectAdapter(t).GetMissionIsStartedAsync(Packages[t]);
+            return await SelectAdapter(t).GetIsMissionStartedAsync(Packages[t]);
         }
 
         public async Task<bool> SetCompletedMessageAsync(T t)

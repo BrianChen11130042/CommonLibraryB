@@ -9,10 +9,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
     public interface IAmrOperate<T>
     {
         //任務開始
-        Task<bool> GetMissionIsStartedAsync(T t);
+        Task<bool> GetIsMissionStartedAsync(T t);
 
         //任務取消
-        Task<bool> GetMissionIsCanceledAsync(T t);
+        Task<bool> GetIsMissionCanceledAsync(T t);
         
         //任務完成
         Task<bool> SetMissionCompletedResultAsync(T t);

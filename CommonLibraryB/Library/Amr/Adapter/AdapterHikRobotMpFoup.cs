@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using CommonLibraryB.Tools.StingUshortConverter;
+using Microsoft.Win32;
 using static System.Collections.Specialized.BitVector32;
 
 namespace CommonLibraryB.Library.Amr.Adapter
@@ -21,36 +24,396 @@ namespace CommonLibraryB.Library.Amr.Adapter
         }
 
         /// <summary>
-        /// MP Foup有4個儲位, 就有4個庫位序號
+        /// MP Foup有4個儲位序號
         /// </summary>
         Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
         {
-            { EMpFoupPort.Port1, 1 },
-            { EMpFoupPort.Port2, 2 },
-            { EMpFoupPort.Port3, 3 },
-            { EMpFoupPort.Port4, 4 }
+            { EMpFoupPort.Port1, 11111 },
+            { EMpFoupPort.Port2, 22222 },
+            { EMpFoupPort.Port3, 33333 },
+            { EMpFoupPort.Port4, 44444 }
         };
+    }
+
+    public partial class AdapterHikRobotMpFoup
+    {
+        enum EGetOperate
+        {
+            MissionStarted,
+            MissionCanceled,
+            PickUpLocation,
+            PickUpLocationPort,
+            DropOffLocation,
+            DropOffLocationPort,
+        }
+
+        void getCmd(EGetOperate operate, AmrPackage t)
+        {
+            switch(operate)
+            {
+                case EGetOperate.MissionStarted:
+                    cmdMissionStarted(t);
+                    break;
+
+                case EGetOperate.MissionCanceled:
+                    cmdMissionCanceled(t);
+                    break;
+
+                case EGetOperate.PickUpLocation:
+                    cmdPickUpLocation(t);
+                    break;
+
+                case EGetOperate.PickUpLocationPort:
+                    cmdPickUpLocationPort(t);
+                    break;
+
+                case EGetOperate.DropOffLocation:
+                    cmdDropOffLocation(t);
+                    break;
+
+                case EGetOperate.DropOffLocationPort:
+                    cmdDropOffLocationPort(t);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        void cmdMissionStarted(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4001;
+            t.offset = 1;
+        }
+
+        void cmdMissionCanceled(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4003;
+            t.offset = 1;
+        }
+
+        void cmdPickUpLocation(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4100;
+            t.offset = 1;
+        }
+
+        void cmdPickUpLocationPort(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4101;
+            t.offset = 1;
+        }
+
+        void cmdDropOffLocation(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4102;
+            t.offset = 1;
+        }
+
+        void cmdDropOffLocationPort(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4103;
+            t.offset = 1;
+        }
+    }
+
+    public partial class AdapterHikRobotMpFoup
+    {
+        void unpack(EGetOperate operate, AmrPackage t)
+        {
+            switch(operate)
+            {
+                case EGetOperate.MissionStarted:
+                    upMissionStarted(t);
+                    break;
+
+                case EGetOperate.MissionCanceled:
+                    upMisssionCanceled(t);
+                    break;
+
+                case EGetOperate.PickUpLocation:
+                    upPickUpLocation(t);
+                    break;
+
+                case EGetOperate.PickUpLocationPort:
+                    upPickUpLocationPort(t);
+                    break;
+
+                case EGetOperate.DropOffLocation:
+                    upDropOffLocation(t);
+                    break;
+
+                case EGetOperate.DropOffLocationPort:
+                    upDropOffLocationPort(t);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        void upMissionStarted(AmrPackage t)
+        {
+            t.property.get.missionStarted = t.rcmd;
+        }
+
+        void upMisssionCanceled(AmrPackage t)
+        {
+            t.property.get.missionCanceled = t.rcmd;
+        }
+
+        void upPickUpLocation(AmrPackage t)
+        {
+            t.property.get.missionInform.pickUpLocation = t.rcmd;
+        }
+
+        void upPickUpLocationPort(AmrPackage t)
+        {
+            t.property.get.missionInform.pickUpLocationPort = t.rcmd;
+        }
+
+        void upDropOffLocation(AmrPackage t)
+        {
+            t.property.get.missionInform.dropOffLocation = t.rcmd;
+        }
+
+        void upDropOffLocationPort(AmrPackage t)
+        {
+            t.property.get.missionInform.dropOffLocationPort = t.rcmd;
+        }
+    }
+
+    public partial class AdapterHikRobotMpFoup
+    {
+        enum ESetOperate
+        {
+            MissionCompleted,
+
+            Port1_Occupy,
+            Port1_Id,
+            Port1_Rfid,
+
+            Port2_Occupy,
+            Port2_Id,
+            Port2_Rfid,
+
+            Port3_Occupy,
+            Port3_Id,
+            Port3_Rfid,
+
+            Port4_Occupy,
+            Port4_Id,
+            Port4_Rfid,
+        }
+
+        void getCmd(ESetOperate operate, AmrPackage t)
+        {
+            switch(operate)
+            {
+                case ESetOperate.MissionCompleted:
+                    cmdMissionCompleted(t);
+                    break;
+
+                case ESetOperate.Port1_Occupy:
+                    cmdOccupyPort1(t);
+                    break;
+
+                case ESetOperate.Port1_Id:
+                    cmdIdPort1(t);
+                    break;
+
+                case ESetOperate.Port1_Rfid:
+                    cmdRfidPort1(t);
+                    break;
+
+                case ESetOperate.Port2_Occupy:
+                    cmdOccupyPort2(t);
+                    break;
+
+                case ESetOperate.Port2_Id:
+                    cmdIdPort2(t);
+                    break;
+
+                case ESetOperate.Port2_Rfid:
+                    cmdRfidPort2(t);
+                    break;
+
+                case ESetOperate.Port3_Occupy:
+                    cmdOccupyPort3(t);
+                    break;
+
+                case ESetOperate.Port3_Id:
+                    cmdIdPort3(t);
+                    break;
+
+                case ESetOperate.Port3_Rfid:
+                    cmdRfidPort3(t);
+                    break;
+
+                case ESetOperate.Port4_Occupy:
+                    cmdOccupyPort4(t);
+                    break;
+
+                case ESetOperate.Port4_Id:
+                    cmdIdPort4(t);
+                    break;
+
+                case ESetOperate.Port4_Rfid:
+                    cmdRfidPort4(t);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        void cmdMissionCompleted(AmrPackage t)
+        {
+            t.cmd = t.property.set.missionCompleted;
+            t.station = 1;
+            t.startAddress = 4002;
+            t.offset = 1;
+        }
+
+        void cmdOccupyPort1(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port1]];
+            t.station = 1;
+            t.startAddress = 6000;
+            t.offset = 1;
+        }
+
+        void cmdIdPort1(AmrPackage t)
+        {
+            t.cmd = dcPortId[EMpFoupPort.Port1];
+            t.station = 1;
+            t.startAddress = 6001;
+            t.offset = 1;
+        }
+
+        void cmdRfidPort1(AmrPackage t)
+        {
+            ushort[] tmp;
+
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port1]],
+                                                      EEndian.BigEndian,
+                                                      out tmp);
+            t.arrayCmd = tmp;
+            t.station = 1;
+            t.startAddress = 6002;
+            t.offset = 10;
+        }
+
+        void cmdOccupyPort2(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port2]];
+            t.station = 1;
+            t.startAddress = 6012;
+            t.offset = 1;
+        }
+
+        void cmdIdPort2(AmrPackage t)
+        {
+            t.cmd = dcPortId[EMpFoupPort.Port2];
+            t.station = 1;
+            t.startAddress = 6013;
+            t.offset = 1;
+        }
+
+        void cmdRfidPort2(AmrPackage t)
+        {
+            ushort[] tmp;
+
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port2]],
+                                                      EEndian.BigEndian,
+                                                      out tmp);
+            t.arrayCmd = tmp;
+            t.station = 1;
+            t.startAddress = 6014;
+            t.offset = 10;
+        }
+
+        void cmdOccupyPort3(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port3]];
+            t.station = 1;
+            t.startAddress = 6024;
+            t.offset = 1;
+        }
+
+        void cmdIdPort3(AmrPackage t)
+        {
+            t.cmd = dcPortId[EMpFoupPort.Port3];
+            t.station = 1;
+            t.startAddress = 6025;
+            t.offset = 1;
+        }
+
+        void cmdRfidPort3(AmrPackage t)
+        {
+            ushort[] tmp;
+
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port3]],
+                                                      EEndian.BigEndian,
+                                                      out tmp);
+            t.arrayCmd = tmp;
+            t.station = 1;
+            t.startAddress = 6026;
+            t.offset = 10;
+        }
+
+        void cmdOccupyPort4(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port4]];
+            t.station = 1;
+            t.startAddress = 6036;
+            t.offset = 1;
+        }
+
+        void cmdIdPort4(AmrPackage t)
+        {
+            t.cmd = dcPortId[EMpFoupPort.Port4];
+            t.station = 1;
+            t.startAddress = 6037;
+            t.offset = 1;
+        }
+
+        void cmdRfidPort4(AmrPackage t)
+        {
+            ushort[] tmp;
+
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port4]],
+                                                      EEndian.BigEndian,
+                                                      out tmp);
+            t.arrayCmd = tmp;
+            t.station = 1;
+            t.startAddress = 6038;
+            t.offset = 10;
+        }
     }
 
     public partial class AdapterHikRobotMpFoup : IAmrOperate<AmrPackage>
     {
-        public async Task<bool> GetMissionIsStartedAsync(AmrPackage t)
+        public async Task<bool> GetIsMissionStartedAsync(AmrPackage t)
         {
-            if (t.modbusTcpMaster == null)
-            {
-                t.errorLog = "modbusTcp disconnect";
-                return false;
-            }
-
             try
             {
-                ushort rcmd = 0;
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
 
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4001, (ushort)1)).FirstOrDefault();
+                getCmd(EGetOperate.MissionStarted, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.MissionStarted, t);
 
-                t.property.get.missionStarted = rcmd;
-
-                t.informLog = "get mission is start Success";
+                t.informLog = "get is mission start Success";
                 return true;
             }
             catch (Exception ex)
@@ -62,32 +425,18 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         public async Task<bool> SetMissionCompletedResultAsync(AmrPackage t)
         {
-            if (t.modbusTcpMaster == null)
-            {
-                t.errorLog = "modbusTcp disconnect";
-                return false;
-            }
-
             try
             {
-                ushort cmd = t.property.set.missionCompleted;
-
-                await t.modbusTcpMaster.WriteSingleRegisterAsync((byte)1, (ushort)4002, cmd);
-
-                await Task.Delay(delay);
-
-                ushort rcmd = (await t.modbusTcpMaster.ReadHoldingRegistersAsync((byte)1, (ushort)4002, (ushort)1)).FirstOrDefault();
-
-                if (cmd == rcmd)
+                if (t.master == null)
                 {
-                    t.informLog = "set mission complete success";
-                    return true;
+                    setModbusTcpError();
                 }
-                else
-                {
-                    t.errorLog = "set mission complete fail";
-                    return false;
-                }
+
+                getCmd(ESetOperate.MissionCompleted, t);
+                await setSingleRegisterAsync(t, "mission complete");
+
+                t.informLog = "set mission complete success";
+                return true;
 
             }
             catch (Exception ex)
@@ -97,23 +446,20 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> GetMissionIsCanceledAsync(AmrPackage t)
+        public async Task<bool> GetIsMissionCanceledAsync(AmrPackage t)
         {
-            if (t.modbusTcpMaster == null)
-            {
-                t.errorLog = "modbusTcp disconnect";
-                return false;
-            }
-
             try
             {
-                ushort rcmd = 0;
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
 
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4003, (ushort)1)).FirstOrDefault();
+                getCmd(EGetOperate.MissionCanceled, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.MissionCanceled, t);
 
-                t.property.get.missionCanceled = rcmd;
-
-                t.informLog = "get Mission is Cancel Success";
+                t.informLog = "get is mission cancel success";
                 return true;
             }
             catch(Exception ex)
@@ -125,33 +471,40 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         public async Task<bool> GetMissionInformAsync(AmrPackage t)
         {
-            if (t.modbusTcpMaster == null)
-            {
-                t.errorLog = "modbusTcp disconnect";
-                return false;
-            }
-
             try
             {
-                if (!(await getPickUpLocationId(t)))
-                    return false;
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                //取料地點
+                getCmd(EGetOperate.PickUpLocation, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.PickUpLocation, t);
 
                 await Task.Delay(delay);
 
-                if (!(await getPickUpLocationPortId(t)))
-                    return false;
+                //取料地點儲位
+                getCmd(EGetOperate.PickUpLocationPort, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.PickUpLocationPort, t);
 
                 await Task.Delay(delay);
 
-                if (!(await getDropOffLocationId(t)))
-                    return false;
+                //放料地點
+                getCmd(EGetOperate.DropOffLocation, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.DropOffLocation, t);
 
                 await Task.Delay(delay);
 
-                if (!(await getDropOffLocationPortId(t)))
-                    return false;
+                //放料地點儲位
+                getCmd(EGetOperate.DropOffLocationPort, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.DropOffLocationPort, t);
 
-                t.informLog = "get Mission Inform Success";
+                t.informLog = "get mission inform success";
                 return true;
             }
             catch (Exception ex)
@@ -161,18 +514,27 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-
         public async Task<bool> SetWarehouseInformAsync(AmrPackage t)
         {
-            if (t.modbusTcpMaster == null)
-            {
-                t.errorLog = "modbusTcp disconnect";
-                return false;
-            }
-
             try
             {
-                return true;
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                //庫位1 Occupy
+                getCmd(ESetOperate.Port1_Occupy, t);
+                await setSingleRegisterAsync(t, "port1 occupy");
+
+                //庫位1 序號
+                getCmd(ESetOperate.Port1_Id, t);
+                await setSingleRegisterAsync(t, "port1 id");
+
+
+                await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, 
+                                                            Enumerable.Repeat((ushort)0, t.offset).ToArray());
+
             }
             catch(Exception ex)
             {
@@ -206,85 +568,26 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
     public partial class AdapterHikRobotMpFoup
     {
-        public async Task<bool> getPickUpLocationId(AmrPackage t)
+        void setModbusTcpError()
         {
-            try
-            {
-                ushort rcmd = 0;
-
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4100, (ushort)1)).FirstOrDefault();
-
-                t.property.get.missionInform.pickUpLocationId = rcmd;
-
-                return true;
-            }
-            catch(Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
+            throw new InvalidOperationException("Modbus Tcp Disconnect");
         }
 
-        public async Task<bool> getPickUpLocationPortId(AmrPackage t)
+        async Task setSingleRegisterAsync(AmrPackage t, string register)
         {
-            try
-            {
-                ushort rcmd = 0;
+            await t.master.WriteSingleRegisterAsync((byte)t.station, (ushort)t.startAddress, t.cmd);
 
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4101, (ushort)1)).FirstOrDefault();
+            await Task.Delay(delay);
 
-                t.property.get.missionInform.pickUpLocationPortId = rcmd;
+            ushort res = (await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
+            if (t.cmd != res)
+                throw new InvalidOperationException(string.Format("set {0} fail", register));
         }
 
-        public async Task<bool> getDropOffLocationId(AmrPackage t)
+        async Task getSingleRegisterAsync(AmrPackage t)
         {
-            try
-            {
-                ushort rcmd = 0;
-
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4102, (ushort)1)).FirstOrDefault();
-
-                t.property.get.missionInform.dropOffLocationId = rcmd;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
+            t.rcmd = (await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
         }
-
-        public async Task<bool> getDropOffLocationPortId(AmrPackage t)
-        {
-            try
-            {
-                ushort rcmd = 0;
-
-                rcmd = (await t.modbusTcpMaster.ReadInputRegistersAsync((byte)1, (ushort)4103, (ushort)1)).FirstOrDefault();
-
-                t.property.get.missionInform.dropOffLocationPortId = rcmd;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
-        }
-    }
-
-    public partial class AdapterHikRobotMpFoup
-    {
-
     }
 }

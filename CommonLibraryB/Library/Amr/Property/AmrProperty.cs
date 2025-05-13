@@ -24,7 +24,7 @@ namespace CommonLibraryB.Library.Amr.Property
         /// <summary>
         /// <庫位序號, 庫位有無存在料>
         /// </summary>
-        public Dictionary<ushort, ushort> dcExist = new Dictionary<ushort, ushort>();
+        public Dictionary<ushort, ushort> dcOccupy = new Dictionary<ushort, ushort>();
 
         /// <summary>
         /// <庫位序號, RFID>
@@ -55,12 +55,12 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
-        public ushort pickUpLocationId { get; set; }
+        public ushort pickUpLocation { get; set; }
 
-        public ushort pickUpLocationPortId { get; set; }
+        public ushort pickUpLocationPort { get; set; }
 
-        public ushort dropOffLocationId { get; set; }
+        public ushort dropOffLocation { get; set; }
 
-        public ushort dropOffLocationPortId { get; set; }
+        public ushort dropOffLocationPort { get; set; }
     }
 }
