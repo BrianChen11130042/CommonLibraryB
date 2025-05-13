@@ -210,6 +210,11 @@ namespace CommonLibraryB.Library.Amr.Adapter
             Port4_Occupy,
             Port4_Id,
             Port4_Rfid,
+
+            RobotError,
+            RobotIdle,
+            RobotComplete,
+            RobotRun
         }
 
         void getCmd(ESetOperate operate, AmrPackage t)
@@ -266,6 +271,22 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case ESetOperate.Port4_Rfid:
                     cmdRfidPort4(t);
+                    break;
+
+                case ESetOperate.RobotError:
+                    cmdRobotError(t);
+                    break;
+
+                case ESetOperate.RobotIdle:
+                    cmdRobotIdle(t);
+                    break;
+
+                case ESetOperate.RobotComplete:
+                    cmdRobotComplete(t);
+                    break;
+
+                case ESetOperate.RobotRun:
+                    cmdRobotRun(t);
                     break;
 
                 default:
@@ -395,6 +416,44 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.station = 1;
             t.startAddress = 6038;
             t.offset = 10;
+        }
+
+        void cmdRobotError(AmrPackage t)
+        {
+            ushort[] tmp;
+
+            IntUshortConverter.IntToUshortArray(t.property.set.robotStatus.errorCode,
+                                                EEndian.BigEndian,
+                                                out tmp);
+
+            t.arrayCmd = tmp;
+            t.station = 1;
+            t.startAddress = 6078;
+            t.offset = 2;
+        }
+
+        void cmdRobotIdle(AmrPackage t)
+        {
+            t.cmd = t.property.set.robotStatus.idle;
+            t.station = 1;
+            t.startAddress = 6080;
+            t.offset = 1;
+        }
+
+        void cmdRobotComplete(AmrPackage t)
+        {
+            t.cmd = t.property.set.robotStatus.completed;
+            t.station = 1;
+            t.startAddress = 6081;
+            t.offset = 1;
+        }
+
+        void cmdRobotRun(AmrPackage t)
+        {
+            t.cmd = t.property.set.robotStatus.running;
+            t.station = 1;
+            t.startAddress = 6082;
+            t.offset = 1;
         }
     }
 
@@ -604,24 +663,96 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public Task<bool> SetRobotCompletedMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotErrorMessageAsync(AmrPackage t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.RobotError, t);
+                await setMultiRegisterAsync(t, "robot error signal");
+
+                t.informLog = "set robot error signal success";
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
         }
 
-        public Task<bool> SetRobotErrorMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotCompletedMessageAsync(AmrPackage t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.RobotComplete, t);
+                await setSingleRegisterAsync(t, "robot complete signal");
+
+                t.informLog = "set robot complete signal success";
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
         }
 
-        public Task<bool> SetRobotIdleMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotIdleMessageAsync(AmrPackage t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.RobotIdle, t);
+                await setSingleRegisterAsync(t, "robot idle signal");
+
+                t.informLog = "set robot idle signal success";
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
         }
 
-        public Task<bool> SetRobotRunningMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotRunningMessageAsync(AmrPackage t)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.RobotRun, t);
+                await setSingleRegisterAsync(t, "robot running signal");
+
+                t.informLog = "set robot running signal success";
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
         }
 
     }

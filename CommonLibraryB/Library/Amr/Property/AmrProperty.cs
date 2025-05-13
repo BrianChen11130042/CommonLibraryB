@@ -17,19 +17,20 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class SetProperty
     {
-        public ushort missionCompleted { get; set; }
-
-        public RobotStatus robotStatus { get; set; } = new RobotStatus();
 
         /// <summary>
         /// <庫位序號, 庫位有無存在料>
         /// </summary>
-        public Dictionary<ushort, ushort> dcOccupy = new Dictionary<ushort, ushort>();
+        public Dictionary<ushort, ushort> dcOccupy { get; set; } = new Dictionary<ushort, ushort>();
 
         /// <summary>
         /// <庫位序號, RFID>
         /// </summary>
-        public Dictionary<ushort, string> dcRfid = new Dictionary<ushort, string>();
+        public Dictionary<ushort, string> dcRfid { get; set; } = new Dictionary<ushort, string>();
+
+        public RobotStatus robotStatus { get; set; } = new RobotStatus();
+
+        public ushort missionCompleted { get; set; }
 
     }
 
