@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.Amr.Adapter
 {
-    public enum EAmrSupplier { HikRobot_C3S}
+    public enum EAmrSupplier { HikRobot_MpFoup4, HikRobot_IcTray6 }
 
     public class AmrAdapter : AdapterBase<AmrConfig, EAmrSupplier, IAmrOperate<AmrPackage>>
     {
@@ -28,8 +28,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 switch(supplier)
                 {
-                    case EAmrSupplier.HikRobot_C3S:
+                    case EAmrSupplier.HikRobot_MpFoup4:
                         table.Add(supplier, new AdapterHikRobotMpFoup());
+                        break;
+
+                    case EAmrSupplier.HikRobot_IcTray6:
+                        table.Add(supplier, new AdapterHikRobotIcTray());
                         break;
                 }
             }

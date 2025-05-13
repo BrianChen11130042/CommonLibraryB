@@ -14,7 +14,7 @@ namespace CommonLibraryB.Library.Amr.Config
 
         public EModbusTcpMaster ModbusTcpMaster { get; set; } = EModbusTcpMaster.TcpMaster1;
 
-        public EAmrSupplier AmrSupplier { get; set; } = EAmrSupplier.HikRobot_C3S;
+        public EAmrSupplier AmrSupplier { get; set; } = EAmrSupplier.HikRobot_MpFoup4;
 
         public string Id { get; set; }
 
