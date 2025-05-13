@@ -15,12 +15,10 @@ namespace CommonLibraryB.Tools.TypeConverter
 
     public static class StringUshortConverter
     {
-        public static void UshortArrayToString(ushort[] arrayData, bool reverse, out string result)
+        public static void UshortArrayToString(ushort[] arrayData, EEndian inputEndianType, out string result)
         {
             if(arrayData == null || arrayData.Length == 0)
                 throw new ArgumentException("Input ushort array null at UshortArrayToString conversion ");
-
-            string res = string.Empty;
 
             List<byte> listByte = new List<byte>();
 
@@ -28,9 +26,10 @@ namespace CommonLibraryB.Tools.TypeConverter
             {
                 var bytes = BitConverter.GetBytes(data);
 
-                if (reverse)
+                if ((BitConverter.IsLittleEndian && inputEndianType == EEndian.BigEndian) ||
+                   (!BitConverter.IsLittleEndian && inputEndianType == EEndian.LittleEndian))
                 {
-                    bytes = bytes.Reverse().ToArray();
+                    Array.Reverse(bytes);
                 }
 
                 listByte.AddRange(bytes);
@@ -39,11 +38,11 @@ namespace CommonLibraryB.Tools.TypeConverter
             byte[] arrayByte = listByte.ToArray();
             int length = Array.FindLastIndex(arrayByte, b => b != 0) + 1;
 
-            res = Encoding.ASCII.GetString(arrayByte, 0, length);
+            string res = Encoding.ASCII.GetString(arrayByte, 0, length);
             result = res;
         }
 
-        public static void StringToUshortArray(string data, EEndian endianType, out ushort[] result)
+        public static void StringToUshortArray(string data, EEndian outputEndianType, out ushort[] result)
         {
             if (string.IsNullOrEmpty(data))
                 throw new ArgumentException("Input string empty at StringToUshortArray conversion ");
@@ -59,7 +58,7 @@ namespace CommonLibraryB.Tools.TypeConverter
             {
                 var byteSpan = arrayByte.AsSpan(i, 2);
 
-                switch (endianType)
+                switch (outputEndianType)
                 {
                     case EEndian.LittleEndian:
                         listRes.Add(BinaryPrimitives.ReadUInt16LittleEndian(byteSpan));
