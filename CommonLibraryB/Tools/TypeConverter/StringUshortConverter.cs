@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CommonLibraryB.Tools.StingUshortConverter
+namespace CommonLibraryB.Tools.TypeConverter
 {
     public enum EEndian
     {

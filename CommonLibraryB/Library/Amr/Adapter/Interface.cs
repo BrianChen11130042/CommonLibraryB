@@ -24,13 +24,13 @@ namespace CommonLibraryB.Library.Amr.Adapter
         Task<bool> SetWarehouseInformAsync(T t);
 
         //執行機構動作
-        Task<bool> SetErrorMessageAsync(T t);
+        Task<bool> SetRobotErrorMessageAsync(T t);
 
-        Task<bool> SetIdleMessageAsync(T t);
+        Task<bool> SetRobotIdleMessageAsync(T t);
 
-        Task<bool> SetCompletedMessageAsync(T t);
+        Task<bool> SetRobotCompletedMessageAsync(T t);
 
-        Task<bool> SetRunningMessageAsync(T t);
+        Task<bool> SetRobotRunningMessageAsync(T t);
 
     }
 }

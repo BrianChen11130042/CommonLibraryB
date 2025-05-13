@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using CommonLibraryB.Tools.StingUshortConverter;
+using CommonLibraryB.Tools.TypeConverter;
 using Microsoft.Win32;
 using static System.Collections.Specialized.BitVector32;
 
@@ -523,18 +523,79 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
-                //庫位1 Occupy
+                //庫位1 有無料件
                 getCmd(ESetOperate.Port1_Occupy, t);
                 await setSingleRegisterAsync(t, "port1 occupy");
+
+                await Task.Delay(delay);
 
                 //庫位1 序號
                 getCmd(ESetOperate.Port1_Id, t);
                 await setSingleRegisterAsync(t, "port1 id");
 
+                await Task.Delay(delay);
 
-                await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, 
-                                                            Enumerable.Repeat((ushort)0, t.offset).ToArray());
+                //庫位1 RFID
+                getCmd(ESetOperate.Port1_Rfid, t);
+                await setMultiRegisterAsync(t, "port1 rfid");
 
+                await Task.Delay(delay);
+
+                //庫位2 有無料件
+                getCmd(ESetOperate.Port2_Occupy, t);
+                await setSingleRegisterAsync(t, "port2 occupy");
+
+                await Task.Delay(delay);
+
+                //庫位2 序號
+                getCmd(ESetOperate.Port2_Id, t);
+                await setSingleRegisterAsync(t, "port2 id");
+
+                await Task.Delay(delay);
+
+                //庫位2 RFID
+                getCmd(ESetOperate.Port2_Rfid, t);
+                await setMultiRegisterAsync(t, "port2 rfid");
+
+                await Task.Delay(delay);
+
+                //庫位3 有無料件
+                getCmd(ESetOperate.Port3_Occupy, t);
+                await setSingleRegisterAsync(t, "port3 occupy");
+
+                await Task.Delay(delay);
+
+                //庫位3 序號
+                getCmd(ESetOperate.Port3_Id, t);
+                await setSingleRegisterAsync(t, "port3 id");
+
+                await Task.Delay(delay);
+
+                //庫位3 RFID
+                getCmd(ESetOperate.Port3_Rfid, t);
+                await setMultiRegisterAsync(t, "port3 rfid");
+
+                await Task.Delay(delay);
+
+                //庫位4 有無料件
+                getCmd(ESetOperate.Port4_Occupy, t);
+                await setSingleRegisterAsync(t, "port4 occupy");
+
+                await Task.Delay(delay);
+
+                //庫位4 序號
+                getCmd(ESetOperate.Port4_Id, t);
+                await setSingleRegisterAsync(t, "port4 id");
+
+                await Task.Delay(delay);
+
+                //庫位4 RFID
+                getCmd(ESetOperate.Port4_Rfid, t);
+                await setMultiRegisterAsync(t, "port4 rfid");
+
+                t.informLog = "set warehouse inform success";
+                return true;
+                
             }
             catch(Exception ex)
             {
@@ -543,23 +604,22 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public Task<bool> SetCompletedMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotCompletedMessageAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetErrorMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotErrorMessageAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetIdleMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotIdleMessageAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-
-        public Task<bool> SetRunningMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotRunningMessageAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
@@ -588,6 +648,33 @@ namespace CommonLibraryB.Library.Amr.Adapter
         async Task getSingleRegisterAsync(AmrPackage t)
         {
             t.rcmd = (await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
+        }
+
+        async Task setMultiRegisterAsync(AmrPackage t, string register)
+        {
+            //reset
+            ushort[] arrReset = Enumerable.Repeat((ushort)0, t.offset).ToArray();
+            await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, arrReset);
+
+            await Task.Delay(delay);
+
+            ushort[] arrResetRes = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
+
+            await Task.Delay(delay);
+
+            if (!arrReset.SequenceEqual(arrResetRes))
+                throw new InvalidOperationException(string.Format("set {0} fail", register));
+
+            //write multi register
+            await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, t.arrayCmd);
+
+            await Task.Delay(delay);
+
+            ushort[] arrRes = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
+
+            if(! t.arrayCmd.SequenceEqual(arrRes))
+                throw new InvalidOperationException(string.Format("set {0} fail", register));
+
         }
     }
 }
