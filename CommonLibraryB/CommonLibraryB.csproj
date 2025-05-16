@@ -8,13 +8,9 @@
 
   <ItemGroup>
     <Compile Remove="Library\RobotArm\**" />
-    <Compile Remove="Library\Robot\**" />
     <Content Remove="Library\RobotArm\**" />
-    <Content Remove="Library\Robot\**" />
     <EmbeddedResource Remove="Library\RobotArm\**" />
-    <EmbeddedResource Remove="Library\Robot\**" />
     <None Remove="Library\RobotArm\**" />
-    <None Remove="Library\Robot\**" />
   </ItemGroup>
 
 
