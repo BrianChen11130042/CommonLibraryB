@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Library.Robot.Config;
+using CommonLibraryB.Library.Robot.Property;
 using NModbus;
 
 namespace CommonLibraryB.Library.Robot.Adapter
@@ -13,6 +14,8 @@ namespace CommonLibraryB.Library.Robot.Adapter
         public IModbusMaster master { get; set; }
 
         public RobotConfig config { get; set; }
+
+        public RobotProperty property { get; set; }
 
         public string errorLog { get; set; }
 

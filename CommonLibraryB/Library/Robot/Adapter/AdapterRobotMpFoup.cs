@@ -6,8 +6,31 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.Robot.Adapter
 {
+    public partial class AdapterRobotMpFoup
+    {
+        const int delay = 10;
 
-    public class AdapterRobotMpFoup : IRobotOperate<RobotPackage>
+        enum EMpFoupPort
+        {
+            Port1,
+            Port2,
+            Port3,
+            Port4
+        }
+
+        /// <summary>
+        /// MP Foup有4個儲位序號
+        /// </summary>
+        Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
+        {
+            { EMpFoupPort.Port1, 11111 },
+            { EMpFoupPort.Port2, 22222 },
+            { EMpFoupPort.Port3, 33333 },
+            { EMpFoupPort.Port4, 44444 }
+        };
+    }
+
+    public partial class AdapterRobotMpFoup : IRobotOperate<RobotPackage>
     {
         public Task<bool> GetErrorCodeAsync(RobotPackage t)
         {
