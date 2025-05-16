@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NModbus;
 
 namespace CommonLibraryB.Manager.ModbusTcp.Master
 {
 
     public class ModbusTcpMasterPack
     {
+        public IModbusMaster master { get; set; }
+
         public ushort cmd { get; set; }
 
         public ushort rcmd { get; set; }
@@ -16,6 +19,10 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
         public ushort[] arrayCmd { get; set; }
 
         public ushort[] arrayRcmd { get; set; }
+
+        public bool boolCmd { get; set; }
+
+        public bool boolRcmd { get; set; }
 
         public int station { get; set; }
 

@@ -20,7 +20,9 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
         [Range(0, 65535)]
         public int Port { get; set; } = 502;
 
-        public string deviceName { get; set; }
+        public string DeviceName { get; set; }
+
+        public bool Enable { get; set; } = false;
 
         [JsonIgnore]
         public TcpClient tcpClient { get; set; }
@@ -31,24 +33,30 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
         [JsonIgnore]
         public IModbusMaster modbusTcpMaster { get; set; }
 
-        public async Task<bool> connectAsync()
+        public void Init()
         {
+            tcpClient = new TcpClient();
+            modbusFactory = new ModbusFactory();
+        }
+
+        public async Task<bool> ConnectAsync()
+        {
+            if (!Enable)
+                return true;
+
             try
             {
-                if (tcpClient == null)
-                    tcpClient = new TcpClient();
-
-                if (modbusFactory == null)
-                    modbusFactory = new ModbusFactory();
-
                 if (tcpClient.Connected)
                 {
                     tcpClient.Close();
-                    tcpClient = new TcpClient();
                 }
 
+                tcpClient = new TcpClient();
+
                 await tcpClient.ConnectAsync(Ip, Port);
+
                 modbusTcpMaster = modbusFactory.CreateMaster(tcpClient);
+
                 return true;
             }
             catch (Exception ex)
@@ -57,14 +65,18 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             }
         }
 
-        public bool disConnect()
+        public bool Disconnect()
         {
+            if (!Enable)
+                return true;
+
             try
             {
                 if (tcpClient.Connected)
                 {
                     tcpClient.Close();
                 }
+
                 return true;
             }
             catch (Exception ex)

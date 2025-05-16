@@ -13,8 +13,6 @@ namespace CommonLibraryB.Library.Amr.Adapter
 {
     public class AmrPackage : ModbusTcpMasterPack
     {
-        public IModbusMaster master { get; set; }
-
         public AmrConfig config { get; set; }
 
         public AmrProperty property { get; set; }

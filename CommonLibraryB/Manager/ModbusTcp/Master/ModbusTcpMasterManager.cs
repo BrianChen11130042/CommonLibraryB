@@ -15,6 +15,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
         public ModbusTcpMasterManager(string dir) : base(dir + "Config\\" + fileName)
         {
             Directory = dir;
+            Init();
         }
 
         public override void GenerateDefaultTable()
@@ -25,25 +26,41 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             {
                 if (!table.ContainsKey(key))
                 {
-                    table.Add(key, new ModbusTcpMasterConfig() { deviceName = key});
+                    table.Add(key, new ModbusTcpMasterConfig() { DeviceName = key});
                 }
             }
         }
 
-        public async Task ConnectAllModbusTcp()
+        void Init()
         {
             foreach(string key in keys)
             {
-                await table[key].connectAsync();
+                table[key].Init();
             }
         }
 
-        public async Task DisconnectAllModbusTcp()
+        public async Task<bool> ConnectAsync()
+        {
+            foreach(string key in keys)
+            {
+                if(!(await table[key].ConnectAsync()))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public async Task<bool> DisconnectAsync()
         {
             foreach (string key in keys)
             {
-                table[key].disConnect();
+                if(!(table[key].Disconnect()))
+                {
+                    return false;
+                }
             }
+            return true;
         }
     }
 }

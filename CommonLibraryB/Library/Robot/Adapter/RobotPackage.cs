@@ -5,14 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Library.Robot.Config;
 using CommonLibraryB.Library.Robot.Property;
+using CommonLibraryB.Manager.ModbusTcp.Master;
 using NModbus;
 
 namespace CommonLibraryB.Library.Robot.Adapter
 {
-    public class RobotPackage
+    public class RobotPackage : ModbusTcpMasterPack
     {
-        public IModbusMaster master { get; set; }
-
         public RobotConfig config { get; set; }
 
         public RobotProperty property { get; set; }
