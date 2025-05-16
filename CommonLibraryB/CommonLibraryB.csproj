@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Library\RobotArm\**" />
+    <Compile Remove="Library\Robot\**" />
     <Content Remove="Library\RobotArm\**" />
+    <Content Remove="Library\Robot\**" />
     <EmbeddedResource Remove="Library\RobotArm\**" />
+    <EmbeddedResource Remove="Library\Robot\**" />
     <None Remove="Library\RobotArm\**" />
+    <None Remove="Library\Robot\**" />
   </ItemGroup>
 
 
@@ -22,10 +26,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.11" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.4.0" />
     <PackageReference Include="NModbus" Version="3.0.81" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Library\Robot\" />
   </ItemGroup>
 
 </Project>
