@@ -19,7 +19,7 @@ namespace CommonLibraryB.Library.Amr.Property
     {
 
         /// <summary>
-        /// <庫位序號, 庫位有無存在料>
+        /// <庫位序號, 庫位Sensor訊號判斷有無存在料(有料置1)>
         /// </summary>
         public Dictionary<ushort, ushort> dcOccupy { get; set; } = new Dictionary<ushort, ushort>();
 
