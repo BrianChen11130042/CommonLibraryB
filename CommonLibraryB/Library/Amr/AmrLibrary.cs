@@ -26,7 +26,7 @@ namespace CommonLibraryB.Library.Amr
             this.propertyManager = propertyManager;
         }
 
-        Dictionary<T, AmrPackage> Packages;
+        public Dictionary<T, AmrPackage> Packages;
 
         public void InitPackage()
         {

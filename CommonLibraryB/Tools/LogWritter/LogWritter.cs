@@ -16,7 +16,7 @@ namespace CommonLibraryB.Tools.LogWritter
         Error
     }
 
-    public class LogWritter : ILogTransmissionObserver
+    public class LogWritter : INLogWritterObserver
     {
         public Logger logger;
         public string _directory;
