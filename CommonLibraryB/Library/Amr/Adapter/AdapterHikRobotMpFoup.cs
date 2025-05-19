@@ -41,6 +41,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             MissionStarted,
             MissionCanceled,
+            RFID,
+            MotionType,
             PickUpLocation,
             PickUpLocationPort,
             DropOffLocation,
@@ -57,6 +59,14 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case EGetOperate.MissionCanceled:
                     cmdMissionCanceled(t);
+                    break;
+
+                case EGetOperate.RFID:
+                    cmdRFID(t);
+                    break;
+
+                case EGetOperate.MotionType:
+                    cmdMotionType(t);
                     break;
 
                 case EGetOperate.PickUpLocation:
@@ -94,31 +104,45 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.offset = 1;
         }
 
-        void cmdPickUpLocation(AmrPackage t)
+        void cmdRFID(AmrPackage t)
         {
             t.station = 1;
             t.startAddress = 4100;
+            t.offset = 10;
+        }
+
+        void cmdMotionType(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4110;
+            t.offset = 1;
+        }
+
+        void cmdPickUpLocation(AmrPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 4111;
             t.offset = 1;
         }
 
         void cmdPickUpLocationPort(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4101;
+            t.startAddress = 4112;
             t.offset = 1;
         }
 
         void cmdDropOffLocation(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4102;
+            t.startAddress = 4113;
             t.offset = 1;
         }
 
         void cmdDropOffLocationPort(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4103;
+            t.startAddress = 4114;
             t.offset = 1;
         }
     }
@@ -135,6 +159,14 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case EGetOperate.MissionCanceled:
                     upMisssionCanceled(t);
+                    break;
+
+                case EGetOperate.RFID:
+                    upRfid(t);
+                    break;
+
+                case EGetOperate.MotionType:
+                    upMotionType(t);
                     break;
 
                 case EGetOperate.PickUpLocation:
@@ -166,6 +198,20 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void upMisssionCanceled(AmrPackage t)
         {
             t.property.get.missionCanceled = t.rcmd;
+        }
+
+        void upRfid(AmrPackage t)
+        {
+            string result;
+
+            StringUshortConverter.UshortArrayToString(t.arrayRcmd, EEndian.BigEndian, out result);
+
+            t.property.get.missionInform.rfid = result;
+        }
+
+        void upMotionType(AmrPackage t)
+        {
+            t.property.get.missionInform.motionType = t.rcmd;
         }
 
         void upPickUpLocation(AmrPackage t)
@@ -537,6 +583,20 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
+                //目標料件RFID條碼
+                getCmd(EGetOperate.RFID, t);
+                await getMultiRegisterAsync(t);
+                unpack(EGetOperate.RFID, t);
+
+                await Task.Delay(delay);
+
+                //上層機構動作類型
+                getCmd(EGetOperate.MotionType, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.MotionType, t);
+
+                await Task.Delay(delay);
+
                 //取料地點
                 getCmd(EGetOperate.PickUpLocation, t);
                 await getSingleRegisterAsync(t);
@@ -806,6 +866,11 @@ namespace CommonLibraryB.Library.Amr.Adapter
             if(! t.arrayCmd.SequenceEqual(arrRes))
                 throw new InvalidOperationException(string.Format("set {0} fail", register));
 
+        }
+
+        async Task getMultiRegisterAsync(AmrPackage t)
+        {
+            t.arrayRcmd = await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
         }
     }
 }

@@ -56,6 +56,10 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
+        public string rfid { get; set; }
+
+        public ushort motionType { get; set; }
+
         public ushort pickUpLocation { get; set; }
 
         public ushort pickUpLocationPort { get; set; }
