@@ -25,7 +25,7 @@ namespace CommonLibraryB.Library.Amr.Config
             {
                 if(!table.ContainsKey(key))
                 {
-                    table.Add(key, new AmrConfig() { Device = key});
+                    table.Add(key, new AmrConfig() { device = key});
                 }
             }
         }

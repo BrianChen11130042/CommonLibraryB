@@ -21,7 +21,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             foreach(var v in keys)
             {
-                EAmrSupplier supplier = v.AmrSupplier;
+                EAmrSupplier supplier = v.supplier;
 
                 if (table.ContainsKey(supplier))
                     continue;

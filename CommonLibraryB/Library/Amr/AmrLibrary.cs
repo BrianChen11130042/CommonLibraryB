@@ -45,7 +45,7 @@ namespace CommonLibraryB.Library.Amr
                 Packages[dev].config = configManager.table[dev.ToString()];
                 Packages[dev].property = propertyManager.table[dev.ToString()];
 
-                string master = configManager.table[dev.ToString()].ModbusTcpMaster.ToString();
+                string master = configManager.table[dev.ToString()].master.ToString();
                 Packages[dev].master = modbusTcpMasterManager.table[master].modbusTcpMaster;
             }
         }
@@ -66,7 +66,7 @@ namespace CommonLibraryB.Library.Amr
         {
             string key = t.ToString();
             AmrConfig c = configManager.table[key];
-            return adapter[c.AmrSupplier];
+            return adapter[c.supplier];
         }
 
         public async Task<bool> GetMissionInformAsync(T t)

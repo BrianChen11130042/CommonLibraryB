@@ -10,13 +10,13 @@ namespace CommonLibraryB.Library.Amr.Config
 {
     public class AmrConfig
     {
-        public string Device { get; set; }
+        public string device { get; set; }
 
-        public EModbusTcpMaster ModbusTcpMaster { get; set; } = EModbusTcpMaster.TcpMaster1;
+        public EModbusTcpMaster master { get; set; } = EModbusTcpMaster.TcpMaster1;
 
-        public EAmrSupplier AmrSupplier { get; set; } = EAmrSupplier.HikRobot_MpFoup4;
+        public EAmrSupplier supplier { get; set; } = EAmrSupplier.HikRobot_MpFoup4;
 
-        public string Id { get; set; }
+        public int id { get; set; }
 
     }
 }

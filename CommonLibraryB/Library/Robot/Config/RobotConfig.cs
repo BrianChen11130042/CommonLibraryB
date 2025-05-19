@@ -13,10 +13,10 @@ namespace CommonLibraryB.Library.Robot.Config
     {
         public string device { get; set; }
 
-        public EModbusTcpMaster modbusTcpMaster { get; set; } = EModbusTcpMaster.TcpMaster1;
+        public EModbusTcpMaster master { get; set; } = EModbusTcpMaster.TcpMaster1;
 
         public ERobotSupplier supplier { get; set; } = ERobotSupplier.TMRobot_MpFoup4;
 
-        public string id { get; set; }
+        public int id { get; set; }
     }
 }

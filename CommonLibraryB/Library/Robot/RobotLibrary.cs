@@ -44,7 +44,7 @@ namespace CommonLibraryB.Library.Robot
                 packages[dev].config = configManager.table[dev.ToString()];
                 packages[dev].property = propertyManager.table[dev.ToString()];
 
-                string master = packages[dev].config.modbusTcpMaster.ToString();
+                string master = packages[dev].config.master.ToString();
                 packages[dev].master = modbusTcpManager.table[master].modbusTcpMaster;
             }
         }
