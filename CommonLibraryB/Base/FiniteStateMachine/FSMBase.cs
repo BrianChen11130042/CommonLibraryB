@@ -10,6 +10,7 @@ namespace CommonLibraryB.Base.FiniteStateMachine
     {
         None,
         Init,
+        Idle,
         Action,
         Error,
         Finish
@@ -34,11 +35,14 @@ namespace CommonLibraryB.Base.FiniteStateMachine
             switch(S1)
             {
                 case ES1.None:
-                    await None();
                     break;
 
                 case ES1.Init:
                     await Init();
+                    break;
+
+                case ES1.Idle:
+                    await Idle();
                     break;
 
                 case ES1.Action:
@@ -57,8 +61,8 @@ namespace CommonLibraryB.Base.FiniteStateMachine
             await Task.Delay(inverval);
         }
 
-        public abstract Task None();
         public abstract Task Init();
+        public abstract Task Idle();
         public abstract Task Action();
         public abstract Task Error();
         public abstract Task Finish();
