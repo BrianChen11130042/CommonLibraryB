@@ -9,13 +9,15 @@ namespace CommonLibraryB.Tools.LogWritter
 {
     public interface INLogWritterObservable
     {
-        void AddNLogWritterObserver(INLogWritterObserver o);
+        void AddObserver(INLogWritterObserver o);
+
+        void RemoveObserver(INLogWritterObserver o);
 
         Task WriteNLog(EStatus status, string msg);
     }
 
     public interface INLogWritterObserver
     {
-        Task NotifyLog(EStatus status, string msg);
+        Task NotifyNLog(EStatus status, string msg);
     }
 }
