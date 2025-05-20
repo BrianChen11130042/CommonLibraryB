@@ -40,17 +40,17 @@ namespace CommonLibraryB.Library.Amr.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotCompletedMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotFinishMsgAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotErrorMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotErrorMsgAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotIdleMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotIdleMsgAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
@@ -60,7 +60,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotRunningMessageAsync(AmrPackage t)
+        public Task<bool> SetRobotRunMsgAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }

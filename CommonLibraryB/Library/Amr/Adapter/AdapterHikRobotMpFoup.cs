@@ -488,7 +488,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdRobotComplete(AmrPackage t)
         {
-            t.cmd = t.property.set.robotStatus.completed;
+            t.cmd = t.property.set.robotStatus.finish;
             t.station = 1;
             t.startAddress = 6081;
             t.offset = 1;
@@ -496,7 +496,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdRobotRun(AmrPackage t)
         {
-            t.cmd = t.property.set.robotStatus.running;
+            t.cmd = t.property.set.robotStatus.run;
             t.station = 1;
             t.startAddress = 6082;
             t.offset = 1;
@@ -723,7 +723,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotErrorMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotErrorMsgAsync(AmrPackage t)
         {
             try
             {
@@ -746,7 +746,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotCompletedMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotFinishMsgAsync(AmrPackage t)
         {
             try
             {
@@ -769,7 +769,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotIdleMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotIdleMsgAsync(AmrPackage t)
         {
             try
             {
@@ -792,7 +792,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotRunningMessageAsync(AmrPackage t)
+        public async Task<bool> SetRobotRunMsgAsync(AmrPackage t)
         {
             try
             {

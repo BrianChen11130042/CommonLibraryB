@@ -84,19 +84,19 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).GetIsMissionStartedAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotCompletedMessageAsync(T t)
+        public async Task<bool> SetRobotFinishMsgAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotCompletedMessageAsync(Packages[t]);
+            return await SelectAdapter(t).SetRobotFinishMsgAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotErrorMessageAsync(T t)
+        public async Task<bool> SetRobotErrorMsgAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotErrorMessageAsync(Packages[t]);
+            return await SelectAdapter(t).SetRobotErrorMsgAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotIdleMessageAsync(T t)
+        public async Task<bool> SetRobotIdleMsgAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotIdleMessageAsync(Packages[t]);
+            return await SelectAdapter(t).SetRobotIdleMsgAsync(Packages[t]);
         }
 
         public async Task<bool> SetMissionCompletedResultAsync(T t)
@@ -104,9 +104,9 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).SetMissionCompletedResultAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotRunningMessageAsync(T t)
+        public async Task<bool> SetRobotRunMsgAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotRunningMessageAsync(Packages[t]);
+            return await SelectAdapter(t).SetRobotRunMsgAsync(Packages[t]);
         }
 
         public async Task<bool> SetWarehouseInformAsync(T t)

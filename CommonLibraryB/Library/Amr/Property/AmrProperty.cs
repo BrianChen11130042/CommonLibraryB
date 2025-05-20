@@ -49,9 +49,9 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public ushort idle { get; set; }
 
-        public ushort completed { get; set; }
+        public ushort finish { get; set; }
 
-        public ushort running { get; set; }
+        public ushort run { get; set; }
     }
 
     public class MissionInform
