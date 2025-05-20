@@ -34,7 +34,7 @@ namespace CommonLibraryB.Tools.LogWritter
             logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
         }
 
-        public async Task NotifyNLog(EStatus status, string msg)
+        public async Task WriteNLog(EStatus status, string msg)
         {
             mutex.WaitOne();
 
