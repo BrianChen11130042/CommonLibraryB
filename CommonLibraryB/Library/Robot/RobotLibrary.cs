@@ -25,27 +25,27 @@ namespace CommonLibraryB.Library.Robot
             this.propertyManager = propertyManager;
         }
 
-        Dictionary<T, RobotPackage> packages;
+        public Dictionary<T, RobotPackage> Packages;
 
         public void InitPackage()
         {
-            if (packages == null)
+            if (Packages == null)
             {
-                packages = new Dictionary<T, RobotPackage>();
+                Packages = new Dictionary<T, RobotPackage>();
 
                 foreach(T dev in Enum.GetValues(typeof(T)))
                 {
-                    packages.Add(dev, new RobotPackage());
+                    Packages.Add(dev, new RobotPackage());
                 }
             }
 
             foreach(T dev in Enum.GetValues(typeof(T)))
             {
-                packages[dev].config = configManager.table[dev.ToString()];
-                packages[dev].property = propertyManager.table[dev.ToString()];
+                Packages[dev].config = configManager.table[dev.ToString()];
+                Packages[dev].property = propertyManager.table[dev.ToString()];
 
-                string master = packages[dev].config.master.ToString();
-                packages[dev].master = modbusTcpManager.table[master].modbusTcpMaster;
+                string master = Packages[dev].config.master.ToString();
+                Packages[dev].master = modbusTcpManager.table[master].modbusTcpMaster;
             }
         }
     }
@@ -69,42 +69,42 @@ namespace CommonLibraryB.Library.Robot
 
         public async Task<bool> GetErrorCodeAsync(T t)
         {
-            return await SelectAdapter(t).GetErrorCodeAsync(packages[t]);
+            return await SelectAdapter(t).GetErrorCodeAsync(Packages[t]);
         }
 
         public async Task<bool> GetIsErrorAsync(T t)
         {
-            return await SelectAdapter(t).GetIsErrorAsync(packages[t]);
+            return await SelectAdapter(t).GetIsErrorAsync(Packages[t]);
         }
 
-        public async Task<bool> GetProjectErroCodeAsync(T t)
+        public async Task<bool> GetProjectErrorCodeAsync(T t)
         {
-            return await SelectAdapter(t).GetProjectErroCodeAsync(packages[t]);
+            return await SelectAdapter(t).GetProjectErrorCodeAsync(Packages[t]);
         }
 
         public async Task<bool> GetProjectStatusAsync(T t)
         {
-            return await SelectAdapter(t).GetProjectStatusAsync(packages[t]);
+            return await SelectAdapter(t).GetProjectStatusAsync(Packages[t]);
         }
 
         public async Task<bool> GetRFIDAsync(T t)
         {
-            return await SelectAdapter(t).GetRFIDAsync(packages[t]);
+            return await SelectAdapter(t).GetRFIDAsync(Packages[t]);
         }
 
         public async Task<bool> GetSensorSignalAsync(T t)
         {
-            return await SelectAdapter(t).GetSensorSignalAsync(packages[t]);
+            return await SelectAdapter(t).GetSensorSignalAsync(Packages[t]);
         }
 
         public async Task<bool> SetMissionInformAsync(T t)
         {
-            return await SelectAdapter(t).SetMissionInformAsync(packages[t]);
+            return await SelectAdapter(t).SetMissionInformAsync(Packages[t]);
         }
 
         public async Task<bool> SetOnPositionAsync(T t)
         {
-            return await SelectAdapter(t).SetOnPositionAsync(packages[t]);
+            return await SelectAdapter(t).SetOnPositionAsync(Packages[t]);
         }
     }
 }

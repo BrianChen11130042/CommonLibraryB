@@ -17,7 +17,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> GetProjectStatusAsync(T t);
 
-        public Task<bool> GetProjectErroCodeAsync(T t);
+        public Task<bool> GetProjectErrorCodeAsync(T t);
 
         #endregion
 

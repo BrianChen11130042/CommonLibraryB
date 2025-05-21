@@ -42,7 +42,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetProjectErroCodeAsync(RobotPackage t)
+        public Task<bool> GetProjectErrorCodeAsync(RobotPackage t)
         {
             throw new NotImplementedException();
         }
