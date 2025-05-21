@@ -17,6 +17,6 @@ namespace CommonLibraryB.Library.Robot.Config
 
         public ERobotSupplier supplier { get; set; } = ERobotSupplier.TMRobot_MpFoup4;
 
-        public int id { get; set; }
+        public ushort id { get; set; }
     }
 }
