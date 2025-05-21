@@ -106,5 +106,10 @@ namespace CommonLibraryB.Library.Robot
         {
             return await SelectAdapter(t).SetOnPositionAsync(Packages[t]);
         }
+
+        public void GetPortSerialNoList(T t)
+        {
+            SelectAdapter(t).GetPortSerialNoList(Packages[t]);
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         /// <summary>
         /// MP Foup有4個儲位序號
         /// </summary>
-        Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
+        Dictionary<EMpFoupPort, ushort> dcPortSerialNo = new Dictionary<EMpFoupPort, ushort>()
         {
             { EMpFoupPort.Port1, 11111 },
             { EMpFoupPort.Port2, 22222 },
@@ -350,7 +350,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port1]];
+            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port1]];
             t.station = 1;
             t.startAddress = 6000;
             t.offset = 1;
@@ -358,7 +358,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort1(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port1];
+            t.cmd = dcPortSerialNo[EMpFoupPort.Port1];
             t.station = 1;
             t.startAddress = 6001;
             t.offset = 1;
@@ -368,7 +368,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port1]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port1]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -379,7 +379,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port2]];
+            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port2]];
             t.station = 1;
             t.startAddress = 6012;
             t.offset = 1;
@@ -387,7 +387,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort2(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port2];
+            t.cmd = dcPortSerialNo[EMpFoupPort.Port2];
             t.station = 1;
             t.startAddress = 6013;
             t.offset = 1;
@@ -397,7 +397,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port2]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port2]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -408,7 +408,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port3]];
+            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port3]];
             t.station = 1;
             t.startAddress = 6024;
             t.offset = 1;
@@ -416,7 +416,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort3(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port3];
+            t.cmd = dcPortSerialNo[EMpFoupPort.Port3];
             t.station = 1;
             t.startAddress = 6025;
             t.offset = 1;
@@ -426,7 +426,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port3]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port3]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -437,7 +437,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port4]];
+            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port4]];
             t.station = 1;
             t.startAddress = 6036;
             t.offset = 1;
@@ -445,7 +445,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort4(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port4];
+            t.cmd = dcPortSerialNo[EMpFoupPort.Port4];
             t.station = 1;
             t.startAddress = 6037;
             t.offset = 1;
@@ -455,7 +455,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortId[EMpFoupPort.Port4]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port4]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -815,6 +815,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
+        public void GetPortSerialNoList(AmrPackage t)
+        {
+            t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
+        }
     }
 
     public partial class AdapterHikRobotMpFoup

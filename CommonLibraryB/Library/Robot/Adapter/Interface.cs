@@ -35,6 +35,8 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> GetSensorSignalAsync(T t);
 
+        public void GetPortSerialNoList(T t);
+
         #endregion
 
     }

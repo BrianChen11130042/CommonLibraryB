@@ -114,5 +114,9 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).SetWarehouseInformAsync(Packages[t]);
         }
 
+        public void GetPortSerialNoList(T t)
+        {
+            SelectAdapter(t).GetPortSerialNoList(Packages[t]);
+        }
     }
 }

@@ -32,5 +32,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         Task<bool> SetRobotRunMsgAsync(T t);
 
+        //提取全部的庫位序號
+        public void GetPortSerialNoList(T t);
+
     }
 }

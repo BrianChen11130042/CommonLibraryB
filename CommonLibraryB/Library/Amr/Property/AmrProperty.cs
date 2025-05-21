@@ -40,6 +40,8 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public ushort missionCanceled { get; set; }
 
+        public List<ushort> listPortSerialNumber { get; set; }
+
         public MissionInform missionInform { get; set; } = new MissionInform();
     }
 

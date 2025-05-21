@@ -21,7 +21,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
         /// <summary>
         /// MP Foup有4個儲位序號
         /// </summary>
-        Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
+        Dictionary<EMpFoupPort, ushort> dcPortSerialNo = new Dictionary<EMpFoupPort, ushort>()
         {
             { EMpFoupPort.Port1, 11111 },
             { EMpFoupPort.Port2, 22222 },
@@ -41,6 +41,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
         {
             throw new NotImplementedException();
         }
+
 
         public Task<bool> GetProjectErrorCodeAsync(RobotPackage t)
         {
@@ -70,6 +71,11 @@ namespace CommonLibraryB.Library.Robot.Adapter
         public Task<bool> SetOnPositionAsync(RobotPackage t)
         {
             throw new NotImplementedException();
+        }
+
+        public void GetPortSerialNoList(RobotPackage t)
+        {
+            t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
         }
     }
 }

@@ -41,6 +41,7 @@ namespace CommonLibraryB.Library.Robot.Property
         /// </summary>
         public Dictionary<ushort, ushort> dcOccupy { get; set; } = new Dictionary<ushort, ushort>();
 
+        public List<ushort> listPortSerialNumber { get; set; }
 
         public ushort projectStatus { get; set; }
 

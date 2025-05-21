@@ -69,5 +69,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             throw new NotImplementedException();
         }
+
+        public void GetPortSerialNoList(AmrPackage t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
