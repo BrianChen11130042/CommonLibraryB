@@ -16,7 +16,7 @@ namespace CommonLibraryB.Library.Amr.Config
 
         public EAmrSupplier supplier { get; set; } = EAmrSupplier.HikRobot_MpFoup4;
 
-        public ushort id { get; set; }
+        public ushort stationId { get; set; }
 
     }
 }
