@@ -240,6 +240,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         enum ESetOperate
         {
             MissionCompleted,
+            ResetMissionStart,
 
             Port1_Occupy,
             Port1_Id,
@@ -269,6 +270,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
             {
                 case ESetOperate.MissionCompleted:
                     cmdMissionCompleted(t);
+                    break;
+
+                case ESetOperate.ResetMissionStart:
+                    cmdResetMissionStart(t);
                     break;
 
                 case ESetOperate.Port1_Occupy:
@@ -345,6 +350,14 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.cmd = t.property.set.missionCompleted;
             t.station = 1;
             t.startAddress = 4002;
+            t.offset = 1;
+        }
+
+        void cmdResetMissionStart(AmrPackage t)
+        {
+            t.cmd = t.property.set.resetMissionStart;
+            t.station = 1;
+            t.startAddress = 4001;
             t.offset = 1;
         }
 
@@ -528,6 +541,28 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
+        public async Task<bool> SetMisssionStartedResetAsync(AmrPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.ResetMissionStart, t);
+                await setSingleRegisterAsync(t, "mission start reset");
+
+                t.informLog = "reset mission start success";
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
         public async Task<bool> SetMissionCompletedResultAsync(AmrPackage t)
         {
             try
@@ -622,6 +657,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 getCmd(EGetOperate.DropOffLocationPort, t);
                 await getSingleRegisterAsync(t);
                 unpack(EGetOperate.DropOffLocationPort, t);
+
+                t.property.get.missionInform.isNeedScanRfid = false;
 
                 t.informLog = "get mission inform success";
                 return true;
@@ -842,7 +879,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         async Task getSingleRegisterAsync(AmrPackage t)
         {
-            t.rcmd = (await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
+            t.rcmd = (await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
         }
 
         async Task setMultiRegisterAsync(AmrPackage t, string register)
@@ -874,7 +911,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         async Task getMultiRegisterAsync(AmrPackage t)
         {
-            t.arrayRcmd = await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
+            t.arrayRcmd = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
         }
     }
 }

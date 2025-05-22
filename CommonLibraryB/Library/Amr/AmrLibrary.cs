@@ -114,9 +114,15 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).SetWarehouseInformAsync(Packages[t]);
         }
 
+        public async Task<bool> SetMisssionStartedResetAsync(T t)
+        {
+            return await SelectAdapter(t).SetMisssionStartedResetAsync(Packages[t]);
+        }
+
         public void GetPortSerialNoList(T t)
         {
             SelectAdapter(t).GetPortSerialNoList(Packages[t]);
         }
+
     }
 }

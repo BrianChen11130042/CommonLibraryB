@@ -74,5 +74,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> SetMisssionStartedResetAsync(AmrPackage t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

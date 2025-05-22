@@ -11,6 +11,9 @@ namespace CommonLibraryB.Library.Amr.Adapter
         //任務開始
         Task<bool> GetIsMissionStartedAsync(T t);
 
+        //重置任務開始
+        Task<bool> SetMisssionStartedResetAsync(T t);
+
         //任務取消
         Task<bool> GetIsMissionCanceledAsync(T t);
         

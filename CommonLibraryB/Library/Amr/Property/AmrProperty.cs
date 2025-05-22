@@ -32,6 +32,8 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public ushort missionCompleted { get; set; }
 
+        public ushort resetMissionStart { get; set; }
+
     }
 
     public class GetProperty
@@ -58,6 +60,8 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
+        public bool isNeedScanRfid { get; set; }
+
         public string rfid { get; set; }
 
         public ushort motionType { get; set; }
