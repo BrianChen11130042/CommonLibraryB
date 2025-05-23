@@ -60,18 +60,18 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
-        public bool isNeedScanRfid { get; set; }
+        public bool needScanRFID { get; set; }
 
-        public string rfid { get; set; }
+        public string RFID { get; set; }
 
         public ushort motionType { get; set; }
 
-        public ushort pickUpLocation { get; set; }
+        public ushort pickLoc { get; set; }
 
-        public ushort pickUpLocationPort { get; set; }
+        public ushort pickPort { get; set; }
 
-        public ushort dropOffLocation { get; set; }
+        public ushort dropLoc { get; set; }
 
-        public ushort dropOffLocationPort { get; set; }
+        public ushort dropPort { get; set; }
     }
 }
