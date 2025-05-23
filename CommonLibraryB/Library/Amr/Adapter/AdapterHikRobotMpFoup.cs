@@ -206,32 +206,32 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.UshortArrayToString(t.arrayRcmd, EEndian.BigEndian, out result);
 
-            t.property.get.missionInform.RFID = result;
+            t.property.get.missionInfo.RFID = result;
         }
 
         void upMotionType(AmrPackage t)
         {
-            t.property.get.missionInform.motionType = t.rcmd;
+            t.property.get.missionInfo.motionType = t.rcmd;
         }
 
         void upPickUpLocation(AmrPackage t)
         {
-            t.property.get.missionInform.pickLoc = t.rcmd;
+            t.property.get.missionInfo.pickLocId = t.rcmd;
         }
 
         void upPickUpLocationPort(AmrPackage t)
         {
-            t.property.get.missionInform.pickPort = t.rcmd;
+            t.property.get.missionInfo.pickPortId = t.rcmd;
         }
 
         void upDropOffLocation(AmrPackage t)
         {
-            t.property.get.missionInform.dropLoc = t.rcmd;
+            t.property.get.missionInfo.dropLocId = t.rcmd;
         }
 
         void upDropOffLocationPort(AmrPackage t)
         {
-            t.property.get.missionInform.dropPort = t.rcmd;
+            t.property.get.missionInfo.dropPortId = t.rcmd;
         }
     }
 
@@ -658,7 +658,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 await getSingleRegisterAsync(t);
                 unpack(EGetOperate.DropOffLocationPort, t);
 
-                t.property.get.missionInform.needScanRFID = false;
+                t.property.get.missionInfo.scanRFID = false;
 
                 t.informLog = "get mission inform success";
                 return true;

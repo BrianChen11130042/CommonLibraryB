@@ -20,18 +20,18 @@ namespace CommonLibraryB.Library.Robot.Property
     {
         public ushort onPosition { get; set; }
 
-        public Mission missionInform { get; set; } = new Mission();
+        public MissionInfo mission { get; set; } = new MissionInfo();
     }
 
-    public class Mission
+    public class MissionInfo
     {
-        public ushort pickUpLocation { get; set; }
+        public ushort pickLocId { get; set; }
 
-        public ushort pickUpLocationPort { get; set; }
+        public ushort pickPortId { get; set; }
 
-        public ushort dropOffLocation { get; set; }
+        public ushort dropLocId { get; set; }
 
-        public ushort dropOffLocationPort { get; set; }
+        public ushort dropPortId { get; set; }
     }
 
     public class Get

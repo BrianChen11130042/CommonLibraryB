@@ -44,7 +44,7 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public List<ushort> listPortSerialNumber { get; set; }
 
-        public MissionInform missionInform { get; set; } = new MissionInform();
+        public MissionInform missionInfo { get; set; } = new MissionInform();
     }
 
     public class RobotStatus
@@ -60,18 +60,18 @@ namespace CommonLibraryB.Library.Amr.Property
 
     public class MissionInform
     {
-        public bool needScanRFID { get; set; }
+        public bool scanRFID { get; set; }
 
         public string RFID { get; set; }
 
         public ushort motionType { get; set; }
 
-        public ushort pickLoc { get; set; }
+        public ushort pickLocId { get; set; }
 
-        public ushort pickPort { get; set; }
+        public ushort pickPortId { get; set; }
 
-        public ushort dropLoc { get; set; }
+        public ushort dropLocId { get; set; }
 
-        public ushort dropPort { get; set; }
+        public ushort dropPortId { get; set; }
     }
 }
