@@ -16,7 +16,5 @@ namespace CommonLibraryB.Library.Robot.Config
         public EModbusTcpMaster master { get; set; } = EModbusTcpMaster.TcpMaster1;
 
         public ERobotSupplier supplier { get; set; } = ERobotSupplier.TMRobot_MpFoup4;
-
-        public ushort stationId { get; set; }
     }
 }
