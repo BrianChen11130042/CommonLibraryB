@@ -37,7 +37,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         #endregion
 
-        public Task<bool> GetArriveRFIDScanPosAsync(T t);
+        public Task<bool> GetInRFIDScanPosAsync(T t);
 
         public Task<bool> SetRFIDScanMotionAsync(T t);
 

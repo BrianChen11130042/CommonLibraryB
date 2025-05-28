@@ -87,9 +87,9 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).GetProjectStatusAsync(Packages[t]);
         }
 
-        public async Task<bool> GetArriveRFIDScanPosAsync(T t)
+        public async Task<bool> GetInRFIDScanPosAsync(T t)
         {
-            return await SelectAdapter(t).GetArriveRFIDScanPosAsync(Packages[t]);
+            return await SelectAdapter(t).GetInRFIDScanPosAsync(Packages[t]);
         }
 
         public async Task<bool> GetSensorSignalAsync(T t)

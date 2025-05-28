@@ -20,7 +20,7 @@ namespace CommonLibraryB.Library.Robot.Property
     {
         public ushort onPosition { get; set; }
 
-        public ushort scanRFIDMotion { get; set; }
+        public ushort RFIDMotionType { get; set; }
 
         public MissionInfo mission { get; set; } = new MissionInfo();
     }
@@ -53,6 +53,6 @@ namespace CommonLibraryB.Library.Robot.Property
 
         public int errorCode { get; set; }
 
-        public ushort isArriveRFIDScanPos { get; set; }
+        public ushort isRFIDScanPos { get; set; }
     }
 }

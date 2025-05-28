@@ -53,7 +53,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetArriveRFIDScanPosAsync(RobotPackage t)
+        public Task<bool> GetInRFIDScanPosAsync(RobotPackage t)
         {
             throw new NotImplementedException();
         }
