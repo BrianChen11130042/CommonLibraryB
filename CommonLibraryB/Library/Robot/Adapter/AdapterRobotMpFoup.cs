@@ -53,7 +53,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetRFIDAsync(RobotPackage t)
+        public Task<bool> GetArriveRFIDScanPosAsync(RobotPackage t)
         {
             throw new NotImplementedException();
         }
@@ -76,6 +76,11 @@ namespace CommonLibraryB.Library.Robot.Adapter
         public void GetPortSerialNoList(RobotPackage t)
         {
             t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
+        }
+
+        public Task<bool> SetRFIDScanMotionAsync(RobotPackage t)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -87,9 +87,9 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).GetProjectStatusAsync(Packages[t]);
         }
 
-        public async Task<bool> GetRFIDAsync(T t)
+        public async Task<bool> GetArriveRFIDScanPosAsync(T t)
         {
-            return await SelectAdapter(t).GetRFIDAsync(Packages[t]);
+            return await SelectAdapter(t).GetArriveRFIDScanPosAsync(Packages[t]);
         }
 
         public async Task<bool> GetSensorSignalAsync(T t)
@@ -105,6 +105,11 @@ namespace CommonLibraryB.Library.Robot
         public async Task<bool> SetOnPositionAsync(T t)
         {
             return await SelectAdapter(t).SetOnPositionAsync(Packages[t]);
+        }
+
+        public async Task<bool> SetRFIDScanMotionAsync(T t)
+        {
+            return await SelectAdapter(t).SetRFIDScanMotionAsync(Packages[t]);
         }
 
         public void GetPortSerialNoList(T t)

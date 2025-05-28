@@ -29,8 +29,6 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         #endregion
 
-        public Task<bool> GetRFIDAsync(T t);
-
         #region 儲位sensor
 
         public Task<bool> GetSensorSignalAsync(T t);
@@ -38,6 +36,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
         public void GetPortSerialNoList(T t);
 
         #endregion
+
+        public Task<bool> GetArriveRFIDScanPosAsync(T t);
+
+        public Task<bool> SetRFIDScanMotionAsync(T t);
 
     }
 }
