@@ -13,7 +13,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 {
     public partial class AdapterHikRobotMpFoup
     {
-        const int delay = 10;
+        const int delay = 1;
 
         enum EMpFoupPort
         {
@@ -26,7 +26,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         /// <summary>
         /// MP Foup有4個儲位序號
         /// </summary>
-        Dictionary<EMpFoupPort, ushort> dcPortSerialNo = new Dictionary<EMpFoupPort, ushort>()
+        Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
         {
             { EMpFoupPort.Port1, 11111 },
             { EMpFoupPort.Port2, 22222 },
@@ -40,13 +40,13 @@ namespace CommonLibraryB.Library.Amr.Adapter
         enum EGetOperate
         {
             MissionStarted,
-            MissionCanceled,
+            TaskId,
             RFID,
             MotionType,
-            PickUpLocation,
-            PickUpLocationPort,
-            DropOffLocation,
-            DropOffLocationPort,
+            PickLocId,
+            PickPortId,
+            DropLocId,
+            DropPortId,
         }
 
         void getCmd(EGetOperate operate, AmrPackage t)
@@ -57,8 +57,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     cmdMissionStarted(t);
                     break;
 
-                case EGetOperate.MissionCanceled:
-                    cmdMissionCanceled(t);
+                case EGetOperate.TaskId:
+                    cmdTaskId(t);
                     break;
 
                 case EGetOperate.RFID:
@@ -69,20 +69,20 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     cmdMotionType(t);
                     break;
 
-                case EGetOperate.PickUpLocation:
-                    cmdPickUpLocation(t);
+                case EGetOperate.PickLocId:
+                    cmdPickLocId(t);
                     break;
 
-                case EGetOperate.PickUpLocationPort:
-                    cmdPickUpLocationPort(t);
+                case EGetOperate.PickPortId:
+                    cmdPickPortId(t);
                     break;
 
-                case EGetOperate.DropOffLocation:
-                    cmdDropOffLocation(t);
+                case EGetOperate.DropLocId:
+                    cmdDropLocId(t);
                     break;
 
-                case EGetOperate.DropOffLocationPort:
-                    cmdDropOffLocationPort(t);
+                case EGetOperate.DropPortId:
+                    cmdDropPortId(t);
                     break;
 
                 default:
@@ -97,52 +97,52 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.offset = 1;
         }
 
-        void cmdMissionCanceled(AmrPackage t)
+        void cmdTaskId(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4003;
+            t.startAddress = 0x4100;
             t.offset = 1;
         }
 
         void cmdRFID(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4100;
+            t.startAddress = 0x4101;
             t.offset = 10;
         }
 
         void cmdMotionType(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4110;
+            t.startAddress = 0x4111;
             t.offset = 1;
         }
 
-        void cmdPickUpLocation(AmrPackage t)
+        void cmdPickLocId(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4111;
+            t.startAddress = 0x4112;
             t.offset = 1;
         }
 
-        void cmdPickUpLocationPort(AmrPackage t)
+        void cmdPickPortId(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4112;
+            t.startAddress = 0x4113;
             t.offset = 1;
         }
 
-        void cmdDropOffLocation(AmrPackage t)
+        void cmdDropLocId(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4113;
+            t.startAddress = 0x4114;
             t.offset = 1;
         }
 
-        void cmdDropOffLocationPort(AmrPackage t)
+        void cmdDropPortId(AmrPackage t)
         {
             t.station = 1;
-            t.startAddress = 4114;
+            t.startAddress = 0x4115;
             t.offset = 1;
         }
     }
@@ -157,8 +157,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     upMissionStarted(t);
                     break;
 
-                case EGetOperate.MissionCanceled:
-                    upMisssionCanceled(t);
+                case EGetOperate.TaskId:
+                    upTaskId(t);
                     break;
 
                 case EGetOperate.RFID:
@@ -169,20 +169,20 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     upMotionType(t);
                     break;
 
-                case EGetOperate.PickUpLocation:
-                    upPickUpLocation(t);
+                case EGetOperate.PickLocId:
+                    upPickLocId(t);
                     break;
 
-                case EGetOperate.PickUpLocationPort:
-                    upPickUpLocationPort(t);
+                case EGetOperate.PickPortId:
+                    upPickPortId(t);
                     break;
 
-                case EGetOperate.DropOffLocation:
-                    upDropOffLocation(t);
+                case EGetOperate.DropLocId:
+                    upDropLocId(t);
                     break;
 
-                case EGetOperate.DropOffLocationPort:
-                    upDropOffLocationPort(t);
+                case EGetOperate.DropPortId:
+                    upDropPortId(t);
                     break;
 
                 default:
@@ -192,12 +192,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void upMissionStarted(AmrPackage t)
         {
-            t.property.get.missionStarted = t.rcmd;
+            t.property.get.missionStart = t.rcmd;
         }
 
-        void upMisssionCanceled(AmrPackage t)
+        void upTaskId(AmrPackage t)
         {
-            t.property.get.missionCanceled = t.rcmd;
+            t.property.get.missionData.taskId = t.rcmd;
         }
 
         void upRfid(AmrPackage t)
@@ -206,32 +206,32 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.UshortArrayToString(t.arrayRcmd, EEndian.BigEndian, out result);
 
-            t.property.get.missionInfo.RFID = result;
+            t.property.get.missionData.RFID = result;
         }
 
         void upMotionType(AmrPackage t)
         {
-            t.property.get.missionInfo.motionType = t.rcmd;
+            t.property.get.missionData.motionType = t.rcmd;
         }
 
-        void upPickUpLocation(AmrPackage t)
+        void upPickLocId(AmrPackage t)
         {
-            t.property.get.missionInfo.pickLocId = t.rcmd;
+            t.property.get.missionData.pickLocId = t.rcmd;
         }
 
-        void upPickUpLocationPort(AmrPackage t)
+        void upPickPortId(AmrPackage t)
         {
-            t.property.get.missionInfo.pickPortId = t.rcmd;
+            t.property.get.missionData.pickPortId = t.rcmd;
         }
 
-        void upDropOffLocation(AmrPackage t)
+        void upDropLocId(AmrPackage t)
         {
-            t.property.get.missionInfo.dropLocId = t.rcmd;
+            t.property.get.missionData.dropLocId = t.rcmd;
         }
 
-        void upDropOffLocationPort(AmrPackage t)
+        void upDropPortId(AmrPackage t)
         {
-            t.property.get.missionInfo.dropPortId = t.rcmd;
+            t.property.get.missionData.dropPortId = t.rcmd;
         }
     }
 
@@ -239,41 +239,42 @@ namespace CommonLibraryB.Library.Amr.Adapter
     {
         enum ESetOperate
         {
-            MissionCompleted,
-            ResetMissionStart,
+            MissionFinish,
+            MissionStart,
 
             Port1_Occupy,
             Port1_Id,
             Port1_Rfid,
+            Port1_TaskId,
 
             Port2_Occupy,
             Port2_Id,
             Port2_Rfid,
+            Port2_TaskId,
 
             Port3_Occupy,
             Port3_Id,
             Port3_Rfid,
+            Port3_TaskId,
 
             Port4_Occupy,
             Port4_Id,
             Port4_Rfid,
+            Port4_TaskId,
 
-            RobotError,
-            RobotIdle,
-            RobotComplete,
-            RobotRun
+            ErrorCode,
         }
 
         void getCmd(ESetOperate operate, AmrPackage t)
         {
             switch(operate)
             {
-                case ESetOperate.MissionCompleted:
-                    cmdMissionCompleted(t);
+                case ESetOperate.MissionFinish:
+                    cmdMissionFinish(t);
                     break;
 
-                case ESetOperate.ResetMissionStart:
-                    cmdResetMissionStart(t);
+                case ESetOperate.MissionStart:
+                    cmdMissionStart(t);
                     break;
 
                 case ESetOperate.Port1_Occupy:
@@ -288,6 +289,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     cmdRfidPort1(t);
                     break;
 
+                case ESetOperate.Port1_TaskId:
+                    cmdTaskIdPort1(t);
+                    break;
+
                 case ESetOperate.Port2_Occupy:
                     cmdOccupyPort2(t);
                     break;
@@ -298,6 +303,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case ESetOperate.Port2_Rfid:
                     cmdRfidPort2(t);
+                    break;
+
+                case ESetOperate.Port2_TaskId:
+                    cmdTaskIdPort2(t);
                     break;
 
                 case ESetOperate.Port3_Occupy:
@@ -312,6 +321,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     cmdRfidPort3(t);
                     break;
 
+                case ESetOperate.Port3_TaskId:
+                    cmdTaskIdPort3(t);
+                    break;
+
                 case ESetOperate.Port4_Occupy:
                     cmdOccupyPort4(t);
                     break;
@@ -324,20 +337,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     cmdRfidPort4(t);
                     break;
 
-                case ESetOperate.RobotError:
-                    cmdRobotError(t);
+                case ESetOperate.Port4_TaskId:
+                    cmdTaskIdPort4(t);
                     break;
 
-                case ESetOperate.RobotIdle:
-                    cmdRobotIdle(t);
-                    break;
-
-                case ESetOperate.RobotComplete:
-                    cmdRobotComplete(t);
-                    break;
-
-                case ESetOperate.RobotRun:
-                    cmdRobotRun(t);
+                case ESetOperate.ErrorCode:
+                    cmdErrorCode(t);
                     break;
 
                 default:
@@ -345,35 +350,35 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        void cmdMissionCompleted(AmrPackage t)
+        void cmdMissionFinish(AmrPackage t)
         {
-            t.cmd = t.property.set.missionCompleted;
+            t.cmd = t.property.set.missionFinish;
             t.station = 1;
-            t.startAddress = 4002;
+            t.startAddress = 0x4002;
             t.offset = 1;
         }
 
-        void cmdResetMissionStart(AmrPackage t)
+        void cmdMissionStart(AmrPackage t)
         {
-            t.cmd = t.property.set.resetMissionStart;
+            t.cmd = t.property.set.missionStart;
             t.station = 1;
-            t.startAddress = 4001;
+            t.startAddress = 0x4001;
             t.offset = 1;
         }
 
         void cmdOccupyPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port1]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port1]];
             t.station = 1;
-            t.startAddress = 6000;
+            t.startAddress = 0x6000;
             t.offset = 1;
         }
 
         void cmdIdPort1(AmrPackage t)
         {
-            t.cmd = dcPortSerialNo[EMpFoupPort.Port1];
+            t.cmd = dcPortId[EMpFoupPort.Port1];
             t.station = 1;
-            t.startAddress = 6001;
+            t.startAddress = 0x6001;
             t.offset = 1;
         }
 
@@ -381,28 +386,36 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port1]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port1]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
-            t.startAddress = 6002;
+            t.startAddress = 0x6002;
             t.offset = 10;
+        }
+
+        void cmdTaskIdPort1(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port1]];
+            t.station = 1;
+            t.startAddress = 0x6012;
+            t.offset = 1;
         }
 
         void cmdOccupyPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port2]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port2]];
             t.station = 1;
-            t.startAddress = 6012;
+            t.startAddress = 0x6013;
             t.offset = 1;
         }
 
         void cmdIdPort2(AmrPackage t)
         {
-            t.cmd = dcPortSerialNo[EMpFoupPort.Port2];
+            t.cmd = dcPortId[EMpFoupPort.Port2];
             t.station = 1;
-            t.startAddress = 6013;
+            t.startAddress = 0x6014;
             t.offset = 1;
         }
 
@@ -410,28 +423,36 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port2]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port2]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
-            t.startAddress = 6014;
+            t.startAddress = 0x6015;
             t.offset = 10;
+        }
+
+        void cmdTaskIdPort2(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port2]];
+            t.station = 1;
+            t.startAddress = 0x6025;
+            t.offset = 1;
         }
 
         void cmdOccupyPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port3]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port3]];
             t.station = 1;
-            t.startAddress = 6024;
+            t.startAddress = 0x6026;
             t.offset = 1;
         }
 
         void cmdIdPort3(AmrPackage t)
         {
-            t.cmd = dcPortSerialNo[EMpFoupPort.Port3];
+            t.cmd = dcPortId[EMpFoupPort.Port3];
             t.station = 1;
-            t.startAddress = 6025;
+            t.startAddress = 0x6027;
             t.offset = 1;
         }
 
@@ -439,28 +460,36 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port3]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port3]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
-            t.startAddress = 6026;
+            t.startAddress = 0x6028;
             t.offset = 10;
+        }
+
+        void cmdTaskIdPort3(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port3]];
+            t.station = 1;
+            t.startAddress = 0x6038;
+            t.offset = 1;
         }
 
         void cmdOccupyPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortSerialNo[EMpFoupPort.Port4]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port4]];
             t.station = 1;
-            t.startAddress = 6036;
+            t.startAddress = 0x6039;
             t.offset = 1;
         }
 
         void cmdIdPort4(AmrPackage t)
         {
-            t.cmd = dcPortSerialNo[EMpFoupPort.Port4];
+            t.cmd = dcPortId[EMpFoupPort.Port4];
             t.station = 1;
-            t.startAddress = 6037;
+            t.startAddress = 0x6040;
             t.offset = 1;
         }
 
@@ -468,51 +497,35 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRfid[dcPortSerialNo[EMpFoupPort.Port4]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port4]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
-            t.startAddress = 6038;
+            t.startAddress = 0x6041;
             t.offset = 10;
         }
 
-        void cmdRobotError(AmrPackage t)
+        void cmdTaskIdPort4(AmrPackage t)
+        {
+            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port4]];
+            t.station = 1;
+            t.startAddress = 0x6051;
+            t.offset = 1;
+        }
+
+        void cmdErrorCode(AmrPackage t)
         {
             ushort[] tmp;
 
-            IntUshortConverter.IntToUshortArray(t.property.set.robotStatus.errorCode,
+            IntUshortConverter.IntToUshortArray(t.property.set.status.errorCode,
                                                 EEndian.BigEndian,
                                                 out tmp);
 
             t.arrayCmd = tmp;
             t.station = 1;
-            t.startAddress = 6078;
+            t.startAddress = 0x607F;
             t.offset = 2;
-        }
-
-        void cmdRobotIdle(AmrPackage t)
-        {
-            t.cmd = t.property.set.robotStatus.idle;
-            t.station = 1;
-            t.startAddress = 6080;
-            t.offset = 1;
-        }
-
-        void cmdRobotComplete(AmrPackage t)
-        {
-            t.cmd = t.property.set.robotStatus.finish;
-            t.station = 1;
-            t.startAddress = 6081;
-            t.offset = 1;
-        }
-
-        void cmdRobotRun(AmrPackage t)
-        {
-            t.cmd = t.property.set.robotStatus.run;
-            t.station = 1;
-            t.startAddress = 6082;
-            t.offset = 1;
         }
     }
 
@@ -541,7 +554,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetMisssionStartedResetAsync(AmrPackage t)
+        public async Task<bool> SetMisssionStartAsync(AmrPackage t)
         {
             try
             {
@@ -550,10 +563,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
-                getCmd(ESetOperate.ResetMissionStart, t);
-                await setSingleRegisterAsync(t, "mission start reset");
+                getCmd(ESetOperate.MissionStart, t);
+                await setSingleRegisterAsync(t, "mission start");
 
-                t.informLog = "reset mission start success";
+                t.informLog = "set mission start success";
                 return true;
             }
             catch(Exception ex)
@@ -563,7 +576,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetMissionCompletedResultAsync(AmrPackage t)
+        public async Task<bool> SetMissionFinishResultAsync(AmrPackage t)
         {
             try
             {
@@ -572,37 +585,14 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
-                getCmd(ESetOperate.MissionCompleted, t);
-                await setSingleRegisterAsync(t, "mission complete");
+                getCmd(ESetOperate.MissionFinish, t);
+                await setSingleRegisterAsync(t, "mission finish");
 
-                t.informLog = "set mission complete success";
+                t.informLog = "set mission finish success";
                 return true;
 
             }
             catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
-        }
-
-        public async Task<bool> GetIsMissionCanceledAsync(AmrPackage t)
-        {
-            try
-            {
-                if (t.master == null)
-                {
-                    setModbusTcpError();
-                }
-
-                getCmd(EGetOperate.MissionCanceled, t);
-                await getSingleRegisterAsync(t);
-                unpack(EGetOperate.MissionCanceled, t);
-
-                t.informLog = "get is mission cancel success";
-                return true;
-            }
-            catch(Exception ex)
             {
                 t.errorLog = ex.Message;
                 return false;
@@ -617,6 +607,13 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 {
                     setModbusTcpError();
                 }
+
+                //任務編號
+                getCmd(EGetOperate.TaskId, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.TaskId, t);
+
+                await Task.Delay(delay);
 
                 //目標料件RFID條碼
                 getCmd(EGetOperate.RFID, t);
@@ -633,32 +630,32 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 await Task.Delay(delay);
 
                 //取料地點
-                getCmd(EGetOperate.PickUpLocation, t);
+                getCmd(EGetOperate.PickLocId, t);
                 await getSingleRegisterAsync(t);
-                unpack(EGetOperate.PickUpLocation, t);
+                unpack(EGetOperate.PickLocId, t);
 
                 await Task.Delay(delay);
 
                 //取料地點儲位
-                getCmd(EGetOperate.PickUpLocationPort, t);
+                getCmd(EGetOperate.PickPortId, t);
                 await getSingleRegisterAsync(t);
-                unpack(EGetOperate.PickUpLocationPort, t);
+                unpack(EGetOperate.PickPortId, t);
 
                 await Task.Delay(delay);
 
                 //放料地點
-                getCmd(EGetOperate.DropOffLocation, t);
+                getCmd(EGetOperate.DropLocId, t);
                 await getSingleRegisterAsync(t);
-                unpack(EGetOperate.DropOffLocation, t);
+                unpack(EGetOperate.DropLocId, t);
 
                 await Task.Delay(delay);
 
                 //放料地點儲位
-                getCmd(EGetOperate.DropOffLocationPort, t);
+                getCmd(EGetOperate.DropPortId, t);
                 await getSingleRegisterAsync(t);
-                unpack(EGetOperate.DropOffLocationPort, t);
+                unpack(EGetOperate.DropPortId, t);
 
-                t.property.get.missionInfo.scanRFID = false;
+                t.property.get.missionData.IsScanRFID = false;
 
                 t.informLog = "get mission inform success";
                 return true;
@@ -697,6 +694,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 await Task.Delay(delay);
 
+                //庫位1 任務編號
+                getCmd(ESetOperate.Port1_TaskId, t);
+                await setSingleRegisterAsync(t, "port1 task id");
+
+                await Task.Delay(delay);
+
                 //庫位2 有無料件
                 getCmd(ESetOperate.Port2_Occupy, t);
                 await setSingleRegisterAsync(t, "port2 occupy");
@@ -712,6 +715,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 //庫位2 RFID
                 getCmd(ESetOperate.Port2_Rfid, t);
                 await setMultiRegisterAsync(t, "port2 rfid");
+
+                await Task.Delay(delay);
+
+                //庫位2 任務編號
+                getCmd(ESetOperate.Port2_TaskId, t);
+                await setSingleRegisterAsync(t, "port2 task id");
 
                 await Task.Delay(delay);
 
@@ -733,6 +742,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 await Task.Delay(delay);
 
+                //庫位3 任務編號
+                getCmd(ESetOperate.Port3_TaskId, t);
+                await setSingleRegisterAsync(t, "port3 task id");
+
+                await Task.Delay(delay);
+
                 //庫位4 有無料件
                 getCmd(ESetOperate.Port4_Occupy, t);
                 await setSingleRegisterAsync(t, "port4 occupy");
@@ -749,6 +764,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 getCmd(ESetOperate.Port4_Rfid, t);
                 await setMultiRegisterAsync(t, "port4 rfid");
 
+                await Task.Delay(delay);
+
+                //庫位4 任務編號
+                getCmd(ESetOperate.Port4_TaskId, t);
+                await setSingleRegisterAsync(t, "port4 task id");
+
                 t.informLog = "set warehouse inform success";
                 return true;
                 
@@ -760,7 +781,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotErrorMsgAsync(AmrPackage t)
+        public async Task<bool> SetErrorCodeAsync(AmrPackage t)
         {
             try
             {
@@ -769,10 +790,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
-                getCmd(ESetOperate.RobotError, t);
-                await setMultiRegisterAsync(t, "robot error signal");
+                getCmd(ESetOperate.ErrorCode, t);
+                await setMultiRegisterAsync(t, "error code");
 
-                t.informLog = "set robot error signal success";
+                t.informLog = "set error code success";
                 return true;
 
             }
@@ -783,78 +804,9 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public async Task<bool> SetRobotFinishMsgAsync(AmrPackage t)
+        public void GetPortIdList(AmrPackage t)
         {
-            try
-            {
-                if (t.master == null)
-                {
-                    setModbusTcpError();
-                }
-
-                getCmd(ESetOperate.RobotComplete, t);
-                await setSingleRegisterAsync(t, "robot complete signal");
-
-                t.informLog = "set robot complete signal success";
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
-        }
-
-        public async Task<bool> SetRobotIdleMsgAsync(AmrPackage t)
-        {
-            try
-            {
-                if (t.master == null)
-                {
-                    setModbusTcpError();
-                }
-
-                getCmd(ESetOperate.RobotIdle, t);
-                await setSingleRegisterAsync(t, "robot idle signal");
-
-                t.informLog = "set robot idle signal success";
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
-        }
-
-        public async Task<bool> SetRobotRunMsgAsync(AmrPackage t)
-        {
-            try
-            {
-                if (t.master == null)
-                {
-                    setModbusTcpError();
-                }
-
-                getCmd(ESetOperate.RobotRun, t);
-                await setSingleRegisterAsync(t, "robot running signal");
-
-                t.informLog = "set robot running signal success";
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                t.errorLog = ex.Message;
-                return false;
-            }
-        }
-
-        public void GetPortSerialNoList(AmrPackage t)
-        {
-            t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
+            t.property.get.listPortId = dcPortId.Values.ToList();
         }
     }
 

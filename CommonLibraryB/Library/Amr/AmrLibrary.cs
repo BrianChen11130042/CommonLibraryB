@@ -74,39 +74,19 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).GetMissionInformAsync(Packages[t]);
         }
 
-        public async Task<bool> GetIsMissionCanceledAsync(T t)
-        {
-            return await SelectAdapter(t).GetIsMissionCanceledAsync(Packages[t]);
-        }
-
         public async Task<bool> GetIsMissionStartedAsync(T t)
         {
             return await SelectAdapter(t).GetIsMissionStartedAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotFinishMsgAsync(T t)
+        public async Task<bool> SetErrorCodeAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotFinishMsgAsync(Packages[t]);
+            return await SelectAdapter(t).SetErrorCodeAsync(Packages[t]);
         }
 
-        public async Task<bool> SetRobotErrorMsgAsync(T t)
+        public async Task<bool> SetMissionFinishResultAsync(T t)
         {
-            return await SelectAdapter(t).SetRobotErrorMsgAsync(Packages[t]);
-        }
-
-        public async Task<bool> SetRobotIdleMsgAsync(T t)
-        {
-            return await SelectAdapter(t).SetRobotIdleMsgAsync(Packages[t]);
-        }
-
-        public async Task<bool> SetMissionCompletedResultAsync(T t)
-        {
-            return await SelectAdapter(t).SetMissionCompletedResultAsync(Packages[t]);
-        }
-
-        public async Task<bool> SetRobotRunMsgAsync(T t)
-        {
-            return await SelectAdapter(t).SetRobotRunMsgAsync(Packages[t]);
+            return await SelectAdapter(t).SetMissionFinishResultAsync(Packages[t]);
         }
 
         public async Task<bool> SetWarehouseInformAsync(T t)
@@ -114,14 +94,14 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).SetWarehouseInformAsync(Packages[t]);
         }
 
-        public async Task<bool> SetMisssionStartedResetAsync(T t)
+        public async Task<bool> SetMisssionStartAsync(T t)
         {
-            return await SelectAdapter(t).SetMisssionStartedResetAsync(Packages[t]);
+            return await SelectAdapter(t).SetMisssionStartAsync(Packages[t]);
         }
 
-        public void GetPortSerialNoList(T t)
+        public void GetPortIdList(T t)
         {
-            SelectAdapter(t).GetPortSerialNoList(Packages[t]);
+            SelectAdapter(t).GetPortIdList(Packages[t]);
         }
 
     }

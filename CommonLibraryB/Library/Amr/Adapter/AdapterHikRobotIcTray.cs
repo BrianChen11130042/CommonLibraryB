@@ -30,52 +30,39 @@ namespace CommonLibraryB.Library.Amr.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetIsMissionCanceledAsync(AmrPackage t)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<bool> GetIsMissionStartedAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotFinishMsgAsync(AmrPackage t)
+        
+
+        public Task<bool> SetErrorCodeAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotErrorMsgAsync(AmrPackage t)
+        
+
+        public Task<bool> SetMissionFinishResultAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetRobotIdleMsgAsync(AmrPackage t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> SetMissionCompletedResultAsync(AmrPackage t)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> SetRobotRunMsgAsync(AmrPackage t)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public Task<bool> SetWarehouseInformAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public void GetPortSerialNoList(AmrPackage t)
+        public void GetPortIdList(AmrPackage t)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetMisssionStartedResetAsync(AmrPackage t)
+        public Task<bool> SetMisssionStartAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }

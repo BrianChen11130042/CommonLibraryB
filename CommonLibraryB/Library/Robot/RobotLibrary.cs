@@ -97,9 +97,9 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).GetSensorSignalAsync(Packages[t]);
         }
 
-        public async Task<bool> SetMissionInformAsync(T t)
+        public async Task<bool> SetMissionDataAsync(T t)
         {
-            return await SelectAdapter(t).SetMissionInformAsync(Packages[t]);
+            return await SelectAdapter(t).SetMissionDataAsync(Packages[t]);
         }
 
         public async Task<bool> SetOnPositionAsync(T t)
@@ -112,9 +112,9 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).SetRFIDScanMotionAsync(Packages[t]);
         }
 
-        public void GetPortSerialNoList(T t)
+        public void GetPortIdList(T t)
         {
-            SelectAdapter(t).GetPortSerialNoList(Packages[t]);
+            SelectAdapter(t).GetPortIdList(Packages[t]);
         }
     }
 }

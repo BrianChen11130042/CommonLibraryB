@@ -8,17 +8,14 @@ namespace CommonLibraryB.Library.Amr.Adapter
 {
     public interface IAmrOperate<T>
     {
-        //任務開始
+        //獲取任務開始訊號
         Task<bool> GetIsMissionStartedAsync(T t);
 
-        //重置任務開始
-        Task<bool> SetMisssionStartedResetAsync(T t);
-
-        //任務取消
-        Task<bool> GetIsMissionCanceledAsync(T t);
+        //設置任務開始
+        Task<bool> SetMisssionStartAsync(T t);
         
         //任務完成
-        Task<bool> SetMissionCompletedResultAsync(T t);
+        Task<bool> SetMissionFinishResultAsync(T t);
 
         //任務信息
         Task<bool> GetMissionInformAsync(T t);
@@ -26,17 +23,11 @@ namespace CommonLibraryB.Library.Amr.Adapter
         //狀態信息
         Task<bool> SetWarehouseInformAsync(T t);
 
-        //執行機構動作
-        Task<bool> SetRobotErrorMsgAsync(T t);
-
-        Task<bool> SetRobotIdleMsgAsync(T t);
-
-        Task<bool> SetRobotFinishMsgAsync(T t);
-
-        Task<bool> SetRobotRunMsgAsync(T t);
+        //錯誤訊息
+        Task<bool> SetErrorCodeAsync(T t);
 
         //提取全部的庫位序號
-        public void GetPortSerialNoList(T t);
+        public void GetPortIdList(T t);
 
     }
 }

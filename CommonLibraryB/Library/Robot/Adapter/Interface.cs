@@ -11,7 +11,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
     {
         public Task<bool> SetOnPositionAsync(T t);
 
-        public Task<bool> SetMissionInformAsync(T t);
+        public Task<bool> SetMissionDataAsync(T t);
 
         #region 手臂專案流程狀態
 
@@ -33,13 +33,17 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> GetSensorSignalAsync(T t);
 
-        public void GetPortSerialNoList(T t);
+        public void GetPortIdList(T t);
 
         #endregion
+
+        #region RFID 到站動作
 
         public Task<bool> GetInRFIDScanPosAsync(T t);
 
         public Task<bool> SetRFIDScanMotionAsync(T t);
+
+        #endregion
 
     }
 }

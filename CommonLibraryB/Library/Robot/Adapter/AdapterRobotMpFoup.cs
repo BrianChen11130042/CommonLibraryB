@@ -63,7 +63,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> SetMissionInformAsync(RobotPackage t)
+        public Task<bool> SetMissionDataAsync(RobotPackage t)
         {
             throw new NotImplementedException();
         }
@@ -73,7 +73,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public void GetPortSerialNoList(RobotPackage t)
+        public void GetPortIdList(RobotPackage t)
         {
             t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
         }

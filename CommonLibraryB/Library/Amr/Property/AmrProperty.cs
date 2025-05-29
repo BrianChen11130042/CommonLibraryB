@@ -26,46 +26,38 @@ namespace CommonLibraryB.Library.Amr.Property
         /// <summary>
         /// <庫位序號, RFID>
         /// </summary>
-        public Dictionary<ushort, string> dcRfid { get; set; } = new Dictionary<ushort, string>();
+        public Dictionary<ushort, string> dcRFID { get; set; } = new Dictionary<ushort, string>();
 
         /// <summary>
         /// <庫位序號, 任務編號>
         /// </summary>
         public Dictionary<ushort, ushort> dcTaskId { get; set; } = new Dictionary<ushort, ushort>();
 
-        public RobotStatus robotStatus { get; set; } = new RobotStatus();
+        public Status status { get; set; } = new Status();
 
-        public ushort missionCompleted { get; set; }
+        public ushort missionFinish { get; set; }
 
-        public ushort resetMissionStart { get; set; }
+        public ushort missionStart { get; set; }
 
     }
 
     public class GetProperty
     {
-        public ushort missionStarted { get; set; }
+        public ushort missionStart { get; set; }
 
-        public ushort missionCanceled { get; set; }
+        public List<ushort> listPortId { get; set; }
 
-        public List<ushort> listPortSerialNumber { get; set; }
-
-        public MissionInform missionInfo { get; set; } = new MissionInform();
+        public MissionInform missionData { get; set; } = new MissionInform();
     }
 
-    public class RobotStatus
+    public class Status
     {
         public int errorCode { get; set; }
-
-        public ushort idle { get; set; }
-
-        public ushort finish { get; set; }
-
-        public ushort run { get; set; }
     }
 
     public class MissionInform
     {
-        public bool scanRFID { get; set; }
+        public bool IsScanRFID { get; set; }
 
         public ushort taskId { get; set; }
 
