@@ -6,8 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommonLibraryB.Tools.TypeConverter;
-using Microsoft.Win32;
-using static System.Collections.Specialized.BitVector32;
+//using Microsoft.Win32;
+//using static System.Collections.Specialized.BitVector32;
 
 namespace CommonLibraryB.Library.Amr.Adapter
 {
@@ -15,23 +15,15 @@ namespace CommonLibraryB.Library.Amr.Adapter
     {
         const int delay = 1;
 
-        enum EMpFoupPort
-        {
-            Port1,
-            Port2,
-            Port3,
-            Port4
-        }
-
         /// <summary>
         /// MP Foup有4個儲位序號
         /// </summary>
-        Dictionary<EMpFoupPort, ushort> dcPortId = new Dictionary<EMpFoupPort, ushort>()
+        Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
-            { EMpFoupPort.Port1, 11111 },
-            { EMpFoupPort.Port2, 22222 },
-            { EMpFoupPort.Port3, 33333 },
-            { EMpFoupPort.Port4, 44444 }
+            { 1, 11111 },
+            { 2, 22222 },
+            { 3, 33333 },
+            { 4, 44444 }
         };
     }
 
@@ -368,7 +360,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port1]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[1]];
             t.station = 1;
             t.startAddress = 0x6000;
             t.offset = 1;
@@ -376,7 +368,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort1(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port1];
+            t.cmd = dcPortId[1];
             t.station = 1;
             t.startAddress = 0x6001;
             t.offset = 1;
@@ -386,7 +378,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port1]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[1]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -397,7 +389,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdTaskIdPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port1]];
+            t.cmd = t.property.set.dcTaskId[dcPortId[1]];
             t.station = 1;
             t.startAddress = 0x6012;
             t.offset = 1;
@@ -405,7 +397,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port2]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[2]];
             t.station = 1;
             t.startAddress = 0x6013;
             t.offset = 1;
@@ -413,7 +405,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort2(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port2];
+            t.cmd = dcPortId[2];
             t.station = 1;
             t.startAddress = 0x6014;
             t.offset = 1;
@@ -423,7 +415,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port2]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[2]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -434,7 +426,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdTaskIdPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port2]];
+            t.cmd = t.property.set.dcTaskId[dcPortId[2]];
             t.station = 1;
             t.startAddress = 0x6025;
             t.offset = 1;
@@ -442,7 +434,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port3]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[3]];
             t.station = 1;
             t.startAddress = 0x6026;
             t.offset = 1;
@@ -450,7 +442,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort3(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port3];
+            t.cmd = dcPortId[3];
             t.station = 1;
             t.startAddress = 0x6027;
             t.offset = 1;
@@ -460,7 +452,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port3]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[3]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -471,7 +463,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdTaskIdPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port3]];
+            t.cmd = t.property.set.dcTaskId[dcPortId[3]];
             t.station = 1;
             t.startAddress = 0x6038;
             t.offset = 1;
@@ -479,7 +471,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[EMpFoupPort.Port4]];
+            t.cmd = t.property.set.dcOccupy[dcPortId[4]];
             t.station = 1;
             t.startAddress = 0x6039;
             t.offset = 1;
@@ -487,7 +479,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdIdPort4(AmrPackage t)
         {
-            t.cmd = dcPortId[EMpFoupPort.Port4];
+            t.cmd = dcPortId[4];
             t.station = 1;
             t.startAddress = 0x6040;
             t.offset = 1;
@@ -497,7 +489,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             ushort[] tmp;
 
-            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[EMpFoupPort.Port4]],
+            StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[4]],
                                                       EEndian.BigEndian,
                                                       out tmp);
             t.arrayCmd = tmp;
@@ -508,7 +500,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdTaskIdPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[EMpFoupPort.Port4]];
+            t.cmd = t.property.set.dcTaskId[dcPortId[4]];
             t.station = 1;
             t.startAddress = 0x6051;
             t.offset = 1;
@@ -806,7 +798,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         public void GetPortIdList(AmrPackage t)
         {
-            t.property.get.listPortId = dcPortId.Values.ToList();
+            t.property.get.dcPortId = this.dcPortId;
         }
     }
 

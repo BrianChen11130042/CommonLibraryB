@@ -10,23 +10,15 @@ namespace CommonLibraryB.Library.Robot.Adapter
     {
         const int delay = 10;
 
-        enum EMpFoupPort
-        {
-            Port1,
-            Port2,
-            Port3,
-            Port4
-        }
-
         /// <summary>
         /// MP Foup有4個儲位序號
         /// </summary>
-        Dictionary<EMpFoupPort, ushort> dcPortSerialNo = new Dictionary<EMpFoupPort, ushort>()
+        Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
-            { EMpFoupPort.Port1, 11111 },
-            { EMpFoupPort.Port2, 22222 },
-            { EMpFoupPort.Port3, 33333 },
-            { EMpFoupPort.Port4, 44444 }
+            { 1, 11111 },
+            { 2, 22222 },
+            { 3, 33333 },
+            { 4, 44444 }
         };
     }
 
@@ -75,7 +67,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public void GetPortIdList(RobotPackage t)
         {
-            t.property.get.listPortSerialNumber = dcPortSerialNo.Values.ToList();
+            t.property.get.dcPortId = this.dcPortId;
         }
 
         public Task<bool> SetRFIDScanMotionAsync(RobotPackage t)

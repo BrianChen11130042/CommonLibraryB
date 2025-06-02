@@ -43,7 +43,10 @@ namespace CommonLibraryB.Library.Robot.Property
         /// </summary>
         public Dictionary<ushort, ushort> dcOccupy { get; set; } = new Dictionary<ushort, ushort>();
 
-        public List<ushort> listPortSerialNumber { get; set; }
+        /// <summary>
+        /// <第幾個庫位(1或2或3....), 庫位序號>
+        /// </summary>
+        public Dictionary<int, ushort> dcPortId { get; set; }
 
         public ushort projectStatus { get; set; }
 
