@@ -8,10 +8,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
 {
     public enum EModbusTcpMaster
     {
-        TcpMaster1,
-        TcpMaster2,
-        TcpMaster3,
-        TcpMaster4,
-        TcpMaster5,
+        Master1,
+        Master2,
     }
 }

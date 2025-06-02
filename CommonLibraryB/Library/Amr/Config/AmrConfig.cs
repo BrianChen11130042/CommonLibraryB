@@ -12,7 +12,7 @@ namespace CommonLibraryB.Library.Amr.Config
     {
         public string device { get; set; }
 
-        public EModbusTcpMaster master { get; set; } = EModbusTcpMaster.TcpMaster1;
+        public EModbusTcpMaster master { get; set; } = EModbusTcpMaster.Master1;
 
         public EAmrSupplier supplier { get; set; } = EAmrSupplier.HikRobot_MpFoup4;
     }
