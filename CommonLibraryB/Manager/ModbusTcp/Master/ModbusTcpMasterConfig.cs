@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -46,14 +47,16 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
 
             try
             {
-                if (tcpClient.Connected)
+                if(tcpClient.Connected)
                 {
                     tcpClient.Close();
                 }
 
-                tcpClient = new TcpClient();
+                tcpClient.Close();
 
-                await tcpClient.ConnectAsync(Ip, Port);
+                tcpClient = new TcpClient();
+                
+                tcpClient.Connect(Ip, Port);
 
                 modbusTcpMaster = modbusFactory.CreateMaster(tcpClient);
 

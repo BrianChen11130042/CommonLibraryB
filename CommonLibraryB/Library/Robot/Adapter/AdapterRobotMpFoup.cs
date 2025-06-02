@@ -29,9 +29,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public Task<bool> GetIsErrorAsync(RobotPackage t)
+        public async Task<bool> GetIsErrorAsync(RobotPackage t)
         {
-            throw new NotImplementedException();
+            return true;
+            //throw new NotImplementedException();
         }
 
 

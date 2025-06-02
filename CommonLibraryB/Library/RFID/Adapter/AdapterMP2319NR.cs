@@ -8,9 +8,10 @@ namespace CommonLibraryB.Library.RFID.Adapter
 {
     public class AdapterMP2319NR : IRFIDOperate<RFIDPackage>
     {
-        public Task<bool> GetRFIDAsync(RFIDPackage t)
+        public async Task<bool> GetRFIDAsync(RFIDPackage t)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            return true;
         }
     }
 }
