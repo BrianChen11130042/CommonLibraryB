@@ -27,7 +27,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         Task<bool> SetErrorCodeAsync(T t);
 
         //提取全部的庫位序號
-        public void GetDcPortId(T t);
+        public void GetDeployData(T t);
 
     }
 }

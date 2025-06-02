@@ -796,8 +796,9 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public void GetDcPortId(AmrPackage t)
+        public void GetDeployData(AmrPackage t)
         {
+            t.property.get.locId = 123;
             t.property.get.dcPortId = this.dcPortId;
         }
     }

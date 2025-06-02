@@ -45,6 +45,8 @@ namespace CommonLibraryB.Library.Amr.Property
     {
         public ushort missionStart { get; set; }
 
+        public ushort locId { get; set; }
+
         public Dictionary<int, ushort> dcPortId { get; set; }
 
         public MissionInform missionData { get; set; } = new MissionInform();

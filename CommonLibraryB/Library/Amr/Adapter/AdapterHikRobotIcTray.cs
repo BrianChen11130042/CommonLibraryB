@@ -57,7 +57,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             throw new NotImplementedException();
         }
 
-        public void GetDcPortId(AmrPackage t)
+        public void GetDeployData(AmrPackage t)
         {
             throw new NotImplementedException();
         }
