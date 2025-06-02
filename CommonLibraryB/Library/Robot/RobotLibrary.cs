@@ -112,9 +112,9 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).SetRFIDScanMotionAsync(Packages[t]);
         }
 
-        public void GetPortIdList(T t)
+        public void GetDcPortId(T t)
         {
-            SelectAdapter(t).GetPortIdList(Packages[t]);
+            SelectAdapter(t).GetDcPortId(Packages[t]);
         }
     }
 }

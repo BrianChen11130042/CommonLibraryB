@@ -27,7 +27,7 @@ namespace CommonLibraryB.Base.FiniteStateMachine
     {
         public EHandshakeKey key { get; protected set; } = EHandshakeKey.None;
         public bool isError { get; protected set; }
-        public int inverval { get; set; } = 100;
+        public int interval { get; set; } = 100;
 
 
         public async Task Run()
@@ -58,7 +58,7 @@ namespace CommonLibraryB.Base.FiniteStateMachine
                     break;
             }
 
-            await Task.Delay(inverval);
+            await Task.Delay(interval);
         }
 
         public abstract Task Init();

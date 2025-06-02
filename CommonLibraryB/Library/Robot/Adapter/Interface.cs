@@ -33,7 +33,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> GetSensorSignalAsync(T t);
 
-        public void GetPortIdList(T t);
+        public void GetDcPortId(T t);
 
         #endregion
 

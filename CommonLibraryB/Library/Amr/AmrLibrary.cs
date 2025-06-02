@@ -99,9 +99,9 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).SetMisssionStartAsync(Packages[t]);
         }
 
-        public void GetPortIdList(T t)
+        public void GetDcPortId(T t)
         {
-            SelectAdapter(t).GetPortIdList(Packages[t]);
+            SelectAdapter(t).GetDcPortId(Packages[t]);
         }
 
     }

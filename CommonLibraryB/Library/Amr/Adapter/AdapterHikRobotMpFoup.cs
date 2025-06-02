@@ -796,7 +796,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
-        public void GetPortIdList(AmrPackage t)
+        public void GetDcPortId(AmrPackage t)
         {
             t.property.get.dcPortId = this.dcPortId;
         }

@@ -65,7 +65,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             throw new NotImplementedException();
         }
 
-        public void GetPortIdList(RobotPackage t)
+        public void GetDcPortId(RobotPackage t)
         {
             t.property.get.dcPortId = this.dcPortId;
         }
