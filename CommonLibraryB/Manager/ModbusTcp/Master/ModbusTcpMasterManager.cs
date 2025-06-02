@@ -26,7 +26,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             {
                 if (!table.ContainsKey(key))
                 {
-                    table.Add(key, new ModbusTcpMasterConfig() { DeviceName = key});
+                    table.Add(key, new ModbusTcpMasterConfig() { device = key});
                 }
             }
         }

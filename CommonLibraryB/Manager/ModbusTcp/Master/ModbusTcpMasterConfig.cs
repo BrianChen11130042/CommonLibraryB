@@ -20,7 +20,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
         [Range(0, 65535)]
         public int Port { get; set; } = 502;
 
-        public string DeviceName { get; set; }
+        public string device { get; set; }
 
         public bool Enable { get; set; } = false;
 
