@@ -40,8 +40,10 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             modbusFactory = new ModbusFactory();
         }
 
-        public async Task<bool> ConnectAsync()
+        public bool Connect(out string msg)
         {
+            msg = string.Empty;
+
             if (!Enable)
                 return true;
 
@@ -51,8 +53,6 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
                 {
                     tcpClient.Close();
                 }
-
-                tcpClient.Close();
 
                 tcpClient = new TcpClient();
                 
@@ -64,6 +64,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             }
             catch (Exception ex)
             {
+                msg = ex.Message;
                 return false;
             }
         }

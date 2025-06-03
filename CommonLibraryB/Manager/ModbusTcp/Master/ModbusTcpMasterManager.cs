@@ -39,11 +39,13 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             }
         }
 
-        public async Task<bool> ConnectAsync()
+        public bool Connect(out string msg)
         {
-            foreach(string key in keys)
+            msg = string.Empty;
+
+            foreach (string key in keys)
             {
-                if(!(await table[key].ConnectAsync()))
+                if(!(table[key].Connect(out msg)))
                 {
                     return false;
                 }
@@ -51,7 +53,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
             return true;
         }
 
-        public async Task<bool> DisconnectAsync()
+        public bool Disconnect()
         {
             foreach (string key in keys)
             {

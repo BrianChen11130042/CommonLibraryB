@@ -24,7 +24,7 @@ namespace CommonLibraryB.Tools.LogWritter
 
         public LogWritter(string dir)
         {
-            _directory = dir + @"\Logs";
+            _directory = dir + "Logs";
 
             mutex = new Mutex();
 
