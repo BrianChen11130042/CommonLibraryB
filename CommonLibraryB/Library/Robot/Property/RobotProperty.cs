@@ -41,7 +41,7 @@ namespace CommonLibraryB.Library.Robot.Property
         /// <summary>
         /// <庫位序號, 庫位Sensor訊號判斷有無存在料(有料置1)>
         /// </summary>
-        public Dictionary<ushort, ushort> dcOccupy { get; set; } = new Dictionary<ushort, ushort>();
+        public Dictionary<ushort, bool> dcOccupy { get; set; } = new Dictionary<ushort, bool>();
 
         /// <summary>
         /// <第幾個庫位(1或2或3....), 庫位序號>
