@@ -31,7 +31,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         }
 
 
-        public Task<bool> GetIsMissionStartedAsync(AmrPackage t)
+        public Task<bool> GetMissionStartedAsync(AmrPackage t)
         {
             throw new NotImplementedException();
         }

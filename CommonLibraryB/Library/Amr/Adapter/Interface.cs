@@ -9,7 +9,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
     public interface IAmrOperate<T>
     {
         //獲取任務開始訊號
-        Task<bool> GetIsMissionStartedAsync(T t);
+        Task<bool> GetMissionStartedAsync(T t);
 
         //設置任務開始
         Task<bool> SetMisssionStartAsync(T t);

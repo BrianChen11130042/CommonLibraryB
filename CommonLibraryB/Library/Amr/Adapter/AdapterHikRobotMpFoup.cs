@@ -523,7 +523,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
     public partial class AdapterHikRobotMpFoup : IAmrOperate<AmrPackage>
     {
-        public async Task<bool> GetIsMissionStartedAsync(AmrPackage t)
+        public async Task<bool> GetMissionStartedAsync(AmrPackage t)
         {
             try
             {

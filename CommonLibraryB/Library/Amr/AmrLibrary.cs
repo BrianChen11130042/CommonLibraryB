@@ -74,9 +74,9 @@ namespace CommonLibraryB.Library.Amr
             return await SelectAdapter(t).GetMissionInformAsync(Packages[t]);
         }
 
-        public async Task<bool> GetIsMissionStartedAsync(T t)
+        public async Task<bool> GetMissionStartedAsync(T t)
         {
-            return await SelectAdapter(t).GetIsMissionStartedAsync(Packages[t]);
+            return await SelectAdapter(t).GetMissionStartedAsync(Packages[t]);
         }
 
         public async Task<bool> SetErrorCodeAsync(T t)
