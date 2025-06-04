@@ -9,17 +9,19 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
     public partial class AdapterHikRobotIcTray
     {
+        const int delay = 1;
+
         /// <summary>
-        /// IC Tray有6個儲位, 就有6個庫位序號
+        /// MP Foup有4個儲位序號
         /// </summary>
-        public List<ushort> listPortId = new List<ushort>()
+        Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
+            { 1, 1111 },
+            { 2, 2222 },
+            { 3, 3333 },
+            { 4, 4444 },
+            { 5, 5555 },
+            { 6, 6666 },
         };
     }
 
@@ -31,9 +33,9 @@ namespace CommonLibraryB.Library.Amr.Adapter
         }
 
 
-        public Task<bool> GetMissionStartedAsync(AmrPackage t)
+        public async Task<bool> GetMissionStartedAsync(AmrPackage t)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
         
@@ -59,7 +61,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         public void GetDeployData(AmrPackage t)
         {
-            throw new NotImplementedException();
+            t.property.get.locId = 456;
+            t.property.get.dcPortId = this.dcPortId;
         }
 
         public Task<bool> SetMisssionStartAsync(AmrPackage t)

@@ -33,6 +33,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                         break;
 
                     case ERobotSupplier.TMRobot_IcTray6:
+                        table.Add(supplier, new AdapterRobotIcTray());
                         break;
                 }
             }
