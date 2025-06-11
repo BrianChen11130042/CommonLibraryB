@@ -107,7 +107,7 @@ namespace CommonLibraryB.Base.FiniteStateMachine
         {
             S1 = RS1;
             S2 = RS2;
-            RS3 = RS3;
+            S3 = RS3;
         }
     }
 }
