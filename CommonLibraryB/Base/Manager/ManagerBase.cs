@@ -15,10 +15,18 @@ namespace CommonLibraryB.Base.Manager
         protected string filePath;
         public Dictionary<string, TObject> table;
 
-        public ManagerBase(string filePath)
+        public ManagerBase(string filePath, string[] keys = null)
         {
             this.filePath = filePath;
-            keys = Enum.GetNames(typeof(TKey));
+
+            if(typeof(TKey).IsEnum)
+            {
+                this.keys = Enum.GetNames(typeof(TKey));
+            }
+            else if(typeof(TKey).IsArray)
+            {
+                this.keys = keys;
+            }
 
             InitTable();
         }
