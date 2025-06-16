@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace CommonLibraryB.Library.RFID.Config
             {
                 if(!table.ContainsKey(key))
                 {
-                    table.Add(key, new RFIDConfig() { device = key});
+                    table.Add(key, new RFIDConfig() { device = key, com = SerialPort.GetPortNames().First()});
                 }
             }
         }
