@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using CommonLibraryB.Library.RFID.Config;
 using CommonLibraryB.Library.RFID.Property;
 using CommonLibraryB.Library.RFID.Adapter;
+using CommonLibraryB.Manager.ModbusRtu;
 
 namespace CommonLibraryB.Library.RFID
 {
     public partial class RFIDLibrary<T>
     {
+        public ModbusRtuManager modbusRtuManager;
         public RFIDConfigManager<T> configManager;
         public RFIDPropertyManager<T> propertyManager;
 
-        public RFIDLibrary(RFIDConfigManager<T> configManager, RFIDPropertyManager<T> propertyManager)
+        public RFIDLibrary(ModbusRtuManager modbusRtuManager, RFIDConfigManager<T> configManager, RFIDPropertyManager<T> propertyManager)
         {
+            this.modbusRtuManager = modbusRtuManager;
             this.configManager = configManager;
             this.propertyManager = propertyManager;
         }
@@ -38,6 +41,7 @@ namespace CommonLibraryB.Library.RFID
             {
                 Packages[dev].config = configManager.table[dev.ToString()];
                 Packages[dev].property = propertyManager.table[dev.ToString()];
+                Packages[dev].Port = modbusRtuManager.table[Packages[dev].config.com].serialPort;
             }
         }
     }

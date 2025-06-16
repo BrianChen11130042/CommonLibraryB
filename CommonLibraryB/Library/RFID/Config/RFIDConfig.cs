@@ -11,6 +11,8 @@ namespace CommonLibraryB.Library.RFID.Config
     {
         public string device { get; set; }
 
+        public string com { get; set; }
+
         public ERFIDSupplier supplier { get; set; } = ERFIDSupplier.MP2319NR;
     }
 }

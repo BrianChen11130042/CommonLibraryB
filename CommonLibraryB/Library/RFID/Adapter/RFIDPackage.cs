@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Library.RFID.Config;
 using CommonLibraryB.Library.RFID.Property;
+using CommonLibraryB.Manager.ModbusRtu;
 
 namespace CommonLibraryB.Library.RFID.Adapter
 {
-    public class RFIDPackage
+    public class RFIDPackage : ModbusRtuPack
     {
         public RFIDConfig config { get; set; }
 
