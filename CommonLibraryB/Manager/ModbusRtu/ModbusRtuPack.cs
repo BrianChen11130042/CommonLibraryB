@@ -9,7 +9,7 @@ namespace CommonLibraryB.Manager.ModbusRtu
 {
     public class ModbusRtuPack
     {
-        public SerialPort Port { get; set; }
+        public SerialPort port { get; set; }
 
         public byte[] cmd { get; set; }
 

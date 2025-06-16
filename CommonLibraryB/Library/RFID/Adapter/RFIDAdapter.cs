@@ -8,7 +8,7 @@ using CommonLibraryB.Library.RFID.Config;
 
 namespace CommonLibraryB.Library.RFID.Adapter
 {
-    public enum ERFIDSupplier { MP2319NR }
+    public enum ERFIDSupplier { MP2319NR, Stub }
 
     public class RFIDAdapter : AdapterBase<RFIDConfig, ERFIDSupplier, IRFIDOperate<RFIDPackage>>
     {
@@ -30,6 +30,10 @@ namespace CommonLibraryB.Library.RFID.Adapter
                 {
                     case ERFIDSupplier.MP2319NR:
                         table.Add(supplier, new AdapterMP2319NR());
+                        break;
+
+                    case ERFIDSupplier.Stub:
+                        table.Add(supplier, new AdapterStub());
                         break;
                 }
 

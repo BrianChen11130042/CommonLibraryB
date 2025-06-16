@@ -42,6 +42,9 @@ namespace CommonLibraryB.Manager.ModbusRtu
 
                 serialPort = new SerialPort(com, baudrate, parity, dataBits, stopBits);
 
+                serialPort.ReadTimeout = 5000;  
+                serialPort.WriteTimeout = 5000;
+
                 serialPort.Open();
 
                 return true;

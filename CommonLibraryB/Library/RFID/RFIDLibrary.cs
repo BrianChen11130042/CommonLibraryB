@@ -41,7 +41,7 @@ namespace CommonLibraryB.Library.RFID
             {
                 Packages[dev].config = configManager.table[dev.ToString()];
                 Packages[dev].property = propertyManager.table[dev.ToString()];
-                Packages[dev].Port = modbusRtuManager.table[Packages[dev].config.com].serialPort;
+                Packages[dev].port = modbusRtuManager.table[Packages[dev].config.com].serialPort;
             }
         }
     }
@@ -66,6 +66,11 @@ namespace CommonLibraryB.Library.RFID
         public async Task<bool> GetRFIDAsync(T t)
         {
             return await SelectAdapter(t).GetRFIDAsync(Packages[t]);
+        }
+
+        public async Task<bool> SetRFIDBuzzer(T t, bool sw)
+        {
+            return await SelectAdapter(t).SetRFIDBuzzer(Packages[t], sw);
         }
     }
 }
