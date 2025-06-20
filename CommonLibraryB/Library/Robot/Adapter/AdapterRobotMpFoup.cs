@@ -337,7 +337,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 }
 
                 getCmd(EGetOperate.ProjectStatus, t);
-                await getSingleRegisterAsync(t);
+                await getSingleHoldingRegisterAsync(t);
                 unpack(EGetOperate.ProjectStatus, t);
 
                 t.informLog = "get project status success";
@@ -361,7 +361,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 }
 
                 getCmd(EGetOperate.ProjectErrorCode, t);
-                await getMultiRegisterAsync(t);
+                await getMultiHoldingRegisterAsync(t);
                 unpack(EGetOperate.ProjectErrorCode, t);
 
                 t.informLog = "get project error code success";
@@ -384,7 +384,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 }
 
                 getCmd(EGetOperate.Sensors, t);
-                await getMultiInputRegisterAsync(t);
+                await getMultiInputAsync(t);
                 unpack(EGetOperate.Sensors, t);
 
                 t.informLog = "get sensors success";
@@ -418,7 +418,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 }
 
                 getCmd(EGetOperate.IsError, t);
-                await getSingleInputRegisterAsync(t);
+                await getSingleInputAsync(t);
                 unpack(EGetOperate.IsError, t);
 
                 t.informLog = "get Is Error success";
@@ -441,7 +441,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 }
 
                 getCmd(EGetOperate.ErrorCode, t);
-                await getMultiRegisterAsync(t);
+                await getMultiInputRegisterAsync(t);
                 unpack(EGetOperate.ErrorCode, t);
 
                 t.informLog = "get Error Code success";
@@ -480,24 +480,29 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 throw new InvalidOperationException(string.Format("set robot {0} fail", register));
         }
 
-        async Task getSingleRegisterAsync(RobotPackage t)
+        async Task getSingleHoldingRegisterAsync(RobotPackage t)
         {
             t.rcmd = (await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
         }
 
-        async Task getMultiRegisterAsync(RobotPackage t)
+        async Task getMultiHoldingRegisterAsync(RobotPackage t)
         {
             t.arrayRcmd = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
         }
 
-        async Task getMultiInputRegisterAsync(RobotPackage t)
+        async Task getMultiInputAsync(RobotPackage t)
         {
             t.arrayBoolRcmd = await t.master.ReadInputsAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
         }
 
-        async Task getSingleInputRegisterAsync(RobotPackage t)
+        async Task getSingleInputAsync(RobotPackage t)
         {
             t.boolRcmd = (await t.master.ReadInputsAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
+        }
+
+        async Task getMultiInputRegisterAsync(RobotPackage t)
+        {
+            t.arrayRcmd = await t.master.ReadInputRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
         }
     }
 }
