@@ -24,6 +24,10 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
 
         public bool boolRcmd { get; set; }
 
+        public bool[] arrayBoolCmd { get; set; }
+
+        public bool[] arrayBoolRcmd { get; set; }
+
         public int station { get; set; }
 
         public int startAddress { get; set; }
