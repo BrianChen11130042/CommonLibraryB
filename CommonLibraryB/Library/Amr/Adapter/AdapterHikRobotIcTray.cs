@@ -13,7 +13,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         const int delay = 10;
 
         /// <summary>
-        /// MP Foup有4個儲位序號
+        /// IC Tray有6個儲位序號
         /// </summary>
         Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
