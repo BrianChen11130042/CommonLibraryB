@@ -13,7 +13,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 {
     public partial class AdapterHikRobotMpFoup
     {
-        const int delay = 1;
+        const int delay = 10;
 
         /// <summary>
         /// MP Foup有4個儲位序號
