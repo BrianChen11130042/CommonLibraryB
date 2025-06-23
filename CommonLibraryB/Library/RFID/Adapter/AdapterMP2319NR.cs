@@ -37,7 +37,7 @@ namespace CommonLibraryB.Library.RFID.Adapter
                 0x01,
                 0x00,
                 0x01,
-                0x11,
+                0x01,
                 0x11,
             };
 
@@ -64,13 +64,20 @@ namespace CommonLibraryB.Library.RFID.Adapter
 
         void upRFID(RFIDPackage t)
         {
-            byte[] data = t.rcmd.Skip(4).Take(136).ToArray();
+            if (t.rcmd[3] == 0x00 && t.rcmd[140] == 0x90 && t.rcmd[141] == 0x00)
+            {
+                byte[] data = t.rcmd.Skip(4).Take(136).ToArray();
 
-            byte[] filter = data.Where(b => b != 0x00).ToArray();
+                byte[] filter = data.Where(b => b != 0x00).ToArray();
 
-            string result = Encoding.ASCII.GetString(filter);
+                string result = Encoding.ASCII.GetString(filter);
 
-            t.property.RFID = result;
+                t.property.RFID = result;
+            }
+            else
+            {
+                t.property.RFID = string.Empty;
+            }
         }
     }
 
@@ -137,16 +144,8 @@ namespace CommonLibraryB.Library.RFID.Adapter
                 t.rcmd = new byte[200];
                 t.port.Read(t.rcmd, 0, t.rcmd.Length);
 
-                if (t.rcmd[3] == 0x00)
-                {
-                    unpack(EGetOperate.RFID, t);
-                    return true;
-                }
-                else
-                {
-                    setException("Get RFID fail");
-                    return false;
-                }
+                unpack(EGetOperate.RFID, t);
+                return true;
             }
             catch(Exception ex)
             {
