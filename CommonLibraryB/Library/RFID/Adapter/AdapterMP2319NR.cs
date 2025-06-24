@@ -70,6 +70,8 @@ namespace CommonLibraryB.Library.RFID.Adapter
 
                 byte[] filter = data.Where(b => b != 0x00).ToArray();
 
+                Array.Reverse(filter);
+
                 string result = Encoding.ASCII.GetString(filter);
 
                 t.property.RFID = result;
@@ -139,13 +141,23 @@ namespace CommonLibraryB.Library.RFID.Adapter
 
                 t.port.Write(t.cmd, 0, t.cmd.Length);
 
-                await Task.Delay(1000);
+                await Task.Delay(2000);
 
                 t.rcmd = new byte[200];
                 t.port.Read(t.rcmd, 0, t.rcmd.Length);
 
-                unpack(EGetOperate.RFID, t);
-                return true;
+                bool noData = t.rcmd.Skip(1).All(b => b == 0);
+
+                if (!noData)
+                {
+                    unpack(EGetOperate.RFID, t);
+                    return true;
+                }
+                else
+                {
+                    setException("Get RFID fail");
+                    return false;
+                }
             }
             catch(Exception ex)
             {
