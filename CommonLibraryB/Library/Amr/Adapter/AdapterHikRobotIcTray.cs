@@ -421,6 +421,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[1]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
@@ -458,6 +459,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[2]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
@@ -495,6 +497,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[3]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
@@ -532,6 +535,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[4]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
@@ -569,6 +573,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[5]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
@@ -606,6 +611,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[6]],
                                                       EEndian.BigEndian,
+                                                      10,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;

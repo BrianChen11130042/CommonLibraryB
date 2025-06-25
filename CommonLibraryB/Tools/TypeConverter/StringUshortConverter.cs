@@ -42,10 +42,10 @@ namespace CommonLibraryB.Tools.TypeConverter
             result = res;
         }
 
-        public static void StringToUshortArray(string data, EEndian outputEndianType, out ushort[] result)
+        public static void StringToUshortArray(string data, EEndian outputEndianType, int offset, out ushort[] result)
         {
-            if (string.IsNullOrEmpty(data))
-                throw new ArgumentException("Input string empty at StringToUshortArray conversion ");
+            if (data == null)
+                data = string.Empty;
 
             List<ushort> listRes = new List<ushort>();
 
@@ -68,6 +68,14 @@ namespace CommonLibraryB.Tools.TypeConverter
                         listRes.Add(BinaryPrimitives.ReadUInt16BigEndian(byteSpan));
                         break;
                 }
+            }
+
+            int origin = listRes.Count;
+            int added = offset - origin;
+
+            for (int i = 0 ; i < added ; i ++)
+            {
+                listRes.Add(0);
             }
 
             result = listRes.ToArray();
