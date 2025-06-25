@@ -42,7 +42,7 @@ namespace CommonLibraryB.Tools.TypeConverter
             result = res;
         }
 
-        public static void StringToUshortArray(string data, EEndian outputEndianType, int offset, out ushort[] result)
+        public static void StringToUshortArray(string data, EEndian outputEndianType, int targetLength, out ushort[] result)
         {
             if (data == null)
                 data = string.Empty;
@@ -70,12 +70,14 @@ namespace CommonLibraryB.Tools.TypeConverter
                 }
             }
 
-            int origin = listRes.Count;
-            int added = offset - origin;
-
-            for (int i = 0 ; i < added ; i ++)
+            while(listRes.Count < targetLength)
             {
                 listRes.Add(0);
+            }
+
+            if(listRes.Count > targetLength)
+            {
+                listRes = listRes.Take(targetLength).ToList();
             }
 
             result = listRes.ToArray();
