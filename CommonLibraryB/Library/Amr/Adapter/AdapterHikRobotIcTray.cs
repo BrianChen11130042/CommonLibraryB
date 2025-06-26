@@ -99,7 +99,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             t.station = 1;
             t.startAddress = 0x4101;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdMotionType(AmrPackage t)
@@ -421,12 +421,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[1]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6002;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort1(AmrPackage t)
@@ -459,12 +459,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[2]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6015;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort2(AmrPackage t)
@@ -497,12 +497,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[3]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6028;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort3(AmrPackage t)
@@ -535,12 +535,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[4]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6041;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort4(AmrPackage t)
@@ -573,12 +573,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[5]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6054;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort5(AmrPackage t)
@@ -611,12 +611,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
             StringUshortConverter.StringToUshortArray(t.property.set.dcRFID[dcPortId[6]],
                                                       EEndian.BigEndian,
-                                                      10,
+                                                      16,
                                                       out tmp);
             t.arrayCmd = tmp;
             t.station = 1;
             t.startAddress = 0x6067;
-            t.offset = 10;
+            t.offset = 16;
         }
 
         void cmdTaskIdPort6(AmrPackage t)
