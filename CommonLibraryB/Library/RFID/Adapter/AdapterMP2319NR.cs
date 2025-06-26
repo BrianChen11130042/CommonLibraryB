@@ -137,6 +137,11 @@ namespace CommonLibraryB.Library.RFID.Adapter
         {
             try
             {
+                if(t.port == null)
+                {
+                    setException("Comport disconnect");
+                }
+
                 getCmd(EGetOperate.RFID, t);
 
                 t.port.Write(t.cmd, 0, t.cmd.Length);
