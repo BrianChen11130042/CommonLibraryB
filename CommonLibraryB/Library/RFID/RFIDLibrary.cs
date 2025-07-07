@@ -41,7 +41,11 @@ namespace CommonLibraryB.Library.RFID
             {
                 Packages[dev].config = configManager.table[dev.ToString()];
                 Packages[dev].property = propertyManager.table[dev.ToString()];
-                Packages[dev].port = modbusRtuManager.table[Packages[dev].config.com].serialPort;
+
+                if(modbusRtuManager.table.ContainsKey(Packages[dev].config.com))
+                {
+                    Packages[dev].port = modbusRtuManager.table[Packages[dev].config.com].serialPort;
+                }
             }
         }
     }

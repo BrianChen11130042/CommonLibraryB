@@ -26,7 +26,7 @@ namespace CommonLibraryB.Library.RFID.Config
             {
                 if(!table.ContainsKey(key))
                 {
-                    table.Add(key, new RFIDConfig() { device = key, com = SerialPort.GetPortNames().First()});
+                    table.Add(key, new RFIDConfig() { device = key, com = "COM1"});
                 }
             }
         }
