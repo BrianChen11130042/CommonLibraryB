@@ -84,56 +84,56 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdMissionStarted(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4001;
             t.offset = 1;
         }
 
         void cmdTaskId(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4100;
             t.offset = 1;
         }
 
         void cmdRFID(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4101;
             t.offset = 16;
         }
 
         void cmdMotionType(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4111;
             t.offset = 1;
         }
 
         void cmdPickLocId(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4112;
             t.offset = 1;
         }
 
         void cmdPickPortId(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4113;
             t.offset = 1;
         }
 
         void cmdDropLocId(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4114;
             t.offset = 1;
         }
 
         void cmdDropPortId(AmrPackage t)
         {
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4115;
             t.offset = 1;
         }
@@ -345,7 +345,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdMissionFinish(AmrPackage t)
         {
             t.cmd = t.property.set.missionFinish;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4002;
             t.offset = 1;
         }
@@ -353,7 +353,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdMissionStart(AmrPackage t)
         {
             t.cmd = t.property.set.missionStart;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x4001;
             t.offset = 1;
         }
@@ -361,7 +361,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdOccupyPort1(AmrPackage t)
         {
             t.cmd = t.property.set.dcOccupy[dcPortId[1]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6000;
             t.offset = 1;
         }
@@ -369,7 +369,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdIdPort1(AmrPackage t)
         {
             t.cmd = dcPortId[1];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6001;
             t.offset = 1;
         }
@@ -383,7 +383,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       16,
                                                       out tmp);
             t.arrayCmd = tmp;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6002;
             t.offset = 16;
         }
@@ -391,7 +391,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdTaskIdPort1(AmrPackage t)
         {
             t.cmd = t.property.set.dcTaskId[dcPortId[1]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6012;
             t.offset = 1;
         }
@@ -399,7 +399,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdOccupyPort2(AmrPackage t)
         {
             t.cmd = t.property.set.dcOccupy[dcPortId[2]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6013;
             t.offset = 1;
         }
@@ -407,7 +407,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdIdPort2(AmrPackage t)
         {
             t.cmd = dcPortId[2];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6014;
             t.offset = 1;
         }
@@ -421,7 +421,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       16,
                                                       out tmp);
             t.arrayCmd = tmp;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6015;
             t.offset = 16;
         }
@@ -429,7 +429,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdTaskIdPort2(AmrPackage t)
         {
             t.cmd = t.property.set.dcTaskId[dcPortId[2]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6025;
             t.offset = 1;
         }
@@ -437,7 +437,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdOccupyPort3(AmrPackage t)
         {
             t.cmd = t.property.set.dcOccupy[dcPortId[3]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6026;
             t.offset = 1;
         }
@@ -445,7 +445,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdIdPort3(AmrPackage t)
         {
             t.cmd = dcPortId[3];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6027;
             t.offset = 1;
         }
@@ -459,7 +459,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       16,
                                                       out tmp);
             t.arrayCmd = tmp;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6028;
             t.offset = 16;
         }
@@ -467,7 +467,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdTaskIdPort3(AmrPackage t)
         {
             t.cmd = t.property.set.dcTaskId[dcPortId[3]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6038;
             t.offset = 1;
         }
@@ -475,7 +475,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdOccupyPort4(AmrPackage t)
         {
             t.cmd = t.property.set.dcOccupy[dcPortId[4]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6039;
             t.offset = 1;
         }
@@ -483,7 +483,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdIdPort4(AmrPackage t)
         {
             t.cmd = dcPortId[4];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6040;
             t.offset = 1;
         }
@@ -497,7 +497,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       16,
                                                       out tmp);
             t.arrayCmd = tmp;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6041;
             t.offset = 16;
         }
@@ -505,7 +505,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void cmdTaskIdPort4(AmrPackage t)
         {
             t.cmd = t.property.set.dcTaskId[dcPortId[4]];
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x6051;
             t.offset = 1;
         }
@@ -519,7 +519,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                 out tmp);
 
             t.arrayCmd = tmp;
-            t.station = 1;
+            t.station = 2;
             t.startAddress = 0x607F;
             t.offset = 2;
         }
