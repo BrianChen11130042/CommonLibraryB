@@ -49,6 +49,11 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public Dictionary<int, ushort> dcPortId { get; set; }
 
+        /// <summary>
+        /// <庫位序號, 這個料件所綁定的任務編號是否任務取消>
+        /// </summary>
+        public Dictionary<ushort, bool> dcMissionCancel { get; set; } = new Dictionary<ushort, bool>();
+
         public MissionInform missionData { get; set; } = new MissionInform();
     }
 

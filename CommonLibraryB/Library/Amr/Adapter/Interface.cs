@@ -29,5 +29,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
         //提取全部的庫位序號
         public void GetDeployData(T t);
 
+        //獲取儲位任務取消訊息
+        Task<bool> GetMissionCancelInform(T t);
+
     }
 }

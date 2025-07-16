@@ -104,5 +104,9 @@ namespace CommonLibraryB.Library.Amr
             SelectAdapter(t).GetDeployData(Packages[t]);
         }
 
+        public async Task<bool> GetMissionCancelInform(T t)
+        {
+            return await SelectAdapter(t).GetMissionCancelInform(Packages[t]);
+        }
     }
 }

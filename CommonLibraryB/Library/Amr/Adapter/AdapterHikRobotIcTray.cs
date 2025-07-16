@@ -38,6 +38,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
             PickPortId,
             DropLocId,
             DropPortId,
+            MissionCancel
         }
 
         void getCmd(EGetOperate operate, AmrPackage t)
@@ -74,6 +75,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case EGetOperate.DropPortId:
                     cmdDropPortId(t);
+                    break;
+
+                case EGetOperate.MissionCancel:
+                    cmdMissionCancel(t);
                     break;
 
                 default:
@@ -136,6 +141,13 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.startAddress = 0x4115;
             t.offset = 1;
         }
+
+        void cmdMissionCancel(AmrPackage t)
+        {
+            t.station = 2;
+            t.startAddress = 0x6078;
+            t.offset = 6;
+        }
     }
 
     public partial class AdapterHikRobotIcTray
@@ -174,6 +186,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case EGetOperate.DropPortId:
                     upDropPortId(t);
+                    break;
+
+                case EGetOperate.MissionCancel:
+                    upMissionCancel(t);
                     break;
 
                 default:
@@ -223,6 +239,40 @@ namespace CommonLibraryB.Library.Amr.Adapter
         void upDropPortId(AmrPackage t)
         {
             t.property.get.missionData.dropPortId = t.rcmd;
+        }
+
+        void upMissionCancel(AmrPackage t)
+        {
+            if (t.property.get.dcMissionCancel == null)
+            {
+                t.property.get.dcMissionCancel = new Dictionary<ushort, bool>();
+            }
+
+            foreach (var pair in dcPortId)
+            {
+                if (!t.property.get.dcMissionCancel.ContainsKey(pair.Value))
+                {
+                    if (t.arrayRcmd[pair.Key - 1] == 1)
+                    {
+                        t.property.get.dcMissionCancel.Add(pair.Value, true);
+                    }
+                    else
+                    {
+                        t.property.get.dcMissionCancel.Add(pair.Value, false);
+                    }
+                }
+                else
+                {
+                    if (t.arrayRcmd[pair.Key - 1] == 1)
+                    {
+                        t.property.get.dcMissionCancel[pair.Value] = true;
+                    }
+                    else
+                    {
+                        t.property.get.dcMissionCancel[pair.Value] = false;
+                    }
+                }
+            }
         }
     }
 
@@ -958,6 +1008,29 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 t.informLog = "set error code success";
                 return true;
 
+            }
+            catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
+        public async Task<bool> GetMissionCancelInform(AmrPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(EGetOperate.MissionCancel, t);
+                await getMultiRegisterAsync(t);
+                unpack(EGetOperate.MissionCancel, t);
+
+                t.informLog = "get mission cancel inform success";
+                return true;
             }
             catch (Exception ex)
             {
