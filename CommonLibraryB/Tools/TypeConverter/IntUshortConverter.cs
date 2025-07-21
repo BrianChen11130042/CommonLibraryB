@@ -12,14 +12,14 @@ namespace CommonLibraryB.Tools.TypeConverter
         {
             byte[] arrByte = BitConverter.GetBytes(data);
 
+            ushort[] res = new ushort[2];
+            Buffer.BlockCopy(arrByte, 0, res, 0, 4);
+
             if ((BitConverter.IsLittleEndian && outputEndianType == EEndian.BigEndian) ||
                (!BitConverter.IsLittleEndian && outputEndianType == EEndian.LittleEndian))
             {
-                Array.Reverse(arrByte);
+                Array.Reverse(res);
             }
-
-            ushort[] res = new ushort[2];
-            Buffer.BlockCopy(arrByte, 0, res, 0, 4);
 
             result = res;
         }
@@ -29,14 +29,15 @@ namespace CommonLibraryB.Tools.TypeConverter
             if (data == null || data.Length < 2)
                 throw new ArgumentException("Ushort array length not equal to 2 at UshortArrayToInt method");
 
-            byte[] bytes = new byte[4];
-            Buffer.BlockCopy(data, 0, bytes, 0, 4);
-
             if ((BitConverter.IsLittleEndian && inputEndianType == EEndian.BigEndian) ||
                (!BitConverter.IsLittleEndian && inputEndianType == EEndian.LittleEndian))
             {
-                Array.Reverse(bytes);
+                Array.Reverse(data);
             }
+
+            byte[] bytes = new byte[4];
+            Buffer.BlockCopy(data, 0, bytes, 0, 4);
+
 
             int res = BitConverter.ToInt32(bytes, 0);
             result = res;
