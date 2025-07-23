@@ -17,10 +17,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
         /// </summary>
         Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
-            { 1, 11111 },
-            { 2, 22222 },
-            { 3, 33333 },
-            { 4, 44444 }
+            { 1, 1 },
+            { 2, 2 },
+            { 3, 3 },
+            { 4, 4 }
         };
     }
 

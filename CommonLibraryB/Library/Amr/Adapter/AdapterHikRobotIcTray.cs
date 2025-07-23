@@ -17,12 +17,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
         /// </summary>
         Dictionary<int, ushort> dcPortId = new Dictionary<int, ushort>()
         {
-            { 1, 1111 },
-            { 2, 2222 },
-            { 3, 3333 },
-            { 4, 4444 },
-            { 5, 5555 },
-            { 6, 6666 },
+            { 1, 1 },
+            { 2, 2 },
+            { 3, 3 },
+            { 4, 4 },
+            { 5, 5 },
+            { 6, 6 },
         };
     }
 
@@ -1041,7 +1041,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         public void GetDeployData(AmrPackage t)
         {
-            t.property.get.locId = 456;
+            t.property.get.locId = 1;
             t.property.get.dcPortId = this.dcPortId;
         }
 
