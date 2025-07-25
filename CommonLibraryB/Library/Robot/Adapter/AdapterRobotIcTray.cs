@@ -89,7 +89,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
         {
             t.station = 1;
             t.startAddress = 0000;
-            t.offset = 12;
+            t.offset = 6;
         }
 
         void cmdRFIDScanPos(RobotPackage t)
@@ -174,18 +174,13 @@ namespace CommonLibraryB.Library.Robot.Adapter
             {
                 if (!t.property.get.dcOccupy.ContainsKey(pair.Value))
                 {
-                    t.property.get.dcOccupy.Add(pair.Value, (t.arrayBoolRcmd[getCalPos(pair.Key) - 1] && t.arrayBoolRcmd[getCalPos(pair.Key)]));
+                    t.property.get.dcOccupy.Add(pair.Value, t.arrayBoolRcmd[pair.Key - 1]);
                 }
                 else
                 {
-                    t.property.get.dcOccupy[pair.Value] = (t.arrayBoolRcmd[getCalPos(pair.Key) - 1] && t.arrayBoolRcmd[getCalPos(pair.Key)]);
+                    t.property.get.dcOccupy[pair.Value] = t.arrayBoolRcmd[pair.Key - 1];
                 }
             }
-        }
-
-        int getCalPos(int key)
-        {
-            return (2 * key) - 1;
         }
 
         void upRFIDScanPos(RobotPackage t)
