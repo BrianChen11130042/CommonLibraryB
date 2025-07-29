@@ -10,7 +10,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
 {
     public partial class AdapterRobotMpFoup
     {
-        const int delay = 10;
+        const int delay = 2;
 
         /// <summary>
         /// MP Foup有4個儲位序號

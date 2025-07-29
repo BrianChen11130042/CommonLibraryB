@@ -10,7 +10,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
     public partial class AdapterHikRobotIcTray
     {
-        const int delay = 10;
+        const int delay = 2;
 
         /// <summary>
         /// IC Tray有6個儲位序號
