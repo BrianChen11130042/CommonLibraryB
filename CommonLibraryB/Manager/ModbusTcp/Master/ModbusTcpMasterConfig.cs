@@ -79,6 +79,7 @@ namespace CommonLibraryB.Manager.ModbusTcp.Master
                 if (tcpClient.Connected)
                 {
                     tcpClient.Close();
+                    tcpClient.Dispose();
                 }
 
                 return true;
