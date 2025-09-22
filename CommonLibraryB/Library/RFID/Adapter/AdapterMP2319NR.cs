@@ -38,7 +38,7 @@ namespace CommonLibraryB.Library.RFID.Adapter
                 0x00,
                 0x01,
                 0x01,
-                0x11,
+                0x02,
             };
 
             byte edc = getXorResult(sub1);
@@ -64,13 +64,19 @@ namespace CommonLibraryB.Library.RFID.Adapter
 
         void upRFID(RFIDPackage t)
         {
-            if (t.rcmd[3] == 0x00 && t.rcmd[140] == 0x90 && t.rcmd[141] == 0x00)
+            if (t.rcmd[3] == 0x00 && t.rcmd[20] == 0x90 && t.rcmd[21] == 0x00)
             {
-                byte[] data = t.rcmd.Skip(4).Take(136).ToArray();
+                byte[] data = t.rcmd.Skip(4).Take(16).ToArray();
 
-                byte[] filter = data.Where(b => b != 0x00).ToArray();
+                byte[] page1 = data.Skip(0).Take(8).ToArray();
+                byte[] page2 = data.Skip(10).Take(6).ToArray();
 
-                Array.Reverse(filter);
+                //byte[] filter = data.Where(b => b != 0x00).ToArray();
+
+                Array.Reverse(page1);
+                Array.Reverse(page2);
+
+                byte[] filter = page1.Concat(page2).ToArray();
 
                 string result = Encoding.ASCII.GetString(filter);
 
@@ -146,9 +152,9 @@ namespace CommonLibraryB.Library.RFID.Adapter
 
                 t.port.Write(t.cmd, 0, t.cmd.Length);
 
-                await Task.Delay(2000);
+                await Task.Delay(400);
 
-                t.rcmd = new byte[200];
+                t.rcmd = new byte[100];
                 t.port.Read(t.rcmd, 0, t.rcmd.Length);
 
                 bool noData = t.rcmd.Skip(1).All(b => b == 0);
