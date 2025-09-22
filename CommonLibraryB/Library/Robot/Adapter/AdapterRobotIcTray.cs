@@ -542,13 +542,6 @@ namespace CommonLibraryB.Library.Robot.Adapter
         async Task setSingleRegisterAsync(RobotPackage t, string register)
         {
             await t.master.WriteSingleRegisterAsync((byte)t.station, (ushort)t.startAddress, t.cmd);
-
-            await Task.Delay(delay);
-
-            ushort res = (await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
-
-            if (t.cmd != res)
-                throw new InvalidOperationException(string.Format("set robot {0} fail", register));
         }
 
         async Task getSingleHoldingRegisterAsync(RobotPackage t)
