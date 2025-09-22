@@ -435,7 +435,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdMissionFinish(AmrPackage t)
         {
-            t.cmd = t.property.set.missionFinish;
+            ushort[] temp = new ushort[1];
+            temp[0] = t.property.set.missionFinish;
+
+            t.arrayCmd = temp;
             t.station = 2;
             t.startAddress = 0x4002;
             t.offset = 1;
@@ -443,7 +446,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdMissionStart(AmrPackage t)
         {
-            t.cmd = t.property.set.missionStart;
+            ushort[] temp = new ushort[1];
+            temp[0] = t.property.set.missionStart;
+
+            t.arrayCmd = temp;
             t.station = 2;
             t.startAddress = 0x4001;
             t.offset = 1;
@@ -451,18 +457,18 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdOccupyPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[1]];
-            t.station = 2;
-            t.startAddress = 0x6000;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[1]]);
+
+            t.arrayCmd = temp.ToArray();
         }
 
         void cmdIdPort1(AmrPackage t)
         {
-            t.cmd = dcPortId[1];
-            t.station = 2;
-            t.startAddress = 0x6001;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[1]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort1(AmrPackage t)
@@ -473,34 +479,31 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6002;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort1(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[1]];
-            t.station = 2;
-            t.startAddress = 0x6012;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[1]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdOccupyPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[2]];
-            t.station = 2;
-            t.startAddress = 0x6013;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[2]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdIdPort2(AmrPackage t)
         {
-            t.cmd = dcPortId[2];
-            t.station = 2;
-            t.startAddress = 0x6014;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[2]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort2(AmrPackage t)
@@ -511,34 +514,31 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6015;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort2(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[2]];
-            t.station = 2;
-            t.startAddress = 0x6025;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[2]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdOccupyPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[3]];
-            t.station = 2;
-            t.startAddress = 0x6026;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[3]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdIdPort3(AmrPackage t)
         {
-            t.cmd = dcPortId[3];
-            t.station = 2;
-            t.startAddress = 0x6027;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[3]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort3(AmrPackage t)
@@ -549,34 +549,38 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6028;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort3(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[3]];
-            t.station = 2;
-            t.startAddress = 0x6038;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[3]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdOccupyPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[4]];
-            t.station = 2;
-            t.startAddress = 0x6039;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[4]]);
+
+            temp.Add(0);
+            temp.Add(0);
+            temp.Add(0);
+            temp.Add(0);
+            temp.Add(0);
+            temp.Add(0);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdIdPort4(AmrPackage t)
         {
-            t.cmd = dcPortId[4];
-            t.station = 2;
-            t.startAddress = 0x6040;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[4]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort4(AmrPackage t)
@@ -587,34 +591,31 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6041;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort4(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[4]];
-            t.station = 2;
-            t.startAddress = 0x6051;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[4]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdOccupyPort5(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[5]];
-            t.station = 2;
-            t.startAddress = 0x6052;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[5]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdIdPort5(AmrPackage t)
         {
-            t.cmd = dcPortId[5];
-            t.station = 2;
-            t.startAddress = 0x6053;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[5]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort5(AmrPackage t)
@@ -625,34 +626,31 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6054;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort5(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[5]];
-            t.station = 2;
-            t.startAddress = 0x6064;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[5]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdOccupyPort6(AmrPackage t)
         {
-            t.cmd = t.property.set.dcOccupy[dcPortId[6]];
-            t.station = 2;
-            t.startAddress = 0x6065;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcOccupy[dcPortId[6]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdIdPort6(AmrPackage t)
         {
-            t.cmd = dcPortId[6];
-            t.station = 2;
-            t.startAddress = 0x6066;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(dcPortId[6]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdRfidPort6(AmrPackage t)
@@ -663,18 +661,15 @@ namespace CommonLibraryB.Library.Amr.Adapter
                                                       EEndian.BigEndian,
                                                       16,
                                                       out tmp);
-            t.arrayCmd = tmp;
-            t.station = 2;
-            t.startAddress = 0x6067;
-            t.offset = 16;
+            t.arrayCmd = t.arrayCmd.Concat(tmp).ToArray();
         }
 
         void cmdTaskIdPort6(AmrPackage t)
         {
-            t.cmd = t.property.set.dcTaskId[dcPortId[6]];
-            t.station = 2;
-            t.startAddress = 0x6077;
-            t.offset = 1;
+            List<ushort> temp = new List<ushort>();
+            temp.Add(t.property.set.dcTaskId[dcPortId[6]]);
+
+            t.arrayCmd = t.arrayCmd.Concat(temp).ToArray();
         }
 
         void cmdErrorCode(AmrPackage t)
@@ -728,7 +723,7 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 }
 
                 getCmd(ESetOperate.MissionStart, t);
-                await setSingleRegisterAsync(t, "mission start");
+                await setMultiRegisterAsync(t, "mission start");
 
                 t.informLog = "set mission start success";
                 return true;
@@ -749,8 +744,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
+                await Task.Delay(100);
+
                 getCmd(ESetOperate.MissionFinish, t);
-                await setSingleRegisterAsync(t, "mission finish");
+                await setMultiRegisterAsync(t, "mission finish");
+
+                await Task.Delay(100);
 
                 t.informLog = "set mission finish success";
                 return true;
@@ -840,147 +839,85 @@ namespace CommonLibraryB.Library.Amr.Adapter
                     setModbusTcpError();
                 }
 
+                t.arrayCmd = new ushort[1];
+
                 //庫位1 有無料件
                 getCmd(ESetOperate.Port1_Occupy, t);
-                await setSingleRegisterAsync(t, "port1 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位1 序號
                 getCmd(ESetOperate.Port1_Id, t);
-                await setSingleRegisterAsync(t, "port1 id");
-
-                await Task.Delay(delay);
 
                 //庫位1 RFID
                 getCmd(ESetOperate.Port1_Rfid, t);
-                await setMultiRegisterAsync(t, "port1 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位1 任務編號
                 getCmd(ESetOperate.Port1_TaskId, t);
-                await setSingleRegisterAsync(t, "port1 task id");
-
-                await Task.Delay(delay);
 
                 //庫位2 有無料件
                 getCmd(ESetOperate.Port2_Occupy, t);
-                await setSingleRegisterAsync(t, "port2 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位2 序號
                 getCmd(ESetOperate.Port2_Id, t);
-                await setSingleRegisterAsync(t, "port2 id");
-
-                await Task.Delay(delay);
 
                 //庫位2 RFID
                 getCmd(ESetOperate.Port2_Rfid, t);
-                await setMultiRegisterAsync(t, "port2 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位2 任務編號
                 getCmd(ESetOperate.Port2_TaskId, t);
-                await setSingleRegisterAsync(t, "port2 task id");
-
-                await Task.Delay(delay);
 
                 //庫位3 有無料件
                 getCmd(ESetOperate.Port3_Occupy, t);
-                await setSingleRegisterAsync(t, "port3 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位3 序號
                 getCmd(ESetOperate.Port3_Id, t);
-                await setSingleRegisterAsync(t, "port3 id");
-
-                await Task.Delay(delay);
 
                 //庫位3 RFID
                 getCmd(ESetOperate.Port3_Rfid, t);
-                await setMultiRegisterAsync(t, "port3 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位3 任務編號
                 getCmd(ESetOperate.Port3_TaskId, t);
-                await setSingleRegisterAsync(t, "port3 task id");
-
-                await Task.Delay(delay);
 
                 //庫位4 有無料件
                 getCmd(ESetOperate.Port4_Occupy, t);
-                await setSingleRegisterAsync(t, "port4 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位4 序號
                 getCmd(ESetOperate.Port4_Id, t);
-                await setSingleRegisterAsync(t, "port4 id");
-
-                await Task.Delay(delay);
 
                 //庫位4 RFID
                 getCmd(ESetOperate.Port4_Rfid, t);
-                await setMultiRegisterAsync(t, "port4 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位4 任務編號
                 getCmd(ESetOperate.Port4_TaskId, t);
-                await setSingleRegisterAsync(t, "port4 task id");
-
-                await Task.Delay(delay);
 
                 //庫位5 有無料件
                 getCmd(ESetOperate.Port5_Occupy, t);
-                await setSingleRegisterAsync(t, "port5 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位5 序號
                 getCmd(ESetOperate.Port5_Id, t);
-                await setSingleRegisterAsync(t, "port5 id");
-
-                await Task.Delay(delay);
 
                 //庫位5 RFID
                 getCmd(ESetOperate.Port5_Rfid, t);
-                await setMultiRegisterAsync(t, "port5 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位5 任務編號
                 getCmd(ESetOperate.Port5_TaskId, t);
-                await setSingleRegisterAsync(t, "port5 task id");
-
-                await Task.Delay(delay);
 
                 //庫位6 有無料件
                 getCmd(ESetOperate.Port6_Occupy, t);
-                await setSingleRegisterAsync(t, "port6 occupy");
-
-                await Task.Delay(delay);
 
                 //庫位6 序號
                 getCmd(ESetOperate.Port6_Id, t);
-                await setSingleRegisterAsync(t, "port6 id");
-
-                await Task.Delay(delay);
 
                 //庫位6 RFID
                 getCmd(ESetOperate.Port6_Rfid, t);
-                await setMultiRegisterAsync(t, "port6 rfid");
-
-                await Task.Delay(delay);
 
                 //庫位6 任務編號
                 getCmd(ESetOperate.Port6_TaskId, t);
-                await setSingleRegisterAsync(t, "port6 task id");
+
+                t.station = 2;
+                t.startAddress = 0x6000;
+                t.offset = 120;
+
+                await setMultiRegisterAsync(t, "all warehouse inform");
 
                 t.informLog = "set warehouse inform success";
                 return true;
@@ -1057,13 +994,6 @@ namespace CommonLibraryB.Library.Amr.Adapter
         async Task setSingleRegisterAsync(AmrPackage t, string register)
         {
             await t.master.WriteSingleRegisterAsync((byte)t.station, (ushort)t.startAddress, t.cmd);
-
-            await Task.Delay(delay);
-
-            ushort res = (await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset)).FirstOrDefault();
-
-            if (t.cmd != res)
-                throw new InvalidOperationException(string.Format("set {0} fail", register));
         }
 
         async Task getSingleRegisterAsync(AmrPackage t)
@@ -1073,29 +1003,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         async Task setMultiRegisterAsync(AmrPackage t, string register)
         {
-            //reset
-            ushort[] arrReset = Enumerable.Repeat((ushort)0, t.offset).ToArray();
-            await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, arrReset);
-
-            await Task.Delay(delay);
-
-            ushort[] arrResetRes = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
-
-            await Task.Delay(delay);
-
-            if (!arrReset.SequenceEqual(arrResetRes))
-                throw new InvalidOperationException(string.Format("set {0} fail", register));
-
             //write multi register
             await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, t.arrayCmd);
-
-            await Task.Delay(delay);
-
-            ushort[] arrRes = await t.master.ReadHoldingRegistersAsync((byte)t.station, (ushort)t.startAddress, (ushort)t.offset);
-
-            if (!t.arrayCmd.SequenceEqual(arrRes))
-                throw new InvalidOperationException(string.Format("set {0} fail", register));
-
         }
 
         async Task getMultiRegisterAsync(AmrPackage t)
