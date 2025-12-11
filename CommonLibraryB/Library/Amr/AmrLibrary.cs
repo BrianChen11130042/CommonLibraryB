@@ -108,5 +108,10 @@ namespace CommonLibraryB.Library.Amr
         {
             return await SelectAdapter(t).GetMissionCancelInform(Packages[t]);
         }
+
+        public async Task<bool> ResetErrorCodeAsync(T t)
+        {
+            return await SelectAdapter(t).ResetErrorCodeAsync(Packages[t]);
+        }
     }
 }

@@ -674,16 +674,13 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
         void cmdErrorCode(AmrPackage t)
         {
-            ushort[] tmp;
+            ushort[] temp = new ushort[1];
+            temp[0] = (ushort)t.property.set.status.errorCode;
 
-            IntUshortConverter.IntToUshortArray(t.property.set.status.errorCode,
-                                                EEndian.BigEndian,
-                                                out tmp);
-
-            t.arrayCmd = tmp;
+            t.arrayCmd = temp;
             t.station = 2;
             t.startAddress = 0x607F;
-            t.offset = 2;
+            t.offset = 1;
         }
     }
 
@@ -953,6 +950,29 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
+        public async Task<bool> ResetErrorCodeAsync(AmrPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                ushort[] temp = new ushort[1];
+                temp[0] = 0;
+
+                await setMultiRegisterAsync(2, 0x607F, temp, t);
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
         public async Task<bool> GetMissionCancelInform(AmrPackage t)
         {
             try
@@ -981,7 +1001,6 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.property.get.locId = 1;
             t.property.get.dcPortId = this.dcPortId;
         }
-
     }
 
     public partial class AdapterHikRobotIcTray
@@ -1005,6 +1024,12 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             //write multi register
             await t.master.WriteMultipleRegistersAsync((byte)t.station, (ushort)t.startAddress, t.arrayCmd);
+        }
+
+        async Task setMultiRegisterAsync(int station, int startAddress, ushort[] arrayCmd, AmrPackage t)
+        {
+            //write multi register
+            await t.master.WriteMultipleRegistersAsync((byte)station, (ushort)startAddress, arrayCmd);
         }
 
         async Task getMultiRegisterAsync(AmrPackage t)

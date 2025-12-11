@@ -26,6 +26,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
         //錯誤訊息
         Task<bool> SetErrorCodeAsync(T t);
 
+        Task<bool> ResetErrorCodeAsync(T t);
+
         //提取全部的庫位序號
         public void GetDeployData(T t);
 
