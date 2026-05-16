@@ -30,7 +30,9 @@ namespace CommonLibraryB.Library.Amr.Adapter
     {
         enum EGetOperate
         {
+            MotionStatus,
             MissionStarted,
+            MissionAbort,
             TaskId,
             RFID,
             MotionType,
@@ -45,8 +47,16 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             switch (operate)
             {
+                case EGetOperate.MotionStatus:
+                    cmdMotionStatus(t);
+                    break;
+
                 case EGetOperate.MissionStarted:
                     cmdMissionStarted(t);
+                    break;
+
+                case EGetOperate.MissionAbort:
+                    cmdMissionAbort(t);
                     break;
 
                 case EGetOperate.TaskId:
@@ -86,10 +96,24 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
+        void cmdMotionStatus(AmrPackage t)
+        {
+            t.station = 2;
+            t.startAddress = 0x6081;
+            t.offset = 1;
+        }
+
         void cmdMissionStarted(AmrPackage t)
         {
             t.station = 2;
             t.startAddress = 0x4001;
+            t.offset = 1;
+        }
+
+        void cmdMissionAbort(AmrPackage t)
+        {
+            t.station = 2;
+            t.startAddress = 0x4003;
             t.offset = 1;
         }
 
@@ -156,8 +180,16 @@ namespace CommonLibraryB.Library.Amr.Adapter
         {
             switch (operate)
             {
+                case EGetOperate.MotionStatus:
+                    upMotionStatus(t);
+                    break;
+
                 case EGetOperate.MissionStarted:
                     upMissionStarted(t);
+                    break;
+
+                case EGetOperate.MissionAbort:
+                    upMissionAbort(t);
                     break;
 
                 case EGetOperate.TaskId:
@@ -197,9 +229,19 @@ namespace CommonLibraryB.Library.Amr.Adapter
             }
         }
 
+        void upMotionStatus(AmrPackage t)
+        {
+            t.property.get.motionStatus = t.rcmd;
+        }
+
         void upMissionStarted(AmrPackage t)
         {
             t.property.get.missionStart = t.rcmd;
+        }
+
+        void upMissionAbort(AmrPackage t)
+        {
+            t.property.get.missionAbort = t.rcmd;
         }
 
         void upTaskId(AmrPackage t)
@@ -283,6 +325,8 @@ namespace CommonLibraryB.Library.Amr.Adapter
             MissionFinish,
             MissionStart,
 
+            RobotMotionStatus,
+
             Port1_Occupy,
             Port1_Id,
             Port1_Rfid,
@@ -326,6 +370,10 @@ namespace CommonLibraryB.Library.Amr.Adapter
 
                 case ESetOperate.MissionStart:
                     cmdMissionStart(t);
+                    break;
+
+                case ESetOperate.RobotMotionStatus:
+                    cmdRobotMotionStatus(t);
                     break;
 
                 case ESetOperate.Port1_Occupy:
@@ -452,6 +500,17 @@ namespace CommonLibraryB.Library.Amr.Adapter
             t.arrayCmd = temp;
             t.station = 2;
             t.startAddress = 0x4001;
+            t.offset = 1;
+        }
+
+        void cmdRobotMotionStatus(AmrPackage t)
+        {
+            ushort[] temp = new ushort[1];
+            temp[0] = t.property.set.robotMotionStatus;
+
+            t.arrayCmd = temp;
+            t.station = 2;
+            t.startAddress = 0x6082;
             t.offset = 1;
         }
 
@@ -687,6 +746,33 @@ namespace CommonLibraryB.Library.Amr.Adapter
     public partial class AdapterHikRobotIcTray : IAmrOperate<AmrPackage>
     {
 
+        public async Task<bool> GetMotionStatusAsync(AmrPackage t)
+        {
+
+            t.property.get.motionStatus = 0; //先不開通此功能(有需開通就在下面的註解)
+            return true;
+
+            //try
+            //{
+            //    if (t.master == null)
+            //    {
+            //        setModbusTcpError();
+            //    }
+
+            //    getCmd(EGetOperate.MotionStatus, t);
+            //    await getSingleRegisterAsync(t);
+            //    unpack(EGetOperate.MotionStatus, t);
+
+            //    t.informLog = "get motion status Success";
+            //    return true;
+            //}
+            //catch(Exception ex)
+            //{
+            //    t.errorLog = ex.Message;
+            //    return false;
+            //}
+        }
+
         public async Task<bool> GetMissionStartedAsync(AmrPackage t)
         {
             try
@@ -704,6 +790,29 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 return true;
             }
             catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
+        public async Task<bool> GetMissionAbortAsync(AmrPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(EGetOperate.MissionAbort, t);
+                await getSingleRegisterAsync(t);
+                unpack(EGetOperate.MissionAbort, t);
+
+                t.informLog = "get is mission sbort Success";
+                return true;
+            }
+            catch(Exception ex)
             {
                 t.errorLog = ex.Message;
                 return false;
@@ -757,6 +866,31 @@ namespace CommonLibraryB.Library.Amr.Adapter
                 t.errorLog = ex.Message;
                 return false;
             }
+        }
+
+        public async Task<bool> SetRobotMotionStatusAsync(AmrPackage t)
+        {
+
+            return true; //先不開通此功能(有需開通就在下面的註解)
+
+            //try
+            //{
+            //    if (t.master == null)
+            //    {
+            //        setModbusTcpError();
+            //    }
+
+            //    getCmd(ESetOperate.RobotMotionStatus, t);
+            //    await setMultiRegisterAsync(t, "robot motion status");
+
+            //    t.informLog = "set robot motion status success";
+            //    return true;
+            //}
+            //catch(Exception ex)
+            //{
+            //    t.errorLog = ex.Message;
+            //    return false;
+            //}
         }
 
         public async Task<bool> GetMissionInformAsync(AmrPackage t)

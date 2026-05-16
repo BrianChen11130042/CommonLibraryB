@@ -112,6 +112,11 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).SetRFIDScanMotionAsync(Packages[t]);
         }
 
+        public async Task<bool> SetTriggerErrorAsync(T t)
+        {
+            return await SelectAdapter(t).SetTriggerErrorAsync(Packages[t]);
+        }
+
         public void GetDeployData(T t)
         {
             SelectAdapter(t).GetDeployData(Packages[t]);

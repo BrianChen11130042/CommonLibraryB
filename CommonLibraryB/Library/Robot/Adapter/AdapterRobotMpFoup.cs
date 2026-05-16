@@ -186,6 +186,8 @@ namespace CommonLibraryB.Library.Robot.Adapter
         {
             OnPosition,
 
+            TriggerError,
+
             PickLocId,
             PickPortId,
             DropLocId,
@@ -198,6 +200,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
             {
                 case ESetOperate.OnPosition:
                     cmdOnPosition(t);
+                    break;
+
+                case ESetOperate.TriggerError:
+                    cmdTriggerError(t);
                     break;
 
                 case ESetOperate.PickLocId:
@@ -226,6 +232,14 @@ namespace CommonLibraryB.Library.Robot.Adapter
             t.cmd = t.property.set.onPosition;
             t.station = 1;
             t.startAddress = 9000;
+            t.offset = 1;
+        }
+
+        void cmdTriggerError(RobotPackage t)
+        {
+            t.cmd = t.property.set.triggerError;
+            t.station = 1;
+            t.startAddress = 9009;
             t.offset = 1;
         }
 
@@ -321,6 +335,29 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 return true;
             }
             catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
+        public async Task<bool> SetTriggerErrorAsync(RobotPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(ESetOperate.TriggerError, t);
+                await setSingleRegisterAsync(t, "trigger error");
+
+                t.informLog = "trigger robot error success";
+                return true;
+
+            }
+            catch (Exception ex)
             {
                 t.errorLog = ex.Message;
                 return false;
@@ -458,7 +495,6 @@ namespace CommonLibraryB.Library.Robot.Adapter
         {
             t.property.get.dcPortId = this.dcPortId;
         }
-
     }
 
     public partial class AdapterRobotMpFoup

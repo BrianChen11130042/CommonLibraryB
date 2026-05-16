@@ -23,6 +23,8 @@ namespace CommonLibraryB.Library.Robot.Property
         public ushort RFIDMotionType { get; set; }
 
         public MissionInfo mission { get; set; } = new MissionInfo();
+
+        public ushort triggerError { get; set; }
     }
 
     public class MissionInfo

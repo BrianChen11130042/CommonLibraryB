@@ -13,6 +13,8 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> SetMissionDataAsync(T t);
 
+        public Task<bool> SetTriggerErrorAsync(T t);
+
         #region 手臂專案流程狀態
 
         public Task<bool> GetProjectStatusAsync(T t);

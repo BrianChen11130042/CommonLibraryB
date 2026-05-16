@@ -39,11 +39,17 @@ namespace CommonLibraryB.Library.Amr.Property
 
         public ushort missionStart { get; set; }
 
+        public ushort robotMotionStatus { get; set; }
+
     }
 
     public class GetProperty
     {
+        public ushort motionStatus { get; set; }
+
         public ushort missionStart { get; set; }
+
+        public ushort missionAbort { get; set; }
 
         public ushort locId { get; set; }
 

@@ -113,5 +113,20 @@ namespace CommonLibraryB.Library.Amr
         {
             return await SelectAdapter(t).ResetErrorCodeAsync(Packages[t]);
         }
+
+        public async Task<bool> GetMotionStatusAsync(T t)
+        {
+            return await SelectAdapter(t).GetMotionStatusAsync(Packages[t]);
+        }
+
+        public async Task<bool> SetRobotMotionStatusAsync(T t)
+        {
+            return await SelectAdapter(t).SetRobotMotionStatusAsync(Packages[t]);
+        }
+
+        public async Task<bool> GetMissionAbortAsync(T t)
+        {
+            return await SelectAdapter(t).GetMissionAbortAsync(Packages[t]);
+        }
     }
 }
