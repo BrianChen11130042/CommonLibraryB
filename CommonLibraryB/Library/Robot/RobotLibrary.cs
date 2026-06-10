@@ -117,6 +117,11 @@ namespace CommonLibraryB.Library.Robot
             return await SelectAdapter(t).SetTriggerErrorAsync(Packages[t]);
         }
 
+        public async Task<bool> GetLidarWarningAsync(T t)
+        {
+            return await SelectAdapter(t).GetLidarWarningAsync(Packages[t]);
+        }
+
         public void GetDeployData(T t)
         {
             SelectAdapter(t).GetDeployData(Packages[t]);

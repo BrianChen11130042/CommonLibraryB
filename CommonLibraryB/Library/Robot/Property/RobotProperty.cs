@@ -56,6 +56,8 @@ namespace CommonLibraryB.Library.Robot.Property
 
         public bool isError { get; set; }
 
+        public bool isLidarWarning { get; set; }
+
         public int errorCode { get; set; }
 
         public ushort isRFIDScanPos { get; set; }

@@ -15,6 +15,8 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
         public Task<bool> SetTriggerErrorAsync(T t);
 
+        public Task<bool> GetLidarWarningAsync(T t);
+
         #region 手臂專案流程狀態
 
         public Task<bool> GetProjectStatusAsync(T t);

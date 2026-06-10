@@ -33,6 +33,7 @@ namespace CommonLibraryB.Library.Robot.Adapter
             ProjectStatus,
             ProjectErrorCode,
             Sensors,
+            LidarWarning,
             RFIDScanPos,
             IsError,
             ErrorCode
@@ -52,6 +53,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
                 case EGetOperate.Sensors:
                     cmdSensors(t);
+                    break;
+
+                case EGetOperate.LidarWarning:
+                    cmdLidarWarning(t);
                     break;
 
                 case EGetOperate.RFIDScanPos:
@@ -92,6 +97,13 @@ namespace CommonLibraryB.Library.Robot.Adapter
             t.offset = 6;
         }
 
+        void cmdLidarWarning(RobotPackage t)
+        {
+            t.station = 1;
+            t.startAddress = 0201;
+            t.offset = 1;
+        }
+
         void cmdRFIDScanPos(RobotPackage t)
         {
             t.station = 1;
@@ -130,6 +142,10 @@ namespace CommonLibraryB.Library.Robot.Adapter
 
                 case EGetOperate.Sensors:
                     upSensors(t);
+                    break;
+
+                case EGetOperate.LidarWarning:
+                    upLidarWarning(t);
                     break;
 
                 case EGetOperate.RFIDScanPos:
@@ -180,6 +196,18 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 {
                     t.property.get.dcOccupy[pair.Value] = t.arrayBoolRcmd[pair.Key - 1];
                 }
+            }
+        }
+
+        void upLidarWarning(RobotPackage t)
+        {
+            if(t.boolRcmd == true)
+            {
+                t.property.get.isLidarWarning = false;
+            }
+            else
+            {
+                t.property.get.isLidarWarning = true;
             }
         }
 
@@ -465,6 +493,29 @@ namespace CommonLibraryB.Library.Robot.Adapter
                 return true;
             }
             catch (Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+        }
+
+        public async Task<bool> GetLidarWarningAsync(RobotPackage t)
+        {
+            try
+            {
+                if (t.master == null)
+                {
+                    setModbusTcpError();
+                }
+
+                getCmd(EGetOperate.LidarWarning, t);
+                await getSingleInputAsync(t);
+                unpack(EGetOperate.LidarWarning, t);
+
+                t.informLog = "get lidar warning success";
+                return true;
+            }
+            catch(Exception ex)
             {
                 t.errorLog = ex.Message;
                 return false;
