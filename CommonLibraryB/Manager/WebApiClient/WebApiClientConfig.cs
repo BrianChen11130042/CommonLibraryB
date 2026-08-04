@@ -35,7 +35,7 @@ namespace CommonLibraryB.Manager.WebApiClient
         public HttpClient httpClient { get; set; }
 
         [JsonIgnore]
-        public string baseUrl => $"{Http}://{Ip}:{Port}/";
+        public string baseUrl => $"{Http}://{Ip}:{Port}";
 
         public void Init()
         {
