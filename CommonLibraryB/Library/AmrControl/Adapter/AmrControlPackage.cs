@@ -16,5 +16,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         public AmrControlProperty property { get; set; }
 
         public string errorLog { get; set; }
+
+        public SemaphoreSlim gate { get; } = new SemaphoreSlim(1, 1);
     }
 }

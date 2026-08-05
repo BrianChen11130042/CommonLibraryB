@@ -16,7 +16,7 @@ namespace CommonLibraryB.Manager.WebApiClient
 
         public string path { get; set; }
 
-        public async Task<TResponse> PostAsync<TRequest, TResponse>(string path, TRequest request)
+        public async Task<TResponse> PostAsync<TRequest, TResponse>(TRequest request)
         {
             using (var response = await httpClient.PostAsJsonAsync(path, request))
             {
@@ -35,6 +35,31 @@ namespace CommonLibraryB.Manager.WebApiClient
                 }
 
                 return data;
+            }
+        }
+
+        public async Task<TResponse> PostFormAsync<TResponse>(Dictionary<string, string> form)
+        {
+            using (var content = new FormUrlEncodedContent(form))
+            {
+                using (var response = await httpClient.PostAsync(path, content))
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new InvalidOperationException($"HTTP {(int)response.StatusCode}: {jsonString}");
+                    }
+
+                    var data = JsonSerializer.Deserialize<TResponse>(jsonString);
+
+                    if (data == null)
+                    {
+                        throw new InvalidOperationException("response deserialize failed");
+                    }
+
+                    return data;
+                }
             }
         }
     }
