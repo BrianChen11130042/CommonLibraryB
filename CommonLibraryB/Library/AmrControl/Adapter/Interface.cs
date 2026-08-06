@@ -8,6 +8,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 {
     public interface IAmrControlOperate<T>
     {
-        Task<bool> GetAccessToken(T t); 
+        Task<bool> GetAccessToken(T t);
+
+        Task<bool> SetMoveFlow(T t);
     }
 }

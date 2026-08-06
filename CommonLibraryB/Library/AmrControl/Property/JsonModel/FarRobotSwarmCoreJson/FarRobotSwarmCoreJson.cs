@@ -10,5 +10,9 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
     {
         public AccessToken accessToken { get; set; } = new AccessToken();
 
+        public string flowName { get; set; } = string.Empty;
+
+        public MoveFlow moveFlow { get; set; } = new MoveFlow();
+
     }
 }

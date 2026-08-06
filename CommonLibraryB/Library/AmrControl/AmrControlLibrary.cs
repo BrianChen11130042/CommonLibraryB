@@ -70,5 +70,10 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).GetAccessToken(Packages[t]);
         }
+
+        public async Task<bool> SetMoveFlow(T t)
+        {
+            return await SelectAdapter(t).SetMoveFlow(Packages[t]);
+        }
     }
 }
