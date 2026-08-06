@@ -14,7 +14,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         enum EGetOperate
         {
             AccessToken,
-            ProgressByFlowId
+            ProgressByFlowId,
+            ProgressByTaskId
         }
 
         void getCmd(EGetOperate operate, AmrControlPackage t)
@@ -28,27 +29,38 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 case EGetOperate.ProgressByFlowId:
                     cmdProgressByFlowId(t);
                     break;
-            }
 
-            void cmdAccessToken(AmrControlPackage t)
+                case EGetOperate.ProgressByTaskId:
+                    cmdProgressByTaskId(t);
+                    break;
+            }
+        }
+
+        void cmdAccessToken(AmrControlPackage t)
+        {
+            Dictionary<string, string> auth = new Dictionary<string, string>()
             {
-                Dictionary<string, string> auth = new Dictionary<string, string>()
-                {
-                    ["username"] = "admin",
-                    ["password"] = "admin",
-                };
+                ["username"] = "admin",
+                ["password"] = "admin",
+            };
 
-                t.property.farRobot.accessToken.post = auth;
+            t.property.farRobot.accessToken.post = auth;
 
-                t.path = "/login/access-token";
-            }
+            t.path = "/login/access-token";
+        }
 
-            void cmdProgressByFlowId(AmrControlPackage t)
-            {
-                t.property.farRobot.flowId = t.property.farRobot.moveFlow.response.swarm_data.flow_id;
+        void cmdProgressByFlowId(AmrControlPackage t)
+        {
+            t.property.farRobot.flowId = t.property.farRobot.moveFlow.response.swarm_data.flow_id;
 
-                t.path = $"/v1/flows/progress/{t.property.farRobot.flowId}";
-            }
+            t.path = $"/v1/flows/progress/{t.property.farRobot.flowId}";
+        }
+
+        void cmdProgressByTaskId(AmrControlPackage t)
+        {
+            t.property.farRobot.taskId = t.property.farRobot.flowProgress.response.data.task_ids[0];
+
+            t.path = $"/v1/tasks/progress/{t.property.farRobot.taskId}";
         }
     }
 
@@ -163,6 +175,37 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 FlowProgressResponse response = await t.GetAsync<FlowProgressResponse>();
 
                 t.property.farRobot.flowProgress.response = response;
+
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetProgressByTaskId(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.ProgressByTaskId, t);
+
+                TaskProgressResponse response = await t.GetAsync<TaskProgressResponse>();
+
+                t.property.farRobot.taskProgress.response = response;
 
                 return true;
 

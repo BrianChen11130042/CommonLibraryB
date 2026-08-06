@@ -20,5 +20,7 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public FlowProgress flowProgress { get; set; } = new FlowProgress();
 
+        public TaskProgress taskProgress { get; set; } = new TaskProgress();
+
     }
 }

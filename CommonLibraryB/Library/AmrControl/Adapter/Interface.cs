@@ -13,5 +13,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         Task<bool> SetMoveFlow(T t);
 
         Task<bool> GetProgressByFlowId(T t);
+
+        Task<bool> GetProgressByTaskId(T t);
     }
 }

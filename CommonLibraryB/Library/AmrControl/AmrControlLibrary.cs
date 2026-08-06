@@ -80,5 +80,10 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).GetProgressByFlowId(Packages[t]);
         }
+
+        public async Task<bool> GetProgressByTaskId(T t)
+        {
+            return await SelectAdapter(t).GetProgressByTaskId(Packages[t]);
+        }
     }
 }
