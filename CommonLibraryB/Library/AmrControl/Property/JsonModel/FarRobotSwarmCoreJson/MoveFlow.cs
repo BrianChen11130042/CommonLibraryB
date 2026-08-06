@@ -39,9 +39,6 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
     {
         [JsonPropertyName("4")]
         public MoveFlowNodeParam Node4 { get; set; } = new MoveFlowNodeParam();
-
-        [JsonPropertyName("5")]
-        public MoveFlowNodeParam Node5 { get; set; } = new MoveFlowNodeParam();
     }
 
     public class MoveFlowNodeParam

@@ -67,9 +67,6 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
             t.property.farRobot.moveFlow.post.args.Params.Node4.assigned_robot = "smr_9901010401002t73j251";
             t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = "dennis test1@default_area@destination";
-
-            t.property.farRobot.moveFlow.post.args.Params.Node5.assigned_robot = "smr_9901010401002t73j251";
-            t.property.farRobot.moveFlow.post.args.Params.Node5.goal_tynXx = "dennis test1@default_area@departure";
         }
     }
 
