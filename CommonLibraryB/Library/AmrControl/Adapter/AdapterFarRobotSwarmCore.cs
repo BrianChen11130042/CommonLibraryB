@@ -13,7 +13,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
     {
         enum EGetOperate
         {
-            AccessToken
+            AccessToken,
+            ProgressByFlowId
         }
 
         void getCmd(EGetOperate operate, AmrControlPackage t)
@@ -22,6 +23,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             {
                 case EGetOperate.AccessToken:
                     cmdAccessToken(t);
+                    break;
+
+                case EGetOperate.ProgressByFlowId:
+                    cmdProgressByFlowId(t);
                     break;
             }
 
@@ -36,6 +41,13 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 t.property.farRobot.accessToken.post = auth;
 
                 t.path = "/login/access-token";
+            }
+
+            void cmdProgressByFlowId(AmrControlPackage t)
+            {
+                t.property.farRobot.flowId = t.property.farRobot.moveFlow.response.swarm_data.flow_id;
+
+                t.path = $"/v1/flows/progress/{t.property.farRobot.flowId}";
             }
         }
     }
@@ -120,6 +132,37 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                                                                      MoveFlowTriggerResponse>(t.property.farRobot.moveFlow.post);
 
                 t.property.farRobot.moveFlow.response = response;
+
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetProgressByFlowId(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.ProgressByFlowId, t);
+
+                FlowProgressResponse response = await t.GetAsync<FlowProgressResponse>();
+
+                t.property.farRobot.flowProgress.response = response;
 
                 return true;
 

@@ -11,5 +11,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         Task<bool> GetAccessToken(T t);
 
         Task<bool> SetMoveFlow(T t);
+
+        Task<bool> GetProgressByFlowId(T t);
     }
 }
