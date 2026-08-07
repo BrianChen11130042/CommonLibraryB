@@ -32,7 +32,7 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public string robot_id { get; set; } = "";
 
-        public int complete_percent { get; set; }
+        public double complete_percent { get; set; }
 
         public string status_code { get; set; } = "";
 

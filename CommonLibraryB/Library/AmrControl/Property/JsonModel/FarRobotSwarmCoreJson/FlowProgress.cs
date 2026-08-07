@@ -30,7 +30,7 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public string state_string { get; set; } = "";
 
-        public int complete_percent { get; set; }
+        public double complete_percent { get; set; }
 
         public long scheduled_timestamp { get; set; }
 
