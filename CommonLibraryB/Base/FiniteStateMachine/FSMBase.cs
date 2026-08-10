@@ -105,9 +105,14 @@ namespace CommonLibraryB.Base.FiniteStateMachine
 
         public void RetrieveState()
         {
-            S1 = RS1;
-            S2 = RS2;
-            S3 = RS3;
+            if (isError)
+            {
+                S1 = RS1;
+                S2 = RS2;
+                S3 = RS3;
+
+                isError = false;
+            }
         }
     }
 }
