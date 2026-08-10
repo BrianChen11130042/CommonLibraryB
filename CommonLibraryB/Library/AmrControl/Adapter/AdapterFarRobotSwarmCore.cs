@@ -68,7 +68,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
     {
         enum ESetOperate
         {
-            MoveFlow
+            MoveFlow,
+            ChargeFlow
         }
 
         void getCmd(ESetOperate operate, AmrControlPackage t)
@@ -77,6 +78,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             {
                 case ESetOperate.MoveFlow:
                     cmdMoveFlow(t);
+                    break;
+
+                case ESetOperate.ChargeFlow:
+                    cmdChargeFlow(t);
                     break;
             }
         }
@@ -91,6 +96,19 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
             t.property.farRobot.moveFlow.post.args.Params.Node4.assigned_robot = "smr_9901010401002t73j251";
             t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = "dennis test1@default_area@destination";
+        }
+
+        void cmdChargeFlow(AmrControlPackage t)
+        {
+            t.property.farRobot.flowName = "charge_api_test";
+
+            t.path = $"/v2/flows/{t.property.farRobot.flowName}";
+
+            t.property.farRobot.chargeFlow.post.args.priority = "3";
+
+            t.property.farRobot.chargeFlow.post.args.Params.Node4.assigned_robot = "smr_9901010401002t73j251";
+            t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = "dennis test1@default_area@Charger";
+            t.property.farRobot.chargeFlow.post.args.Params.Node4.percentage_nUvaT = "100";
         }
     }
 
@@ -147,6 +165,37 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 return true;
 
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> SetChargeFlow(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(ESetOperate.ChargeFlow, t);
+
+                ChargeFlowTriggerResponse response = await t.PostAsync<ChargeFlowTriggerRequest, 
+                                                                       ChargeFlowTriggerResponse>(t.property.farRobot.chargeFlow.post);
+
+                t.property.farRobot.chargeFlow.response = response;
+
+                return true;
             }
             catch(Exception ex)
             {
