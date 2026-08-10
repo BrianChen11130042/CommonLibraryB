@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Base.Adapter;
 using CommonLibraryB.Library.AmrControl.Config;
+using CommonLibraryB.Library.AmrControl.Package;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
 {
     public enum EAmrControlSupplier { FarRobotSwarmCore }
 
-    public class AmrControlAdapter : AdapterBase<AmrControlConfig, EAmrControlSupplier, IAmrControlOperate<AmrControlPackage>>
+    public class AmrControlAdapter : AdapterBase<AmrControlConfig, EAmrControlSupplier, IAmrControlAdapter<AmrControlPackage>>
     {
         public AmrControlAdapter(List<AmrControlConfig> keys) : base(keys)
         {

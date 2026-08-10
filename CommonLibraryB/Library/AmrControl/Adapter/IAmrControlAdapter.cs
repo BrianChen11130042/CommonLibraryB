@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
 {
-    public interface IAmrControlOperate<T>
+    public interface IAmrControlAdapter<T>
     {
         Task<bool> GetAccessToken(T t);
 

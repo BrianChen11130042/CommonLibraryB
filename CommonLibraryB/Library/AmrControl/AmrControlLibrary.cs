@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Library.AmrControl.Adapter;
 using CommonLibraryB.Library.AmrControl.Config;
+using CommonLibraryB.Library.AmrControl.Package;
 using CommonLibraryB.Library.AmrControl.Property;
 using CommonLibraryB.Manager.WebApiClient;
 
@@ -23,8 +24,23 @@ namespace CommonLibraryB.Library.AmrControl
             this.configManager = configManager;
             this.propertyManager = propertyManager;
         }
+    }
 
-        public Dictionary<T, AmrControlPackage> Packages;
+    public partial class AmrControlLibrary<T> : IAmrControlPackage<T>
+    {
+        Dictionary<T, AmrControlPackage> _packages { get; set; }
+
+        public Dictionary<T, AmrControlPackage> Packages
+        {
+            get
+            {
+                return _packages;
+            }
+            set
+            {
+                _packages = value;
+            }
+        }
 
         public void InitPackage()
         {
@@ -47,9 +63,10 @@ namespace CommonLibraryB.Library.AmrControl
                 Packages[dev].httpClient = apiClientManager.table[apiClient].httpClient;
             }
         }
+
     }
 
-    public partial class AmrControlLibrary<T> : IAmrControlOperate<T>
+    public partial class AmrControlLibrary<T> : IAmrControlAdapter<T>
     {
         AmrControlAdapter adapter;
 
@@ -59,7 +76,7 @@ namespace CommonLibraryB.Library.AmrControl
             adapter = new AmrControlAdapter(cs);
         }
 
-        IAmrControlOperate<AmrControlPackage> SelectAdapter(T t)
+        IAmrControlAdapter<AmrControlPackage> SelectAdapter(T t)
         {
             string key = t.ToString();
             AmrControlConfig c = configManager.table[key];

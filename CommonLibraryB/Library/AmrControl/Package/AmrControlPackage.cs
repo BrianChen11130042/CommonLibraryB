@@ -7,7 +7,7 @@ using CommonLibraryB.Library.AmrControl.Config;
 using CommonLibraryB.Library.AmrControl.Property;
 using CommonLibraryB.Manager.WebApiClient;
 
-namespace CommonLibraryB.Library.AmrControl.Adapter
+namespace CommonLibraryB.Library.AmrControl.Package
 {
     public class AmrControlPackage : WebApiClientPack
     {

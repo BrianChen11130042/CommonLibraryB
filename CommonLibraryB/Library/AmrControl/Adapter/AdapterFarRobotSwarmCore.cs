@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using CommonLibraryB.Library.AmrControl.Package;
 using CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCoreJson;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
@@ -112,7 +113,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         }
     }
 
-    public partial class AdapterFarRobotSwarmCore : IAmrControlOperate<AmrControlPackage>
+    public partial class AdapterFarRobotSwarmCore : IAmrControlAdapter<AmrControlPackage>
     {
         public async Task<bool> GetAccessToken(AmrControlPackage t)
         {
@@ -128,6 +129,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 getCmd(EGetOperate.AccessToken, t);
 
                 TokenResponse response = await t.PostFormAsync<TokenResponse>(t.property.farRobot.accessToken.post);
+
+                t.property.farRobot.accessToken.response = response;
 
                 t.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(response.token_type, response.access_token);
 
