@@ -16,7 +16,7 @@ namespace CommonLibraryB.Tools.LogWritter
         Error
     }
 
-    public class LogWritter : INLogWritterObserver
+    public class LogWritter : INLogObserver
     {
         public Logger logger;
         public string _directory;
@@ -34,7 +34,7 @@ namespace CommonLibraryB.Tools.LogWritter
             logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
         }
 
-        public async Task WriteNLog(EStatus status, string msg)
+        public async Task HandleNLog(EStatus status, string msg)
         {
             mutex.WaitOne();
 

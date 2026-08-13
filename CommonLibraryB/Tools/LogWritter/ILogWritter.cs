@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Tools.LogWritter
 {
-    public interface INLogWritterObservable
+    public interface INLogObservable
     {
-        void AddNLogWritterObserver(INLogWritterObserver o);
+        void AddNLogObserver(INLogObserver o);
 
-        void RemoveNLogWritterObserver(INLogWritterObserver o);
+        void RemoveNLogObserver(INLogObserver o);
 
         Task NotifyNLog(EStatus status, string msg);
     }
 
-    public interface INLogWritterObserver
+    public interface INLogObserver
     {
-        Task WriteNLog(EStatus status, string msg);
+        Task HandleNLog(EStatus status, string msg);
     }
 }

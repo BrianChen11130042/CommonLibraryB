@@ -107,12 +107,18 @@ namespace CommonLibraryB.Base.FiniteStateMachine
         {
             if (isError)
             {
+                ResetKey();
+
                 S1 = RS1;
                 S2 = RS2;
                 S3 = RS3;
-
-                isError = false;
             }
+        }
+
+        public void ResetKey()
+        {
+            isError = false;
+            key = EHandshakeKey.None;
         }
     }
 }
