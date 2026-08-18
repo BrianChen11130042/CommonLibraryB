@@ -9,7 +9,7 @@ using CommonLibraryB.Library.AmrControl.Package;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
 {
-    public enum EAmrControlSupplier { FarRobotSwarmCore }
+    public enum EAmrControlSupplier { FarRobotSwarmCore, Stub }
 
     public class AmrControlAdapter : AdapterBase<AmrControlConfig, EAmrControlSupplier, IAmrControlAdapter<AmrControlPackage>>
     {
@@ -31,6 +31,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 {
                     case EAmrControlSupplier.FarRobotSwarmCore:
                         table.Add(supplier, new AdapterFarRobotSwarmCore());
+                        break;
+
+                    case EAmrControlSupplier.Stub:
+                        table.Add(supplier, new AdapterStub());
                         break;
                 }
             }

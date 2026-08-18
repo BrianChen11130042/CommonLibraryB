@@ -90,26 +90,19 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         void cmdMoveFlow(AmrControlPackage t)
         {
             t.property.farRobot.flowName = "move_api_test";
-
             t.path = $"/v2/flows/{t.property.farRobot.flowName}";
 
-            t.property.farRobot.moveFlow.post.args.priority = "3";
-
-            t.property.farRobot.moveFlow.post.args.Params.Node4.assigned_robot = "smr_9901010401002t73j251";
-            t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = "dennis test1@default_area@destination";
+            string cellName = t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx;
+            t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = $"dennis test1@default_area@{cellName}";
         }
 
         void cmdChargeFlow(AmrControlPackage t)
         {
             t.property.farRobot.flowName = "charge_api_test";
-
             t.path = $"/v2/flows/{t.property.farRobot.flowName}";
 
-            t.property.farRobot.chargeFlow.post.args.priority = "3";
-
-            t.property.farRobot.chargeFlow.post.args.Params.Node4.assigned_robot = "smr_9901010401002t73j251";
-            t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = "dennis test1@default_area@Charger";
-            t.property.farRobot.chargeFlow.post.args.Params.Node4.percentage_nUvaT = "100";
+            string cellName = t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT;
+            t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = $"dennis test1@default_area@{cellName}";
         }
     }
 
