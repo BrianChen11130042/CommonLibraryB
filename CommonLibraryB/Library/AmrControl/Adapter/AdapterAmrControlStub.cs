@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
 {
-    public partial class AdapterStub : IAmrControlAdapter<AmrControlPackage>
+    public partial class AdapterAmrControlStub : IAmrControlAdapter<AmrControlPackage>
     {
         public async Task<bool> GetAccessToken(AmrControlPackage t)
         {

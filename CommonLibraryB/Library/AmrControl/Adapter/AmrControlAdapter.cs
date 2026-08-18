@@ -34,7 +34,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                         break;
 
                     case EAmrControlSupplier.Stub:
-                        table.Add(supplier, new AdapterStub());
+                        table.Add(supplier, new AdapterAmrControlStub());
                         break;
                 }
             }
