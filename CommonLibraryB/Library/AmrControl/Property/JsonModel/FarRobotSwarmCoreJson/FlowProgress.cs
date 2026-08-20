@@ -8,6 +8,8 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 {
     public class FlowProgress
     {
+        public string flowId { get; set; } = string.Empty;
+
         public FlowProgressResponse response { get; set; } = new FlowProgressResponse();
     }
 

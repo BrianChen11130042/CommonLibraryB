@@ -9,6 +9,8 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 {
     public class MoveFlow
     {
+        public string flowName { get; set; } = string.Empty;
+
         public MoveFlowTriggerRequest post { get; set; } = new MoveFlowTriggerRequest();
 
         public MoveFlowTriggerResponse response { get; set; } = new MoveFlowTriggerResponse();

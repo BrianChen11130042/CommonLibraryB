@@ -9,6 +9,8 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 {
     public class ChargeFlow
     {
+        public string flowName { get; set; } = string.Empty;
+
         public ChargeFlowTriggerRequest post { get; set; } = new ChargeFlowTriggerRequest();
 
         public ChargeFlowTriggerResponse response { get; set; } = new ChargeFlowTriggerResponse();

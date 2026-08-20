@@ -52,12 +52,12 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdProgressByFlowId(AmrControlPackage t)
         {
-            t.path = $"/v1/flows/progress/{t.property.farRobot.flowId}";
+            t.path = $"/v1/flows/progress/{t.property.farRobot.flowProgress.flowId}";
         }
 
         void cmdProgressByTaskId(AmrControlPackage t)
         {
-            t.path = $"/v1/tasks/progress/{t.property.farRobot.taskId}";
+            t.path = $"/v1/tasks/progress/{t.property.farRobot.taskProgress.taskId}";
         }
     }
 
@@ -85,8 +85,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdMoveFlow(AmrControlPackage t)
         {
-            t.property.farRobot.flowName = "move_api_test";
-            t.path = $"/v2/flows/{t.property.farRobot.flowName}";
+            t.property.farRobot.moveFlow.flowName = "move_api_test";
+            t.path = $"/v2/flows/{t.property.farRobot.moveFlow.flowName}";
 
             string cellName = t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx;
             t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = $"dennis test1@default_area@{cellName}";
@@ -94,8 +94,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdChargeFlow(AmrControlPackage t)
         {
-            t.property.farRobot.flowName = "charge_api_test";
-            t.path = $"/v2/flows/{t.property.farRobot.flowName}";
+            t.property.farRobot.chargeFlow.flowName = "charge_api_test";
+            t.path = $"/v2/flows/{t.property.farRobot.chargeFlow.flowName}";
 
             string cellName = t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT;
             t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = $"dennis test1@default_area@{cellName}";
