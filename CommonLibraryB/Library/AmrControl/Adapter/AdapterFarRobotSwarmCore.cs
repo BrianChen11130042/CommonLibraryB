@@ -52,15 +52,11 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdProgressByFlowId(AmrControlPackage t)
         {
-            t.property.farRobot.flowId = t.property.farRobot.moveFlow.response.swarm_data.flow_id;
-
             t.path = $"/v1/flows/progress/{t.property.farRobot.flowId}";
         }
 
         void cmdProgressByTaskId(AmrControlPackage t)
         {
-            t.property.farRobot.taskId = t.property.farRobot.flowProgress.response.data.task_ids[0];
-
             t.path = $"/v1/tasks/progress/{t.property.farRobot.taskId}";
         }
     }
