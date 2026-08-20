@@ -19,5 +19,7 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public TaskProgress taskProgress { get; set; } = new TaskProgress();
 
+        public ArtifactStatus artifactStatus { get; set; } = new ArtifactStatus();
+
     }
 }

@@ -16,7 +16,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         {
             AccessToken,
             ProgressByFlowId,
-            ProgressByTaskId
+            ProgressByTaskId,
+            ArtifactStatusByArtifactId
         }
 
         void getCmd(EGetOperate operate, AmrControlPackage t)
@@ -33,6 +34,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case EGetOperate.ProgressByTaskId:
                     cmdProgressByTaskId(t);
+                    break;
+
+                case EGetOperate.ArtifactStatusByArtifactId:
+                    cmdArtifactStatusByArtifactId(t);
                     break;
             }
         }
@@ -58,6 +63,11 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         void cmdProgressByTaskId(AmrControlPackage t)
         {
             t.path = $"/v1/tasks/progress/{t.property.farRobot.taskProgress.taskId}";
+        }
+
+        void cmdArtifactStatusByArtifactId(AmrControlPackage t)
+        {
+            t.path = $"/v2/artifacts/status/{t.property.farRobot.artifactStatus.artifactId}";
         }
     }
 
@@ -250,6 +260,36 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 return true;
 
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetArtifactStatusByArtifactId(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.ArtifactStatusByArtifactId, t);
+
+                ArtifactStatusResponse response = await t.GetAsync<ArtifactStatusResponse>();
+
+                t.property.farRobot.artifactStatus.response = response;
+
+                return true;
             }
             catch(Exception ex)
             {
