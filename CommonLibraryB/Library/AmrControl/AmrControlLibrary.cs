@@ -107,5 +107,10 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).GetProgressByTaskId(Packages[t]);
         }
+
+        public async Task<bool> GetArtifactStatusByArtifactId(T t)
+        {
+            return await SelectAdapter(t).GetArtifactStatusByArtifactId(Packages[t]);
+        }
     }
 }
