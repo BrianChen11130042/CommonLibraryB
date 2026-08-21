@@ -76,7 +76,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         enum ESetOperate
         {
             MoveFlow,
-            ChargeFlow
+            ChargeFlow,
+            DeleteFlow
         }
 
         void getCmd(ESetOperate operate, AmrControlPackage t)
@@ -89,6 +90,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case ESetOperate.ChargeFlow:
                     cmdChargeFlow(t);
+                    break;
+
+                case ESetOperate.DeleteFlow:
+                    cmdDeleteFlow(t);
                     break;
             }
         }
@@ -109,6 +114,11 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
             string cellName = t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT;
             t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = $"dennis test1@default_area@{cellName}";
+        }
+
+        void cmdDeleteFlow(AmrControlPackage t)
+        {
+            t.path = $"/v2/flows/{t.property.farRobot.deleteFlow.flowId}";
         }
     }
 
@@ -288,6 +298,36 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 ArtifactStatusResponse response = await t.GetAsync<ArtifactStatusResponse>();
 
                 t.property.farRobot.artifactStatus.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> SetDeleteFlowByFlowId(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(ESetOperate.DeleteFlow, t);
+
+                DeleteFlowResponse response = await t.DeleteAsync<DeleteFlowResponse>();
+
+                t.property.farRobot.deleteFlow.response = response;
 
                 return true;
             }

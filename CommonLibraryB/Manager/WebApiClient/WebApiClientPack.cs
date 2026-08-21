@@ -84,5 +84,27 @@ namespace CommonLibraryB.Manager.WebApiClient
                 return data;
             }
         }
+
+        public async Task<TResponse> DeleteAsync<TResponse>()
+        {
+            using (var response = await httpClient.DeleteAsync(path))
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new InvalidOperationException($"HTTP {(int)response.StatusCode}: {jsonString}");
+                }
+
+                var data = JsonSerializer.Deserialize<TResponse>(jsonString);
+
+                if (data == null)
+                {
+                    throw new InvalidOperationException("response deserialize failed");
+                }
+
+                return data;
+            }
+        }
     }
 }

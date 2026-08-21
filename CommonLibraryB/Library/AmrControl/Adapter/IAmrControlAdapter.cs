@@ -19,5 +19,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         Task<bool> GetProgressByTaskId(T t);
 
         Task<bool> GetArtifactStatusByArtifactId(T t);
+
+        Task<bool> SetDeleteFlowByFlowId(T t);
     }
 }
