@@ -117,5 +117,25 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).SetDeleteFlowByFlowId(Packages[t]);
         }
+
+        public async Task<bool> GetFlowName(T t)
+        {
+            return await SelectAdapter(t).GetFlowName(Packages[t]);
+        }
+
+        public async Task<bool> GetScanAmr(T t)
+        {
+            return await SelectAdapter(t).GetScanAmr(Packages[t]);
+        }
+
+        public async Task<bool> GetCellStatus(T t)
+        {
+            return await SelectAdapter(t).GetCellStatus(Packages[t]);
+        }
+
+        public async Task<bool> GetAmrStatusByAmrId(T t)
+        {
+            return await SelectAdapter(t).GetAmrStatusByAmrId(Packages[t]);
+        }
     }
 }

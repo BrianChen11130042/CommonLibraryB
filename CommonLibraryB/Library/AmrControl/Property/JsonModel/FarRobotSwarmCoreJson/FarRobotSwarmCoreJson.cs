@@ -19,9 +19,17 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public TaskProgress taskProgress { get; set; } = new TaskProgress();
 
-        public ArtifactStatus artifactStatus { get; set; } = new ArtifactStatus();
+        public ArtifactStatusByArtifactId artifactStatusByArtifactId { get; set; } = new ArtifactStatusByArtifactId();
 
         public DeleteFlow deleteFlow { get; set; } = new DeleteFlow();
+
+        public FlowName flowName { get; set; } = new FlowName();
+
+        public ScanAmr scanAmr { get; set; } = new ScanAmr();
+
+        public CellStatus cellStatus { get; set; } = new CellStatus();
+
+        public AmrStatusByAmrId amrStatusByAmrId { get; set; } = new AmrStatusByAmrId();
 
     }
 }

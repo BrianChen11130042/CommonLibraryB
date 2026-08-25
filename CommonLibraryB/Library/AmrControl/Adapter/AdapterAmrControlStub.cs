@@ -99,5 +99,57 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 t.gate.Release();
             }
         }
+
+        public async Task<bool> GetFlowName(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetScanAmr(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetCellStatus(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetAmrStatusByAmrId(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
     }
 }

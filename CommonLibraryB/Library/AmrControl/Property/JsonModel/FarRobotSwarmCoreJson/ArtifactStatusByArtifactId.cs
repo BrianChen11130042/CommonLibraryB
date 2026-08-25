@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCoreJson
 {
-    public class ArtifactStatus
+    public class ArtifactStatusByArtifactId
     {
         public string artifactId { get; set; } = string.Empty;
 

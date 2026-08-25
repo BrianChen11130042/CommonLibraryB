@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommonLibraryB.Library.AmrControl.Package;
 using CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCoreJson;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace CommonLibraryB.Library.AmrControl.Adapter
 {
@@ -17,7 +18,11 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             AccessToken,
             ProgressByFlowId,
             ProgressByTaskId,
-            ArtifactStatusByArtifactId
+            ArtifactStatusByArtifactId,
+            FlowName,
+            ScanAmr,
+            CellStatus,
+            AmrStatusByAmrId
         }
 
         void getCmd(EGetOperate operate, AmrControlPackage t)
@@ -38,6 +43,22 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case EGetOperate.ArtifactStatusByArtifactId:
                     cmdArtifactStatusByArtifactId(t);
+                    break;
+
+                case EGetOperate.FlowName:
+                    cmdFlowName(t);
+                    break;
+
+                case EGetOperate.ScanAmr:
+                    cmdScanAmr(t);
+                    break;
+
+                case EGetOperate.CellStatus:
+                    cmdCellStatus(t);
+                    break;
+
+                case EGetOperate.AmrStatusByAmrId:
+                    cmdAmrStatusByAmrId(t);
                     break;
             }
         }
@@ -67,7 +88,50 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdArtifactStatusByArtifactId(AmrControlPackage t)
         {
-            t.path = $"/v2/artifacts/status/{t.property.farRobot.artifactStatus.artifactId}";
+            t.path = $"/v2/artifacts/status/{t.property.farRobot.artifactStatusByArtifactId.artifactId}";
+        }
+
+        void cmdFlowName(AmrControlPackage t)
+        {
+            t.property.farRobot.flowName.fleetName = "New_Fleet";
+
+            t.path = QueryHelpers.AddQueryString("/v2/flows", "fleet_name", t.property.farRobot.flowName.fleetName);
+        }
+
+        void cmdScanAmr(AmrControlPackage t)
+        {
+            Dictionary<string, string> dcQuery = new Dictionary<string, string>();
+
+            if(!string.IsNullOrEmpty(t.property.farRobot.scanAmr.mode))
+            {
+                dcQuery.Add("mode", t.property.farRobot.scanAmr.mode);
+            }
+            
+            if(!string.IsNullOrEmpty(t.property.farRobot.scanAmr.model))
+            {
+                dcQuery.Add("model", t.property.farRobot.scanAmr.model);
+            }
+
+            t.path = QueryHelpers.AddQueryString("/v2/robots/scan", dcQuery);
+        }
+
+        void cmdCellStatus(AmrControlPackage t)
+        {
+            t.property.farRobot.cellStatus.map_name = "dennis test1";
+
+            t.path = QueryHelpers.AddQueryString("/v2/wms", "map_name", t.property.farRobot.cellStatus.map_name);
+        }
+
+        void cmdAmrStatusByAmrId(AmrControlPackage t)
+        {
+            string robotId = t.property.farRobot.amrStatusByAmrId.robotId;
+
+            t.path = $"/v2/robots/status/{Uri.EscapeDataString(robotId)}";
+
+            t.path = QueryHelpers.AddQueryString(
+                t.path,
+                "include_artifact",
+                t.property.farRobot.amrStatusByAmrId.includeArtifact ? "true" : "false");
         }
     }
 
@@ -297,7 +361,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 ArtifactStatusResponse response = await t.GetAsync<ArtifactStatusResponse>();
 
-                t.property.farRobot.artifactStatus.response = response;
+                t.property.farRobot.artifactStatusByArtifactId.response = response;
 
                 return true;
             }
@@ -328,6 +392,126 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 DeleteFlowResponse response = await t.DeleteAsync<DeleteFlowResponse>();
 
                 t.property.farRobot.deleteFlow.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetFlowName(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.FlowName, t);
+
+                FlowNameResponse response = await t.GetAsync<FlowNameResponse>();
+
+                t.property.farRobot.flowName.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetScanAmr(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.ScanAmr, t);
+
+                ScanAmrResponse response = await t.GetAsync<ScanAmrResponse>();
+
+                t.property.farRobot.scanAmr.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetCellStatus(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.CellStatus, t);
+
+                CellStatusResponse response = await t.GetAsync<CellStatusResponse>();
+
+                t.property.farRobot.cellStatus.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetAmrStatusByAmrId(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.AmrStatusByAmrId, t);
+
+                AmrStatusResponse response = await t.GetAsync<AmrStatusResponse>();
+
+                t.property.farRobot.amrStatusByAmrId.response = response;
 
                 return true;
             }

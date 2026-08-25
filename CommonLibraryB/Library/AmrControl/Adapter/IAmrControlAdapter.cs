@@ -10,6 +10,14 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
     {
         Task<bool> GetAccessToken(T t);
 
+        Task<bool> GetFlowName(T t);
+
+        Task<bool> GetScanAmr(T t);
+
+        Task<bool> GetCellStatus(T t);
+
+        Task<bool> GetAmrStatusByAmrId(T t);
+
         Task<bool> SetMoveFlow(T t);
 
         Task<bool> SetChargeFlow(T t);
