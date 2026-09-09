@@ -137,5 +137,10 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).GetAmrStatusByAmrId(Packages[t]);
         }
+
+        public async Task<bool> SetMoveArtifactFlow(T t)
+        {
+            return await SelectAdapter(t).SetMoveArtifactFlow(Packages[t]);
+        }
     }
 }

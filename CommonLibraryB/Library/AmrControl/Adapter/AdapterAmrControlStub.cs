@@ -151,5 +151,18 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 t.gate.Release();
             }
         }
+
+        public async Task<bool> SetMoveArtifactFlow(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
     }
 }

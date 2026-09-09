@@ -141,6 +141,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         {
             MoveFlow,
             ChargeFlow,
+            MoveArtifactFlow,
             DeleteFlow
         }
 
@@ -154,6 +155,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case ESetOperate.ChargeFlow:
                     cmdChargeFlow(t);
+                    break;
+
+                case ESetOperate.MoveArtifactFlow:
+                    cmdMoveArtifactFlow(t);
                     break;
 
                 case ESetOperate.DeleteFlow:
@@ -178,6 +183,15 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
             string cellName = t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT;
             t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = $"dennis test1@default_area@{cellName}";
+        }
+
+        void cmdMoveArtifactFlow(AmrControlPackage t)
+        {
+            t.property.farRobot.moveArtifactFlow.flowName = "move_artifact_api_test";
+            t.path = $"/v2/flows/{t.property.farRobot.moveArtifactFlow.flowName}";
+
+            string cellName = t.property.farRobot.moveArtifactFlow.post.args.Params.Node5.goal_dxlVB;
+            t.property.farRobot.moveArtifactFlow.post.args.Params.Node5.goal_dxlVB = $"dennis test1@default_area@{cellName}";
         }
 
         void cmdDeleteFlow(AmrControlPackage t)
@@ -270,6 +284,38 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                                                                        ChargeFlowTriggerResponse>(t.property.farRobot.chargeFlow.post);
 
                 t.property.farRobot.chargeFlow.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> SetMoveArtifactFlow(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(ESetOperate.MoveArtifactFlow, t);
+
+                MoveArtifactFlowTriggerResponse response = await t.PostAsync<MoveArtifactFlowTriggerRequest,
+                                                                             MoveArtifactFlowTriggerResponse>(t.property.farRobot
+                                                                                                               .moveArtifactFlow.post);
+
+                t.property.farRobot.moveArtifactFlow.response = response;
 
                 return true;
             }

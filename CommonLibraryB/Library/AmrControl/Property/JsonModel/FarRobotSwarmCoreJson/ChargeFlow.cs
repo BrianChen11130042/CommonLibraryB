@@ -46,7 +46,9 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
     public class ChargeFlowNodeParam
     {
         public string assigned_robot { get; set; } = "";
+
         public string goal_nUvaT { get; set; } = "";
+
         public string percentage_nUvaT { get; set; } = "";
     }
 
