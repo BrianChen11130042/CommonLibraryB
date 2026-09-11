@@ -93,8 +93,6 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdFlowName(AmrControlPackage t)
         {
-            t.property.farRobot.flowName.fleetName = "New_Fleet";
-
             t.path = QueryHelpers.AddQueryString("/v2/flows", "fleet_name", t.property.farRobot.flowName.fleetName);
         }
 
@@ -117,8 +115,6 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         void cmdCellStatus(AmrControlPackage t)
         {
-            t.property.farRobot.cellStatus.map_name = "dennis test1";
-
             t.path = QueryHelpers.AddQueryString("/v2/wms", "map_name", t.property.farRobot.cellStatus.map_name);
         }
 
@@ -171,27 +167,18 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         {
             t.property.farRobot.moveFlow.flowName = "move_api_test";
             t.path = $"/v2/flows/{t.property.farRobot.moveFlow.flowName}";
-
-            string cellName = t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx;
-            t.property.farRobot.moveFlow.post.args.Params.Node4.goal_tynXx = $"dennis test1@default_area@{cellName}";
         }
 
         void cmdChargeFlow(AmrControlPackage t)
         {
             t.property.farRobot.chargeFlow.flowName = "charge_api_test";
             t.path = $"/v2/flows/{t.property.farRobot.chargeFlow.flowName}";
-
-            string cellName = t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT;
-            t.property.farRobot.chargeFlow.post.args.Params.Node4.goal_nUvaT = $"dennis test1@default_area@{cellName}";
         }
 
         void cmdMoveArtifactFlow(AmrControlPackage t)
         {
             t.property.farRobot.moveArtifactFlow.flowName = "move_artifact_api_test";
             t.path = $"/v2/flows/{t.property.farRobot.moveArtifactFlow.flowName}";
-
-            string cellName = t.property.farRobot.moveArtifactFlow.post.args.Params.Node5.goal_dxlVB;
-            t.property.farRobot.moveArtifactFlow.post.args.Params.Node5.goal_dxlVB = $"dennis test1@default_area@{cellName}";
         }
 
         void cmdDeleteFlow(AmrControlPackage t)

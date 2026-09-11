@@ -15,5 +15,9 @@ namespace CommonLibraryB.Library.AmrControl.Config
         public EWebApiClient client { get; set; } = EWebApiClient.Client1;
 
         public EAmrControlSupplier supplier { get; set; } = EAmrControlSupplier.FarRobotSwarmCore;
+
+        public string fleetName { get; set; } = "NoData";
+
+        public string mapName { get; set; } = "NoData";
     }
 }
