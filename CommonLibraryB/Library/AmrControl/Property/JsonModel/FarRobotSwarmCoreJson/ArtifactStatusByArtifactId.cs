@@ -61,7 +61,7 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
     public class ArtifactStateInfo
     {
-        public Dictionary<string, string> live_info { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, JsonElement> live_info { get; set; } = new Dictionary<string, JsonElement>();
 
         public string state { get; set; } = string.Empty;
     }
