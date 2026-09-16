@@ -87,6 +87,19 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             }
         }
 
+        public async Task<bool> GetAllArtifactsStatus(AmrControlPackage t)
+        {
+            try
+            {
+                await t.gate.WaitAsync();
+                return true;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
         public async Task<bool> SetDeleteFlowByFlowId(AmrControlPackage t)
         {
             try

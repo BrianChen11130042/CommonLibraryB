@@ -113,6 +113,11 @@ namespace CommonLibraryB.Library.AmrControl
             return await SelectAdapter(t).GetArtifactStatusByArtifactId(Packages[t]);
         }
 
+        public async Task<bool> GetAllArtifactsStatus(T t)
+        {
+            return await SelectAdapter(t).GetAllArtifactsStatus(Packages[t]);
+        }
+
         public async Task<bool> SetDeleteFlowByFlowId(T t)
         {
             return await SelectAdapter(t).SetDeleteFlowByFlowId(Packages[t]);

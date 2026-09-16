@@ -30,6 +30,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         Task<bool> GetArtifactStatusByArtifactId(T t);
 
+        Task<bool> GetAllArtifactsStatus(T t);
+
         Task<bool> SetDeleteFlowByFlowId(T t);
     }
 }

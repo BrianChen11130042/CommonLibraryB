@@ -23,6 +23,8 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public ArtifactStatusByArtifactId artifactStatusByArtifactId { get; set; } = new ArtifactStatusByArtifactId();
 
+        public AllArtifactsStatus allArtifactsStatus { get; set; } = new AllArtifactsStatus();
+
         public DeleteFlow deleteFlow { get; set; } = new DeleteFlow();
 
         public FlowName flowName { get; set; } = new FlowName();

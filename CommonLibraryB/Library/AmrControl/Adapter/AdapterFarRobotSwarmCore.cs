@@ -19,6 +19,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             ProgressByFlowId,
             ProgressByTaskId,
             ArtifactStatusByArtifactId,
+            AllArtifactsStatus,
             FlowName,
             ScanAmr,
             CellStatus,
@@ -43,6 +44,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case EGetOperate.ArtifactStatusByArtifactId:
                     cmdArtifactStatusByArtifactId(t);
+                    break;
+
+                case EGetOperate.AllArtifactsStatus:
+                    cmdAllArtifactsStatus(t);
                     break;
 
                 case EGetOperate.FlowName:
@@ -89,6 +94,16 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         void cmdArtifactStatusByArtifactId(AmrControlPackage t)
         {
             t.path = $"/v2/artifacts/status/{t.property.farRobot.artifactStatusByArtifactId.artifactId}";
+        }
+
+        void cmdAllArtifactsStatus(AmrControlPackage t)
+        {
+            Dictionary<string, string> dcQuery = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(t.property.farRobot.allArtifactsStatus.mode))
+                dcQuery.Add("mode", t.property.farRobot.allArtifactsStatus.mode);
+
+            t.path = QueryHelpers.AddQueryString("/v2/artifacts/status", dcQuery);
         }
 
         void cmdFlowName(AmrControlPackage t)
@@ -395,6 +410,36 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                 ArtifactStatusResponse response = await t.GetAsync<ArtifactStatusResponse>();
 
                 t.property.farRobot.artifactStatusByArtifactId.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> GetAllArtifactsStatus(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(EGetOperate.AllArtifactsStatus, t);
+
+                AllArtifactsStatusResponse response = await t.GetAsync<AllArtifactsStatusResponse>();
+
+                t.property.farRobot.allArtifactsStatus.response = response;
 
                 return true;
             }
