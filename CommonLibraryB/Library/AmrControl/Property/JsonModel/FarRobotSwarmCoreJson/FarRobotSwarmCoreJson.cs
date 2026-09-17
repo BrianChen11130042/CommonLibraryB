@@ -17,6 +17,8 @@ namespace CommonLibraryB.Library.AmrControl.Property.JsonModel.FarRobotSwarmCore
 
         public MoveArtifactFlow moveArtifactFlow { get; set; } = new MoveArtifactFlow();
 
+        public MoveArtifactsFlow moveArtifactsFlow { get; set; } = new MoveArtifactsFlow();
+
         public FlowProgress flowProgress { get; set; } = new FlowProgress();
 
         public TaskProgress taskProgress { get; set; } = new TaskProgress();

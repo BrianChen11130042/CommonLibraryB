@@ -24,6 +24,8 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
         Task<bool> SetMoveArtifactFlow(T t);
 
+        Task<bool> SetMoveArtifactsFlow(T t);
+
         Task<bool> GetProgressByFlowId(T t);
 
         Task<bool> GetProgressByTaskId(T t);

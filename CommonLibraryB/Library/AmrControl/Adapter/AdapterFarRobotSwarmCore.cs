@@ -153,6 +153,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             MoveFlow,
             ChargeFlow,
             MoveArtifactFlow,
+            MoveArtifactsFlow,
             DeleteFlow
         }
 
@@ -170,6 +171,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case ESetOperate.MoveArtifactFlow:
                     cmdMoveArtifactFlow(t);
+                    break;
+
+                case ESetOperate.MoveArtifactsFlow:
+                    cmdMoveArtifactsFlow(t);
                     break;
 
                 case ESetOperate.DeleteFlow:
@@ -194,6 +199,12 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         {
             t.property.farRobot.moveArtifactFlow.flowName = "move_artifact_api_test";
             t.path = $"/v2/flows/{t.property.farRobot.moveArtifactFlow.flowName}";
+        }
+
+        void cmdMoveArtifactsFlow(AmrControlPackage t)
+        {
+            t.property.farRobot.moveArtifactsFlow.flowName = "move_artifacts_api_test";
+            t.path = $"/v2/flows/{t.property.farRobot.moveArtifactsFlow.flowName}";
         }
 
         void cmdDeleteFlow(AmrControlPackage t)
@@ -318,6 +329,39 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                                                                                                                .moveArtifactFlow.post);
 
                 t.property.farRobot.moveArtifactFlow.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> SetMoveArtifactsFlow(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(ESetOperate.MoveArtifactsFlow, t);
+
+                MoveArtifactsFlowTriggerResponse response = await t.PostAsync<MoveArtifactsFlowTriggerRequest,
+                                                                              MoveArtifactsFlowTriggerResponse>(t.property.farRobot
+                                                                                                                 .moveArtifactsFlow
+                                                                                                                 .post);
+
+                t.property.farRobot.moveArtifactsFlow.response = response;
 
                 return true;
             }
