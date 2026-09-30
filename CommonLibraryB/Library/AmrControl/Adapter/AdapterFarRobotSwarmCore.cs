@@ -154,6 +154,7 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
             ChargeFlow,
             MoveArtifactFlow,
             MoveArtifactsFlow,
+            RobotWinderFlow,
             DeleteFlow
         }
 
@@ -175,6 +176,10 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
 
                 case ESetOperate.MoveArtifactsFlow:
                     cmdMoveArtifactsFlow(t);
+                    break;
+
+                case ESetOperate.RobotWinderFlow:
+                    cmdRobotWinderFlow(t);
                     break;
 
                 case ESetOperate.DeleteFlow:
@@ -205,6 +210,12 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
         {
             t.property.farRobot.moveArtifactsFlow.flowName = "move_artifacts_api_test";
             t.path = $"/v2/flows/{t.property.farRobot.moveArtifactsFlow.flowName}";
+        }
+
+        void cmdRobotWinderFlow(AmrControlPackage t)
+        {
+            t.property.farRobot.robotWinderFlow.flowName = "move_robot_winder_api_test";
+            t.path = $"/v2/flows/{t.property.farRobot.robotWinderFlow.flowName}";
         }
 
         void cmdDeleteFlow(AmrControlPackage t)
@@ -362,6 +373,39 @@ namespace CommonLibraryB.Library.AmrControl.Adapter
                                                                                                                  .post);
 
                 t.property.farRobot.moveArtifactsFlow.response = response;
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                t.errorLog = ex.Message;
+                return false;
+            }
+            finally
+            {
+                t.gate.Release();
+            }
+        }
+
+        public async Task<bool> SetRobotWinderFlow(AmrControlPackage t)
+        {
+            await t.gate.WaitAsync();
+
+            try
+            {
+                if (t.httpClient == null)
+                {
+                    setWebApiClientError();
+                }
+
+                getCmd(ESetOperate.RobotWinderFlow, t);
+
+                RobotWinderFlowTriggerResponse response = await t.PostAsync<RobotWinderFlowTriggerRequest,
+                                                                            RobotWinderFlowTriggerResponse>(t.property.farRobot
+                                                                                                             .robotWinderFlow
+                                                                                                             .post);
+
+                t.property.farRobot.robotWinderFlow.response = response;
 
                 return true;
             }

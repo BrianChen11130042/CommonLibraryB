@@ -152,5 +152,10 @@ namespace CommonLibraryB.Library.AmrControl
         {
             return await SelectAdapter(t).SetMoveArtifactsFlow(Packages[t]);
         }
+
+        public async Task<bool> SetRobotWinderFlow(T t)
+        {
+            return await SelectAdapter(t).SetRobotWinderFlow(Packages[t]);
+        }
     }
 }
